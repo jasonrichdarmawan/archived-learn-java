@@ -48,7 +48,9 @@ public class Main {
       String tempName = tempMahasiswas.get(index).getName();
       float tempScore = tempMahasiswas.get(index).getScore();
 
-      System.out.println(tempID + "   |" + tempName + "|  " + tempScore);
+      String formatTempName = StringUtils.center(tempName, 24);
+
+      System.out.println(tempID + "   |" + formatTempName + "|  " + tempScore);
     }
   }
 
@@ -160,7 +162,9 @@ public class Main {
                 String tempName = mahasiswas.get(index).getName();
                 float tempScore = mahasiswas.get(index).getScore();
 
-                System.out.println(tempID + "   |" + tempName + "|  " + tempScore);
+                String formatTempName = StringUtils.center(tempName, 24);
+
+                System.out.println(tempID + "   |" + formatTempName + "|  " + tempScore);
               }
 
               break;
@@ -277,5 +281,39 @@ class Mahasiswa {
 
   float getScore() {
     return fScore;
+  }
+}
+
+class StringUtils {
+
+  // overload
+  public static String center(String s, int size) {
+    return center(s, size, ' ');
+  }
+
+  public static String center(String s, int size, char pad) {
+    // to prevent unnecessary computation.
+    if (s == null || size <= s.length())
+      return s;
+
+    // construct empty String.
+    StringBuilder sb = new StringBuilder(size);
+
+    // whitespace for the left side from the index 0. note: StringBuilder is not an
+    // Array.
+    for (int i = 0; i < (size - s.length()) / 2; i++) {
+      sb.append(pad);
+    }
+
+    // append the word.
+    sb.append(s);
+
+    // append the whitespace for the right side.
+    while (sb.length() < size) {
+      sb.append(pad);
+    }
+
+    // return in String.
+    return sb.toString();
   }
 }
