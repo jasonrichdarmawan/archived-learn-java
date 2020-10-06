@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 // MainUtils is all of static method of Main.
@@ -139,31 +140,169 @@ public class MainUtils {
     System.out.format(format, worker.getiIDKaryawan(), worker.getsNama(), worker.getsJabatan(), worker.getiAbsensi());
   }
 
-  static public void printMenuPendaftaranKaryawan() {
+  static public void printMenuPendaftaranKaryawan(ArrayList<Staff> staffs, ArrayList<Manager> managers)
+      throws Exception {
+    InputStreamReader r = new InputStreamReader(System.in);
+    BufferedReader br = new BufferedReader(r);
+
     System.out.println("Menu:");
     System.out.println("1. Daftarkan Staff Baru.");
     System.out.println("2. Daftarkan Manager Baru.");
     System.out.println("3. Kembali ke menu sebelumnya");
+
+    String menu = "";
+    while (menu != "3") {
+      System.out.print("Enter the menu's number: ");
+      menu = br.readLine();
+      switch (menu) {
+        case "1":
+          DaftarKaryawanUtils dku = new DaftarKaryawanUtils();
+          dku.setWorkerAttribute(); //
+
+          // alternative 1: with constructor
+          // staffs.add(new Staff(staffs.size() + 1, sNama, sJabatan, 0));
+
+          // alternative 2: getters and settrs.
+          Staff newStaff = new Staff();
+          newStaff.setiIDKaryawan(staffs.size() + managers.size() + 1);
+          newStaff.setsNama(dku.getsNama());
+          newStaff.setfTunjanganPulsa(dku.getfTunjanganPulsa());
+          newStaff.setfGajiPokok(dku.getfGajiPokok());
+          newStaff.setsJabatan("Staff");
+          staffs.add(newStaff);
+
+          // get back to the previous page.
+          menu = "3";
+          break;
+        case "2":
+          // change with new reference to object.
+          dku = new DaftarKaryawanUtils();
+          dku.setWorkerAttribute();
+
+          // alternative is similar to case "1"
+          Manager newManager = new Manager();
+          newManager.setiIDKaryawan(staffs.size() + managers.size() + 1);
+          newManager.setsNama(dku.getsNama());
+          newManager.setfTunjanganPulsa(dku.getfTunjanganPulsa());
+          newManager.setfGajiPokok(dku.getfGajiPokok());
+          newManager.setsJabatan("Manager");
+          managers.add(newManager);
+
+          // get back to the previous page.
+          menu = "3";
+          break;
+        case "3":
+          menu = "3";
+          break;
+        default:
+          System.out.println("Invalid menu. Please enter the correct menu's number: ");
+      }
+    }
   }
 
-  static public void printMenuAbsensi() {
+  static public void printMenuAbsensi(ArrayList<Staff> staffs, ArrayList<Manager> managers) throws Exception {
+    InputStreamReader r = new InputStreamReader(System.in);
+    BufferedReader br = new BufferedReader(r);
+
     System.out.println("Menu:");
     System.out.println("1. Daftarkan Absensi Staff.");
     System.out.println("2. Daftarkan Absensi Manager.");
     System.out.println("3. Kembali ke menu sebelumnya");
+
+    String menu = "";
+    while (menu != "3") {
+      System.out.print("Enter the menu's number: ");
+      menu = br.readLine();
+      switch (menu) {
+        case "1":
+          // question: overloading method, both methods have same erasure.
+          AbsensiUtils.printMenuStaff(staffs);
+
+          // get back to the previous page.
+          menu = "3";
+          break;
+        case "2":
+          AbsensiUtils.printMenuManager(managers);
+
+          // get back to the previous page.
+          menu = "3";
+          break;
+        case "3":
+          menu = "3";
+          break;
+        default:
+          System.out.println("Invalid menu. Please enter the correct menu's number: ");
+      }
+    }
   }
 
-  static public void printMenuHitungTunjangan() {
+  static public void printMenuHitungTunjangan(ArrayList<Staff> staffs, ArrayList<Manager> managers) throws Exception {
+    InputStreamReader r = new InputStreamReader(System.in);
+    BufferedReader br = new BufferedReader(r);
+
     System.out.println("Menu:");
     System.out.println("1. Hitung Tunjangan Staff.");
     System.out.println("2. Hitung Tunjangan Manager.");
     System.out.println("3. Kembali ke halaman sebelumnya.");
+
+    String menu = "";
+    while (menu != "3") {
+      System.out.print("Enter the menu's number: ");
+      menu = br.readLine();
+      switch (menu) {
+        case "1":
+          HitungTunjanganUtils.printHitungTunjanganStaff(staffs);
+
+          // get back to the previous page.
+          menu = "3";
+          break;
+        case "2":
+          HitungTunjanganUtils.printMenuHitungTunjanganManager(managers);
+
+          // get back to the previous page.
+          menu = "3";
+          break;
+        case "3":
+          menu = "3";
+          break;
+        default:
+          System.out.println("Invalid menu. Please enter the correct menu's number: ");
+      }
+    }
   }
 
-  static public void printMenuHitungTotalGaji() {
+  static public void printMenuHitungTotalGaji(ArrayList<Staff> staffs, ArrayList<Manager> managers) throws Exception{
+    InputStreamReader r = new InputStreamReader(System.in);
+    BufferedReader br = new BufferedReader(r);
+
     System.out.println("Menu:");
     System.out.println("1. Hitung Total Gaji Staff.");
     System.out.println("2. Hitung Total Gaji Manager.");
     System.out.println("3. Kembali ke halaman sebelumnya.");
+
+    String menu = "";
+    while (menu != "3") {
+      System.out.print("Enter the menu's number: ");
+      menu = br.readLine();
+      switch (menu) {
+        case "1":
+          HitungTotalGajiUtils.printHitungTotalGajiStaff(staffs);
+
+          // get back to the previous page.
+          menu = "3";
+          break;
+        case "2":
+          HitungTotalGajiUtils.printHitungTotalGajiManager(managers);
+
+          // get back to the previous page.
+          menu = "3";
+          break;
+        case "3":
+          menu = "3";
+          break;
+        default:
+          System.out.println("Invalid menu. Please enter the correct menu's number: ");
+      }
+    }
   }
 }
