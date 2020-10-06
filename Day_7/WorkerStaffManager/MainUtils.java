@@ -160,13 +160,6 @@ public class MainUtils {
     System.out.println("3. Kembali ke halaman sebelumnya.");
   }
 
-  static public void printMenuHitungTunjanganManager() {
-    System.out.println("Menu:");
-    System.out.println("1. Hitung Tunjangan Transport.");
-    System.out.println("2. Hitung Tunjangan Entertain.");
-    System.out.println("3. Kembali ke halaman sebelumnya.");
-  }
-
   static public void printMenuHitungTotalGaji() {
     System.out.println("Menu:");
     System.out.println("1. Hitung Total Gaji Staff.");
