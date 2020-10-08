@@ -60,6 +60,8 @@ public class Main {
           pressEnterToContinue(br);
           break;
         case "2":
+          // ThreadPool menggunakan Runnable sedangkan
+          // SimpleThread extends Thread.
           ThreadPool.print(workersSize, messages);
           pressEnterToContinue(br);
           break;
@@ -68,9 +70,6 @@ public class Main {
 
           // sedikit berbeda dengan SDR.
           // logic: messages sudah diolah terlebih dahulu.
-
-          // SimpleThread is more superior compared to ThreadPool using
-          // executor. Executor sometimes violate the fixed workersSize.
           SimpleThread.asc(workersSize, messages);
           SimpleThread.dsc(workersSize, messages);
 
