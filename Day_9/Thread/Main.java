@@ -64,14 +64,14 @@ public class Main {
           pressEnterToContinue(br);
           break;
         case "3":
-          // SimpleThread.print(workersSize, messages);
+          SimpleThread.print(workersSize, messages);
 
           // sedikit berbeda dengan SDR.
           // logic: messages sudah diolah terlebih dahulu.
 
           // SimpleThread is more superior compared to ThreadPool using
           // executor. Executor sometimes violate the fixed workersSize.
-          // SimpleThread.asc(workersSize, messages);
+          SimpleThread.asc(workersSize, messages);
           SimpleThread.dsc(workersSize, messages);
 
           pressEnterToContinue(br);

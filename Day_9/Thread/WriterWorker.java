@@ -17,16 +17,16 @@ public class WriterWorker implements Runnable {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    System.out.println(
-        thread.getName() + " Active Threads = " + Thread.activeCount() + " Thread's state: " + thread.getState());
+    // System.out.println(
+    //     thread.getName() + " Active Threads = " + Thread.activeCount() + " Thread's state: " + thread.getState());
 
-    if ((thread.getState() == Thread.State.TERMINATED)) {
-      System.out.println(thread.getName() + " (End)");
-    }
+    // if ((thread.getState() == Thread.State.TERMINATED)) {
+    //   System.out.println(thread.getName() + " (End)");
+    // }
   }
 
   public void run() {
-    System.out.println(Thread.currentThread().getName() + " (Start) message = " + this.message);
+    // System.out.println(Thread.currentThread().getName() + " (Start) message = " + this.message);
     
     FileWriter fw = null;
     try {
