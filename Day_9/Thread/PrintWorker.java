@@ -11,16 +11,20 @@ public class PrintWorker implements Runnable {
     System.out.println(
         thread.getName() + " Active Threads = " + Thread.activeCount() + " Thread's state: " + thread.getState());
 
-    if ((thread.getState() == Thread.State.TERMINATED)) {
-      System.out.println(thread.getName() + " (End)");
-    }
+    // uncomment to see the thread is terminated.
+    // while (!(thread.getState() == Thread.State.TERMINATED)) {
+    // }
+
+    // if ((thread.getState() == Thread.State.TERMINATED)) {
+    //   System.out.println(thread.getName() + " (End)");
+    // }
   }
 
   // Runnable only.
   PrintWorker(String message, boolean runnable) {
     this.message = message;
-    System.out.println(
-        Thread.currentThread().getName() + " Active Threads = " + Thread.activeCount() + " Thread's state: " + Thread.currentThread().getState());
+    System.out.println(Thread.currentThread().getName() + " Active Threads = " + Thread.activeCount()
+        + " Thread's state: " + Thread.currentThread().getState());
 
     if ((Thread.currentThread().getState() == Thread.State.TERMINATED)) {
       System.out.println(Thread.currentThread().getName() + " (End)");
