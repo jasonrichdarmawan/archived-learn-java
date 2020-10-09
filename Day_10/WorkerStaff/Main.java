@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.io.InputStreamReader;
 
 public class Main {
+  static int currentWorkDays = 22;
   static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
   public static void main(String[] args) {
     // System.out.println(staffs.get(0).getNama());
@@ -18,7 +19,7 @@ public class Main {
 
     // this static method is similar to how React Router DOM works.
     // params = switch & case.
-    MenuUtils.showMainMenu(br, staffs);
+    MenuUtils.showMainMenu(br, staffs, currentWorkDays);
   }
 
   // reuseable static method.

@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class EditDataKaryawan {
-  public static ArrayList<Staff> showMenu(BufferedReader br, ArrayList<Staff> staffs) {
+  public static ArrayList<Staff> showMenu(BufferedReader br, ArrayList<Staff> staffs, int currentWorkDays) {
     SearchStaffUtils search = new SearchStaffUtils(staffs, br);
 
     if (search.getFocusStaff() != null) {
@@ -21,7 +21,7 @@ public class EditDataKaryawan {
         switch (decision.toLowerCase()) {
           case "y":
           case "yes":
-            staffs = proceedEdit(br, staffs, search.getIndex());
+            staffs = proceedEdit(br, staffs, currentWorkDays, search.getIndex());
             isExit = true;
             break;
           case "n":
@@ -41,7 +41,7 @@ public class EditDataKaryawan {
     return staffs;
   }
 
-  public static ArrayList<Staff> proceedEdit(BufferedReader br, ArrayList<Staff> staffs, int index) {
-    return InputDataKaryawan.showMenu(br, staffs, true, index);
+  public static ArrayList<Staff> proceedEdit(BufferedReader br, ArrayList<Staff> staffs, int currentWorkDays, int index) {
+    return InputDataKaryawan.showMenu(br, staffs, currentWorkDays, true, index);
   }
 }

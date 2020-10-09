@@ -1,6 +1,6 @@
 ID,Nama,JmlAbsensi,JmlCutiTerpakai,JmlTanpaKabar,TotalGaji
-1,John,22,0,0,5160000.00
-2,Peter,22,0,0,5660000.00
-3,Linda,22,0,0,10660000.00
-4,Lucy,22,0,0,7660000.00
-5,Lucy S,20,2,111630000.00
+1,John,22,0,0,5160000
+2,Peter,22,0,0,5660000
+3,Linda,22,0,0,10660000
+4,Lucy,22,0,0,7660000
+5,Lucy S,20,2,1,10630000

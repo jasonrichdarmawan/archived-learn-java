@@ -3,9 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class InputDataKaryawan {
-  public static ArrayList<Staff> showMenu(BufferedReader br, ArrayList<Staff> staffs, boolean set, int index) {
-    int currentWorkDays = 22; // TODO: actual counter.
-
+  public static ArrayList<Staff> showMenu(BufferedReader br, ArrayList<Staff> staffs, int currentWorkDays, boolean set, int index) {
     int id = staffs.size() + 1;
     String nama = "";
     float gajipokok = 0.0F;
@@ -83,8 +81,8 @@ public class InputDataKaryawan {
     return staffs;
   }
 
-  public static ArrayList<Staff> showMenu(BufferedReader br, ArrayList<Staff> staffs) {
-    return showMenu(br, staffs, false, 0);
+  public static ArrayList<Staff> showMenu(BufferedReader br, ArrayList<Staff> staffs, int currentWorkDays) {
+    return showMenu(br, staffs, currentWorkDays, false, 0);
   }
 
 }

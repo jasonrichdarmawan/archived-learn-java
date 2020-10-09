@@ -8,7 +8,7 @@ import java.io.BufferedReader;
 
 public class StaffUtils {
 
-  public static void printStaffsSalary(ArrayList<Staff> staffs) {
+  public static void printStaffsSalary(ArrayList<Staff> staffs, int currentWorkDays) {
     Locale inLocale = new Locale("id", "ID");
     NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(inLocale);
 
@@ -16,7 +16,7 @@ public class StaffUtils {
 
     System.out.println("Nama        |  Total Gaji");
     for (Staff staff : staffs) {
-      System.out.format(format, staff.getNama(), currencyFormatter.format(staff.getTotalGaji()));
+      System.out.format(format, staff.getNama(), currencyFormatter.format(staff.getTotalGaji(currentWorkDays)));
     }
 
   }
@@ -43,6 +43,7 @@ public class StaffUtils {
     int id = staff.getID();
     String nama = staff.getNama();
     float gajipokok = staff.getGajiPokok();
+    System.out.println(staff.HitungGajiPokok(22));
     int absensi = staff.getAbsensi();
     int izin = staff.getIzin();
 
@@ -81,9 +82,7 @@ public class StaffUtils {
     return staffs;
   }
 
-  public static boolean complete(ArrayList<Staff> staffs) {
-    int currentWorkDays = 22; // for future development.
-
+  public static boolean complete(ArrayList<Staff> staffs, int currentWorkDays) {
     // if absensi + izin != currentWorkdays then return false.
     for (Staff staff : staffs) {
       if (staff.getAbsensi() + staff.getIzin() != currentWorkDays) {

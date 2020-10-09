@@ -46,5 +46,5 @@ public abstract class AbstractWorker {
   }
 
   // in SDR == Hitung Gaji Pokok.
-  abstract float HitungGajiPokok();
+  abstract float HitungGajiPokok(int currentWorkDays);
 }

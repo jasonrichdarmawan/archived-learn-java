@@ -19,7 +19,7 @@ public class MenuUtils {
     System.out.print("Enter the menu's number: ");
   }
 
-  public static void showMainMenu(BufferedReader br, ArrayList<Staff> staffs) {
+  public static void showMainMenu(BufferedReader br, ArrayList<Staff> staffs, int currentWorkDays) {
     boolean isExit = false;
     while (isExit == false) {
       String menu = "";
@@ -32,10 +32,10 @@ public class MenuUtils {
       }
       switch (menu) {
         case "1":
-          staffs = InputDataKaryawan.showMenu(br, staffs);
+          staffs = InputDataKaryawan.showMenu(br, staffs, currentWorkDays);
           break;
         case "2":
-          staffs = EditDataKaryawan.showMenu(br, staffs);
+          staffs = EditDataKaryawan.showMenu(br, staffs, currentWorkDays);
           break;
         case "3":
           staffs = MasukkanAbsensiKaryawan.showMenu(br, staffs);
@@ -44,9 +44,9 @@ public class MenuUtils {
           staffs = MasukkanIzinKaryawan.showMenu(br, staffs);
           break;
         case "5":
-          if (StaffUtils.complete(staffs)) {
+          if (StaffUtils.complete(staffs, currentWorkDays)) {
             Main.clearConsole();
-            StaffUtils.printStaffsSalary(staffs);
+            StaffUtils.printStaffsSalary(staffs, currentWorkDays);
           } else {
             System.out.println("Please complete the attedance and leaves for each staff.");
           }
@@ -56,10 +56,10 @@ public class MenuUtils {
           StaffUtils.printStaffInfo(search.getFocusStaff());
           break;
         case "7":
-          if (StaffUtils.complete(staffs)) {
+          if (StaffUtils.complete(staffs, currentWorkDays)) {
             Main.clearConsole();
-            NormalThread.print(3, staffs);
-            NormalThread.write(3, staffs);
+            NormalThread.print(3, staffs, currentWorkDays);
+            NormalThread.write(3, staffs, currentWorkDays);
           } else {
             System.out.println("Please complete the attedance and leaves for each staff.");
           }

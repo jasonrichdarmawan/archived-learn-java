@@ -5,10 +5,12 @@ import java.io.IOException;
 public class WriterWorker implements Runnable {
   private String file;
   private Staff staff;
+  private int currentWorkDays;
 
-  WriterWorker(Staff staff, String file) {
+  WriterWorker(Staff staff, String file, int currentWorkDays) {
     this.file = file;
     this.staff = staff;
+    this.currentWorkDays = currentWorkDays;
     Thread thread = new Thread(this);
     thread.start();
     try {
@@ -38,10 +40,11 @@ public class WriterWorker implements Runnable {
     if (staff.getIzin() <= 1) {
       line += "0,";
     } else {
-      line += Integer.toString(staff.getIzin() - 1);
+      line += Integer.toString(staff.getIzin() - 1) + ",";
     }
 
-    String totalGaji = String.format("%.2f", staff.getTotalGaji());
+    System.out.println(staff.getTotalGaji(this.currentWorkDays));
+    String totalGaji = String.format("%.0f", staff.getTotalGaji(this.currentWorkDays));
     line += totalGaji;
 
     try {

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class NormalThread {
-  public static void print(int workersSize, ArrayList<Staff> staffs) {
+  public static void print(int workersSize, ArrayList<Staff> staffs, int currentWorkDays) {
     int i = 0;
     for (int j = 0; j <= workersSize; j++) {
       for (; i < staffs.size(); i++) {
@@ -12,13 +12,13 @@ public class NormalThread {
         // max worker == workersSize
         while (Thread.activeCount() == workersSize) {
         }
-        PrintWorker worker = new PrintWorker(staff);
+        PrintWorker worker = new PrintWorker(staff, currentWorkDays);
       }
     }
 
   }
 
-  public static void write(int workersSize, ArrayList<Staff> staffs) {
+  public static void write(int workersSize, ArrayList<Staff> staffs, int currentWorkDays) {
     String file = "./LaporanKaryawan.txt";
     String firstline = "ID,Nama,JmlAbsensi,JmlCutiTerpakai,JmlTanpaKabar,TotalGaji";
     cleanup(file, firstline);
@@ -34,7 +34,7 @@ public class NormalThread {
             e.printStackTrace();
           }
         }
-        WriterWorker worker = new WriterWorker(staff, file);
+        WriterWorker worker = new WriterWorker(staff, file, currentWorkDays);
       }
     }
   }
