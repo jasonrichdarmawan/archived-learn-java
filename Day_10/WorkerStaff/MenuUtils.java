@@ -53,7 +53,7 @@ public class MenuUtils {
           break;
         case "6":
           SearchStaffUtils search = new SearchStaffUtils(staffs, br);
-          StaffUtils.printStaffInfo(search.getFocusStaff());
+          StaffUtils.printStaffReport(search.getFocusStaff(), currentWorkDays);
           break;
         case "7":
           if (StaffUtils.complete(staffs, currentWorkDays)) {

@@ -21,6 +21,22 @@ public class StaffUtils {
 
   }
 
+  public static void printStaffReport(Staff staff, int currentWorkDays) {
+    Locale inLocale = new Locale("id", "ID");
+    NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(inLocale);
+
+    System.out.println("ID: " + staff.getID());
+    System.out.println("Nama: " + staff.getNama());
+    System.out.println("Absensi: " + Integer.toString(staff.getAbsensi()));
+    System.err.println("Izin: " + Integer.toString(staff.getIzin()));
+    if (staff.getIzin() <= 1) {
+      System.out.println("Tanpa Kabar: 0");
+    } else {
+      System.out.println("Tanpa Kabar: " + Integer.toString(staff.getIzin() - 1));
+    }
+    System.out.println("Total Gaji: " + currencyFormatter.format(staff.getTotalGaji(currentWorkDays)));
+  }
+
   // not defined in SDR.
   public static void printStaffInfo(int id, String nama, float gajipokok, int absensi, int izin) {
     Locale inLocale = new Locale("id", "ID");

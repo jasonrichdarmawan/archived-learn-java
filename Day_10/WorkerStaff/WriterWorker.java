@@ -43,7 +43,6 @@ public class WriterWorker implements Runnable {
       line += Integer.toString(staff.getIzin() - 1) + ",";
     }
 
-    System.out.println(staff.getTotalGaji(this.currentWorkDays));
     String totalGaji = String.format("%.0f", staff.getTotalGaji(this.currentWorkDays));
     line += totalGaji;
 
