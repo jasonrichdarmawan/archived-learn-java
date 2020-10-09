@@ -43,7 +43,6 @@ public class StaffUtils {
     int id = staff.getID();
     String nama = staff.getNama();
     float gajipokok = staff.getGajiPokok();
-    System.out.println(staff.HitungGajiPokok(22));
     int absensi = staff.getAbsensi();
     int izin = staff.getIzin();
 
