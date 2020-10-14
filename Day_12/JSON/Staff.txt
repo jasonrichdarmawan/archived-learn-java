@@ -1,0 +1,2 @@
+{"Tunjangan Pulsa":1000000.0,"Nama":"Steve","Tunjangan Makan":210000.0,"IDKaryawan":1,"Absensi Hari":21,"Emails":["steve@gmail.com","steve.f@tempatkerja.com"],"Gaji Pokok":1.1E7}
+{"Tunjangan Pulsa":1000000.0,"Nama":"Michael","Tunjangan Makan":220000.0,"IDKaryawan":2,"Absensi Hari":22,"Emails":["michael@gmail.com","michael123@gmail.com"],"Gaji Pokok":1.1E7}

@@ -1,0 +1,2 @@
+{"Tunjangan Pulsa":1000000.0,"Tunjangan Entertaint":440000.0,"Nama":"Jason R","Tunjangan Transport":440000.0,"IDKaryawan":3,"Telepons":["0811 8751 555","0889 0889 0669"],"Absensi Hari":22,"Gaji Pokok":2.0E7}
+{"Tunjangan Pulsa":1000000.0,"Tunjangan Entertaint":440000.0,"Nama":"David","Tunjangan Transport":440000.0,"IDKaryawan":4,"Telepons":["1234 5678 9999"],"Absensi Hari":22,"Gaji Pokok":2.0E7}
