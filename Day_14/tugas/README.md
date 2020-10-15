@@ -10,10 +10,10 @@ What I did:
 5. send GET request to localhost:8080/tugas/Login.jsp
 6. send POST request to localhost:8080/tugas/Login.jsp with body username=abcde and a random password that match the regex for example `AbcdEfgh1#`
 
-What I am not sure:
+What am I not sure:
 1. How things works:
     1. After successfully login `login.jsp` using form action `LoginController.java` with a POST request, the UI redirects to `success.jsp`, the user can redirect to `menu.jsp`. There is no indication of `menu.jsp` to call the `doGet` method from the `ReadController` class. Everything works by creating an RequestDispatcher Object.
     2. Why I need to send the GET request to `/login.jsp` while I can send a GET request to `/menu`.
     3. Why the `LoginController` class do not have the `doGet` method `note: other Controller has the doGet method` and the `requestDispatcher` object. But I still can send the GET request.
-2. What I am afraid:
+2. What am i afraid:
     1. This creates the endpoints open to unauthenticated user.
