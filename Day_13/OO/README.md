@@ -1,0 +1,4 @@
+- [ ] model
+    - [ ] contains the data `private String name`;
+    - [ ] method to process the data `public void setName()`
+    - [ ] method to access the data `public void getName()`
