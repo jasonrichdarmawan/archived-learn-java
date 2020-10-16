@@ -1,0 +1,121 @@
+FTP Server buat folder MahasiswaGet lalu taruh File JSON mahasiswa.json
+
+{ 
+  "charles" : {
+    "fullname"  : "Charles Pain",
+    "address"   : "Melbourne",
+    "status"    : "Active",
+    "grades" : {
+		"physics"  	: 90,
+		"calculus" 	: 85,
+		"biologi"  	: 80
+	  }
+  },
+  "steve" : {
+    "fullname"  : "Steve Marcus",
+    "address"   : "Boston",
+    "status"    : "Active",
+    "grades" : {
+		"physics"  	: 65,
+		"calculus" 	: 55,
+		"biologi"  	: 75
+	  }
+  }
+}
+
+
+Program 1
+=========
+
+Socket Client
+=============
+
+Send Data JSON dari file mahasiswa2.jason kirim data nya melalui socket (Stream Data) - file configurasi
+
+{ 
+  "soleh" : {						
+    "fullname"  : "Soleh Said",
+    "address"   : "Jakarta",
+    "status"    : "Active",
+    "grades" : {
+		"physics"  	: 80,
+		"calculus" 	: 70,
+		"biologi"  	: 85
+	  }
+  },
+  "ridwan" : {
+    "fullname"  : "Ridwan Jamil",
+    "address"   : "Bandung",
+    "status"    : "On Leave",
+    "grades" : {
+		"physics"  	: 75,
+		"calculus" 	: 95,
+		"biologi"  	: 65
+	  }
+  },
+  "purwoko" : {
+    "fullname"  : "Ahmad Purwoko",
+    "address"   : "Jogja",
+    "status"    : "Non Active",
+    "grades" : {
+		"physics"  	: 0,
+		"calculus" 	: 0,
+		"biologi"  	: 0
+	  }
+  }
+} 
+
+
+Program 2
+
+Consolidated Program
+====================
+
+Login with Regex
+
+MENU
+1. Start Socket Server and Client DB -> config.properties -> Multi Thread -> Input ke Database (Thread Tersendiri)
+
+2. FTP and DB Connection Started -> config.properties
+
+3. Get Data from FTP Server
+	-> List semua folder yg di Home Directory -> Masuk ke directorynya 
+	-> Ambil file yg sebelumnya dibuat mahasiswa.json -> ftpDownload
+4. Send Data to DB
+	-> Input Nama file yg sudah di download (mahasiswa.json)
+	-> Data dari Menu No. 3 (mahasiswa.json) di parsing dari JSON ke Field lalu insert ke DB
+5. Input, Edit and Delete Data from DB
+	Input
+	-> Langsung Input Data dan tulis ke Database
+	Edit
+	-> List Semua Data dengan (Select *)
+	-> Pilih data yang akan di edit
+	Delete 
+	-> List Semua Data dengan (Select *)
+	-> Pilih data yang akan di delete
+6. Send Report to FTP Server
+	-> lakukan select * , data tersebut diarrange menjadi CSV
+	-> Send ke FTP Server
+7. Exit - Close all Connection 
+
+
+Socket Client -> Consolidated Program -> DB
+						|
+						V
+						FTP
+
+
+  "soleh" : 					
+    "fullname"  : "Soleh Said",
+    "address"   : "Jakarta",
+    "status"    : "Active",
+    "grades" : 
+		"physics"  	: 80,
+		"calculus" 	: 70,
+		"biologi"  	: 85
+
+id(auto increment),fullname,address,status,gradesphysics,gradescalculus,gradesbiologi
+
+idMhs(auto increment),fullname,address,status
+	idgrades(auto increment),idMhs,physics,calculus,biologi
+	
