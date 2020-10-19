@@ -15,12 +15,12 @@ public class FTPClientUtil {
   public FTPClientUtil(Properties properties) {
     try {
       this.ftpClient.connect(properties.getProperty("FTP_HOSTNAME"), Integer.parseInt(properties.getProperty("FTP_PORT")));
-      this.ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
       this.ftpClient.login(properties.getProperty("FTP_USER"), properties.getProperty("FTP_PASSWORD"));
+      this.ftpClient.enterLocalPassiveMode();
+      this.ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
     } catch (IOException e) {
       e.printStackTrace();
     }
-    this.ftpClient.enterLocalPassiveMode();
   }
 
   public void clearTerminal() {
