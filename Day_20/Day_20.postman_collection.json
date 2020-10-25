@@ -1,0 +1,354 @@
+{
+	"info": {
+		"_postman_id": "1fbe9abc-d90e-4af5-86ad-7dc73b074b37",
+		"name": "Day_20",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Input To Database",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "userid",
+						"value": "kyc_agent",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "password",
+						"value": "Simtech@123",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n  \"soleh\" : {\t\t\t\t\t\t\r\n    \"fullname\"  : \"Soleh Said\",\r\n    \"address\"   : \"Jakarta\",\r\n    \"status\"    : \"Active\",\r\n    \"grades\" : {\r\n\t\t\"physics\"  \t: 80,\r\n\t\t\"calculus\" \t: 70,\r\n\t\t\"biologi\"  \t: 85\r\n\t  }\r\n  },\r\n  \"ridwan\" : {\r\n    \"fullname\"  : \"Ridwan Jamil\",\r\n    \"address\"   : \"Bandung\",\r\n    \"status\"    : \"On Leave\",\r\n    \"grades\" : {\r\n\t\t\"physics\"  \t: 75,\r\n\t\t\"calculus\" \t: 95,\r\n\t\t\"biologi\"  \t: 65\r\n\t  }\r\n  },\r\n  \"purwoko\" : {\r\n    \"fullname\"  : \"Ahmad Purwoko\",\r\n    \"address\"   : \"Jogja\",\r\n    \"status\"    : \"Non Active\",\r\n    \"grades\" : {\r\n\t\t\"physics\"  \t: 0,\r\n\t\t\"calculus\" \t: 0,\r\n\t\t\"biologi\"  \t: 0\r\n\t  }\r\n  }\r\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Grades",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "userid",
+						"value": "kyc_agent",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "password",
+						"value": "Simtech@123",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"3\":\r\n\t{\r\n\t\t\"1\": {\r\n\t\t\t\"grades\": {\r\n\t\t\t\t\"physics\": 100,\r\n\t\t\t\t\"calculus\": 100,\r\n\t\t\t\t\"biologi\": 100\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v2/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v2",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Absensi",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "userid",
+						"value": "kyc_agent",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "password",
+						"value": "Simtech@123",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"2\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v2/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v2",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List<StudentModel> without grades",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "userid",
+						"value": "kyc_agent",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "password",
+						"value": "Simtech@123",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"1\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v2/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v2",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Student",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "userid",
+						"value": "kyc_agent",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "password",
+						"value": "Simtech@123",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"1\": {\r\n\t\t\"2\": {\r\n\t\t\t\"ID\": 120,\r\n\t\t\t\"Nama\": \"a\",\r\n            \"Address\": \"alamat\",\r\n            \"Status\": \"Active\",\r\n            \"Grades\": {\r\n                \"physics\": 80,\r\n                \"calculus\": 70,\r\n                \"biologi\": 65\r\n            },\r\n            \"Absensi\": 1\r\n\t\t}\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v2/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v2",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Student",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "userid",
+						"value": "kyc_agent",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "password",
+						"value": "Simtech@123",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"1\": {\r\n\t\t\"3\": {\r\n\t\t\t\"ID\": 18\r\n\t\t}\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v2/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v2",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Students with average grades.",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "userid",
+						"value": "kyc_agent",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "password",
+						"value": "Simtech@123",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"4\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v2/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v2",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getStudentsByIdOrName",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "userid",
+						"value": "kyc_agent",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "password",
+						"value": "Simtech@123",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"5\": \"Soleh\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v2/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v2",
+						"student"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

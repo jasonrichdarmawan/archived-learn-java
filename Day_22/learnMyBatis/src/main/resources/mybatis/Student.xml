@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Student">
+    <insert id="insert" parameterType="main.java.mybatis.model.Student" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO student (NAME, BRANCH, PERCENTAGE, PHONE, EMAIL) VALUES(#{name}, #{branch}, #{percentage}, #{phone}, #{email});
+    </insert>
+    <delete id="delete" parameterType="int">
+        DELETE FROM student WHERE ID=#{id}
+    </delete>
+    <resultMap id="result" type="main.java.mybatis.model.Student">
+        <result property="id" column="ID"/>
+        <result property="name" column="NAME"/>
+        <result property="branch" column="BRANCH"/>
+        <result property="percentage" column="PERCENTAGE"/>
+        <result property="phone" column="PHONE"/>
+        <result property="email" column="email"/>
+    </resultMap>
+    <select id="getAll" resultMap="result">
+        SELECT * FROM student;
+    </select>
+    <select id="getById" parameterType="int" resultMap="result">
+        SELECT * FROM student WHERE ID=#{id};
+    </select>
+    <update id="update" parameterType="main.java.mybatis.model.Student">
+        UPDATE student SET NAME=#{name}, BRANCH=#{branch}, PERCENTAGE=#{percentage}, PHONE=#{phone}, EMAIL=#{email} WHERE ID=#{id};
+    </update>
+</mapper>

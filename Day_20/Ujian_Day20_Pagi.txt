@@ -1,0 +1,94 @@
+{ 
+  "soleh" : {						
+    "fullname"  : "Soleh Said",
+    "address"   : "Jakarta",
+    "status"    : "Active",
+    "grades" : {
+		"physics"  	: 80,
+		"calculus" 	: 70,
+		"biologi"  	: 85
+	  }
+  },
+  "ridwan" : {
+    "fullname"  : "Ridwan Jamil",
+    "address"   : "Bandung",
+    "status"    : "On Leave",
+    "grades" : {
+		"physics"  	: 75,
+		"calculus" 	: 95,
+		"biologi"  	: 65
+	  }
+  },
+  "purwoko" : {
+    "fullname"  : "Ahmad Purwoko",
+    "address"   : "Jogja",
+    "status"    : "Non Active",
+    "grades" : {
+		"physics"  	: 0,
+		"calculus" 	: 0,
+		"biologi"  	: 0
+	  }
+  }
+} 
+
+Buat REST API yang bisa menangani
+
+1. Management Siswa (1.Input, 2.Edit, 3.Delete, 4.LIST Semua Mahasiswa (Tanpa Nilai) -> dengan mata pelajaran sebagai berikut -> BIOLOGI, FISIKA, KIMIA
+2. Absensi Siswa Terdaftar
+3. Masukan Nilai Siswa -> input ID Siswa 
+4. Laporan seluruh Siswa
+	ID : 
+	NAMA : 
+	AVERAGE :
+	(Hitung Nilai Semua Siswa Average -> 5-6 = D, 6-7=C, 7-8=B, >8 = A)
+5. Laporan per Siswa. by ID or Nama
+	ID : 
+	NAMA : 
+	BIOLOGI :
+	FISIKA :
+	KIMIA :
+
+CONTOH 1. 1. Input
+-Send- 
+{
+	"1":
+	{
+		"1": {
+			"ID" : 1,
+			"Nama" : "John"
+		}
+	}
+}	
+-Response-
+{
+	"Return" : "Success"
+}
+
+CONTOH 1. 4. List
+-Send-
+{
+	"1":4
+}
+-Response-
+...
+
+CONTOH 2. Absensi
+-Send- 
+{
+	"2":1
+}	
+
+3. Nilai
+{
+	"3":
+	{
+		"1": {
+			"grades": {
+				"physics": 100,
+				"calculus": 100,
+				"biologi": 100,
+			}
+		}
+	}
+}
+

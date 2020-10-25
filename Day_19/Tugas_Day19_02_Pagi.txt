@@ -1,0 +1,51 @@
+
+Class Worker (Abstract)
+- ID
+- Nama
+- Gaji Pokok
++Absensi 
++Hitung Absensi
++Hitung Gaji Pokok (GajiPokok/20) * JmlAbsensi (Abstract)
+
+Class Staff
+- Tunjangan Makan Rp. 200000 (Cuti melebihi 1 hari/bulan TunjMakan dikurangi -> TunjMakan - ((TunjMakan/20) * jmlh izin lebih)
+- Tunjangan Transport Rp. 400000 (Cuti melebihi 1 hari/bulan TunjTransport dikurangi -> TunjTransport - ((TunjTransport/20) * jmlh izin lebih)
+- Total Gaji
++ Hitung Tunjangan Makan
++ Hitung Tunjangan Transport
++ Hitung Total Gaji 
+
+MENU
+1. Input Data Karyawan -> Masukan 2 lg Karyawan (Builder Design Pattern)
+2. Edit Data Karyawan (Nama Karyawan)
+	-> -> Input ID atau Nama Karyawan
+3. Hitung Total Gaji Karyawan
+	-> Satu Bulan 20 hari (GajiPokok + TunjMakan + TunjTransport)
+	-> Untuk seluruh Karyawan
+4. Tampilkan Laporan per Karyawan
+	-> Input ID atau Nama Karyawan
+	ID :
+	Nama :
+	Absensi :
+	Cuti :
+	Tanpa Kabar :
+	Total Gaji :
+	
+5. Create File dan FTP ke Server -> LaporanKaryawan.txt (Adapter Design Pattern)-> Untuk FTP yang tadinya Socket
+
+	-> Output di File 
+	ID,Nama,JmlAbsensi,JmlCutiTerpakai,JmlTanpaKabar,TotalGaji
+	1,John,21,1,0,XXX
+	2,Peter,19,1,2,XXX
+	3,------
+	4,------
+	5,------
+	6,------
+	
+99. Exit
+
+
+
+
+
+

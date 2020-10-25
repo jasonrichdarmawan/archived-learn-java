@@ -1,0 +1,218 @@
+{
+	"info": {
+		"_postman_id": "f1733b0d-8e78-43f0-aa82-89611bbf7e52",
+		"name": "Day_19_Tugas2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "2. Edit Data Karyawan (Nama Karyawan)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "userid",
+						"value": "kyc_agent",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "password",
+						"value": "Simtech@123",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\": 6,\r\n        \"nama\": \"borge\"\r\n    },\r\n    {\r\n        \"id\": 7,\r\n        \"nama\": \"nama2\",\r\n        \"gajiPokok\": 5000\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/staff",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"staff"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1. Input Data Karyawan -> Masukan 2 lg Karyawan (Builder Design Pattern)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "userid",
+						"value": "kyc_agent",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "password",
+						"value": "Simtech@123",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"nama\": \"nama1\",\r\n        \"gajiPokok\": 1000,\r\n        \"absensi\": 1\r\n    },\r\n    {\r\n        \"gajiPokok\": 2000,\r\n        \"absensi\": 1,\r\n        \"izin\": 1\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/staff",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"staff"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Hitung Total Gaji Karyawan",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "userid",
+						"value": "kyc_agent",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "password",
+						"value": "Simtech@123",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\": 6,\r\n        \"nama\": \"borge\"\r\n    },\r\n    {\r\n        \"id\": 500,\r\n        \"nama\": \"nama2\",\r\n        \"gajiPokok\": 5000\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/staff",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"staff"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. 1. Tampilkan Laporan per Karyawan id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/staff?id=7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"staff"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. 2. Tampilkan Laporan per Karyawan nama",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/staff?nama=nama1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"staff"
+					],
+					"query": [
+						{
+							"key": "nama",
+							"value": "nama1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Create File dan FTP ke Server -> LaporanKaryawan.txt (Adapter Design Pattern)-> Untuk FTP yang tadinya Socket",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/staff/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"staff",
+						"save"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
