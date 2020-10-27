@@ -1,0 +1,24 @@
+Class Worker (Abstract)
+- IDKaryawan
+- Nama
+- Tunjangan Pulsa
+- Gaji Pokok
+- Absensi Hari;
++ Absensi()
+
+Class Staff extends Worker
+	- Tunjangan Makan
+	- ArrayList Email
+	+ HitungTunjanganMakan 
+
+- POST request to /staff/ with a JSON staff object in the request’s body will register staff
+- PUT request to /staff/5 with a JSON staff object in the request’s body will update the object with ID 5
+- DELETE request to /staff/7 deletes the staff with ID 7
+- DELETE request to /staff/ deletes all the products
+
+Connect to database instead of ArrayList as Stored Data
+
+Using this architecture
+
+Postman -> REST API -> RabbitMQ -> Consumer -> DB
+

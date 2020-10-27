@@ -1,5 +1,0 @@
-app:
-  datasource:
-    jdbc-url: jdbc:mysql://localhost:3306/day18
-    username: root
-    password: password

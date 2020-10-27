@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "50359dd3-b4a3-46cd-85d4-2ccca1a3a913",
+		"name": "Day_23_RESTfulStaffWorker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST staff",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Nama\": \"d\",\r\n    \"TunjanganPulsa\": 1,\r\n    \"GajiPokok\": 1,\r\n    \"AbsensiHari\": 1,\r\n    \"TunjanganMakan\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v2/staff",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v2",
+						"staff"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT staff by id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"IDKaryawan\": 3,\r\n    \"Nama\": \"e\",\r\n    \"TunjanganPulsa\": 1,\r\n    \"GajiPokok\": 1,\r\n    \"AbsensiHari\": 1,\r\n    \"TunjanganMakan\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v2/staff",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v2",
+						"staff"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE staff by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"IDKaryawan\": 3,\r\n    \"Nama\": \"e\",\r\n    \"TunjanganPulsa\": 1,\r\n    \"GajiPokok\": 1,\r\n    \"AbsensiHari\": 1,\r\n    \"TunjanganMakan\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v2/staff/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v2",
+						"staff",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE staffs",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"IDKaryawan\": 3,\r\n    \"Nama\": \"e\",\r\n    \"TunjanganPulsa\": 1,\r\n    \"GajiPokok\": 1,\r\n    \"AbsensiHari\": 1,\r\n    \"TunjanganMakan\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v2/staff",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v2",
+						"staff"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
