@@ -31,7 +31,9 @@ public class StaffMyBatis {
   }
 
   public List<StaffWorkerModel> getStaffs() {
-    return this.session.selectList("Staff.getStaffs");
+    List<StaffWorkerModel> staffs = this.session.selectList("Staff.getStaffs");
+    this.session.commit();
+    return staffs;
   }
 
   public StaffWorkerModel getStaffById(int id) {

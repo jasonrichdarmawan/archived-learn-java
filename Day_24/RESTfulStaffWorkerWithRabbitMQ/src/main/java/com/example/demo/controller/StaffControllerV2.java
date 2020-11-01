@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.StaffRabbitMQ;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -19,17 +20,34 @@ public class StaffControllerV2 {
   @Autowired
   private StaffRabbitMQ staffRabbitMQ;
 
+  @GetMapping
+  public ResponseEntity<?> getStaffs() {
+    JSONObject response = this.staffRabbitMQ.getStaffs();
+    if ((boolean) response.get("response") == true) {
+      return new ResponseEntity<>((JSONArray) response.get("payload"), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>("INTERNAL SERVER ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @GetMapping("{id}")
+  public ResponseEntity<?> getStaffById(@PathVariable("id") int id) {
+    JSONObject response = this.staffRabbitMQ.getStaffById(id);
+    if ((boolean) response.get("response") == true) {
+      return new ResponseEntity<>((JSONObject) response.get("payload"), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>("INTERNAL SERVER ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
   @PostMapping
   public ResponseEntity<?> postStaff(@RequestBody String requestBody) {
-//    JSONObject response = this.staffRabbitMQ.postStaff(requestBody);
-//    if ((boolean) response.get("response") == true) {
-//      return new ResponseEntity<>((JSONObject) response.get("payload"), HttpStatus.OK);
-//    } else {
-//      return new ResponseEntity<>("INTERNAL SERVER ERROR", HttpStatus.OK);
-//    }
-
-    this.staffRabbitMQ.postStaff(requestBody);
-    return new ResponseEntity<>("OK", HttpStatus.OK);
+    JSONObject response = this.staffRabbitMQ.postStaff(requestBody);
+    if ((boolean) response.get("response") == true) {
+      return new ResponseEntity<>((JSONObject) response.get("payload"), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>("INTERNAL SERVER ERROR", HttpStatus.OK);
+    }
   }
 
   @PutMapping("{id}")
@@ -43,27 +61,33 @@ public class StaffControllerV2 {
     }
     requestStaff.put("IDKaryawan", id);
 
-//    JSONObject response = (JSONObject) this.staffRabbitMQ.putStaffById(requestStaff.toJSONString());
-//    if ((boolean) response.get("response") == true) {
-//      return new ResponseEntity<>("OK", HttpStatus.OK);
-//    } else {
-//      return new ResponseEntity<>("INTERNAL SERVER ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
-
-    this.staffRabbitMQ.putStaffById(requestStaff.toJSONString());
-    return new ResponseEntity<>("OK", HttpStatus.OK);
+    JSONObject response = (JSONObject) this.staffRabbitMQ.putStaffById(requestStaff.toJSONString());
+    if ((boolean) response.get("response") == true) {
+      return new ResponseEntity<>("OK", HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>("INTERNAL SERVER ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @DeleteMapping("{id}")
   public ResponseEntity<?> deleteStaffById(@PathVariable("id") int id) {
     String requestBody = String.format("{\"IDKaryawan\": %d}", id);
-    this.staffRabbitMQ.deleteStaffById(requestBody);
-    return new ResponseEntity<>("OK", HttpStatus.OK);
+
+    JSONObject response = (JSONObject) this.staffRabbitMQ.deleteStaffById(requestBody);
+    if ((boolean) response.get("response") == true) {
+      return new ResponseEntity<>("OK", HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>("INTERNAL SERVER ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @DeleteMapping
   public ResponseEntity<?> deleteStaffs() {
-    this.staffRabbitMQ.deleteStaffs();
-    return new ResponseEntity<>("OK", HttpStatus.OK);
+    JSONObject response = this.staffRabbitMQ.deleteStaffs();
+    if ((boolean) response.get("response") == true) {
+      return new ResponseEntity<>("OK", HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>("INTERNAL SERVER ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }

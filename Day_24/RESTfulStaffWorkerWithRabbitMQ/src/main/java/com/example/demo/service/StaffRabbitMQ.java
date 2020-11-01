@@ -26,6 +26,19 @@ public class StaffRabbitMQ {
     return jsonObject;
   }
 
+  public JSONObject getStaffs() {
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("type", "getStaffs");
+    return this.staffRESTMQ.produce("staff", jsonObject.toJSONString());
+  }
+
+  public JSONObject getStaffById(int id) {
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("type", "getStaffById");
+    jsonObject.put("payload", id);
+    return this.staffRESTMQ.produce("staff", jsonObject.toJSONString());
+  }
+
   public JSONObject postStaff(String requestBody) {
     return this.staffRESTMQ.produce("staff", stringToJSONObject("postStaff", requestBody).toJSONString());
   }

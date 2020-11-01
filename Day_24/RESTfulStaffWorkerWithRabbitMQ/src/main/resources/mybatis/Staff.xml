@@ -1,12 +1,29 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Staff">
+    <resultMap id="result" type="com.example.demo.model.StaffWorkerModel">
+        <result property="IDKaryawan" column="IDKaryawan"/>
+        <result property="Nama" column="Nama"/>
+        <result property="TunjanganPulsa" column="TunjanganPulsa"/>
+        <result property="GajiPokok" column="GajiPokok"/>
+        <result property="AbsensiHari" column="AbsensiHari"/>
+        <result property="TunjanganMakan" column="TunjanganMakan"/>
+        <result property="Email" column="Email" />
+    </resultMap>
+    <select id="getStaffs" resultMap="result">
+        SELECT * FROM staff;
+    </select>
+    <select id="getStaffById" parameterType="int" resultMap="result">
+        SELECT * FROM staff WHERE IDKaryawan=#{IDKaryawan};
+    </select>
     <insert id="postStaff" parameterType="com.example.demo.model.StaffWorkerModel" useGeneratedKeys="true"
             keyProperty="IDKaryawan">
-        INSERT INTO staff (Nama, TunjanganPulsa, GajiPokok, AbsensiHari, TunjanganMakan, Email) VALUES (#{Nama}, #{TunjanganPulsa}, #{GajiPokok}, #{AbsensiHari}, #{TunjanganMakan}, #{Email});
+        INSERT INTO staff (Nama, TunjanganPulsa, GajiPokok, AbsensiHari, TunjanganMakan, Email) VALUES (#{Nama},
+        #{TunjanganPulsa}, #{GajiPokok}, #{AbsensiHari}, #{TunjanganMakan}, #{Email});
     </insert>
     <update id="putStaffById" parameterType="com.example.demo.model.StaffWorkerModel">
-        UPDATE staff SET Nama=#{Nama}, TunjanganPulsa=#{TunjanganPulsa}, GajiPokok=#{GajiPokok}, AbsensiHari=#{AbsensiHari}, TunjanganMakan=#{TunjanganMakan}, Email=#{Email} WHERE IDKaryawan=#{IDKaryawan};
+        UPDATE staff SET Nama=#{Nama}, TunjanganPulsa=#{TunjanganPulsa}, GajiPokok=#{GajiPokok},
+        AbsensiHari=#{AbsensiHari}, TunjanganMakan=#{TunjanganMakan}, Email=#{Email} WHERE IDKaryawan=#{IDKaryawan};
     </update>
     <delete id="deleteStaffById" parameterType="int">
         DELETE FROM staff WHERE IDKaryawan=#{IDKaryawan};

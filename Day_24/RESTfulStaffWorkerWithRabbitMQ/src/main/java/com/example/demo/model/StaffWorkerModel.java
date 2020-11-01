@@ -10,8 +10,9 @@ public class StaffWorkerModel extends WorkerModel implements Serializable {
   private BigDecimal TunjanganMakan;
   private ArrayList<String> Email;
 
-  public StaffWorkerModel(@JsonProperty("IDKaryawan") Integer idKaryawan, @JsonProperty("Nama") String nama, @JsonProperty("TunjanganPulsa") BigDecimal tunjanganPulsa, @JsonProperty("GajiPokok") BigDecimal gajiPokok, @JsonProperty("AbsensiHari") Integer absensiHari, @JsonProperty("Email") ArrayList<String> email) {
+  public StaffWorkerModel(@JsonProperty("IDKaryawan") Integer idKaryawan, @JsonProperty("Nama") String nama, @JsonProperty("TunjanganPulsa") BigDecimal tunjanganPulsa, @JsonProperty("GajiPokok") BigDecimal gajiPokok, @JsonProperty("AbsensiHari") Integer absensiHari, @JsonProperty("TunjanganMakan") BigDecimal tunjanganMakan, @JsonProperty("Email") ArrayList<String> email) {
     super(idKaryawan, nama, tunjanganPulsa, gajiPokok, absensiHari);
+    this.TunjanganMakan = tunjanganMakan;
     this.Email = email;
   }
 

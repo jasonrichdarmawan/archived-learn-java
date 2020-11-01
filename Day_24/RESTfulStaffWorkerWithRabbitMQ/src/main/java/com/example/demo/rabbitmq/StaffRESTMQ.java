@@ -50,37 +50,65 @@ public class StaffRESTMQ {
     } catch (TimeoutException e) {
       e.printStackTrace();
     }
-//    AtomicReference<JSONObject> jsonObject = new AtomicReference<>();
-//    AtomicBoolean ack = new AtomicBoolean(false);
-    Channel finalChannel = channel;
-    DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-      JSONObject jsonObject = null;
+
+////    AtomicReference<JSONObject> jsonObject = new AtomicReference<>();
+////    AtomicBoolean ack = new AtomicBoolean(false);
+//    Channel finalChannel = channel;
+//    DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+//      JSONObject jsonObject = null;
+//      try {
+////        jsonObject.set((JSONObject) new JSONParser().parse(new String(delivery.getBody())));
+//        jsonObject = (JSONObject) new JSONParser().parse(new String(delivery.getBody()));
+//      } catch (ParseException e) {
+//        e.printStackTrace();
+//      }
+//
+////      System.out.println(" [x] Received '" + jsonObject.get().toJSONString() + "'");
+//      System.out.println(" [x] Received '" + jsonObject.toJSONString() + "'");
+//
+//      finalChannel.basicAck(delivery.getEnvelope().getDeliveryTag(), false); // acknowledge
+////      ack.set(true);
+//      System.out.printf(" [x] Done");
+//    };
+//
+//    try {
+//      boolean autoAck = false;
+//      channel.basicConsume(queueName, false, deliverCallback, consumerTag -> {
+//      });
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
+//
+////    while (!ack.get()) {}
+//
+////    return (JSONObject) jsonObject.get();
+//    return null;
+
+    GetResponse response = null;
+    do {
       try {
-//        jsonObject.set((JSONObject) new JSONParser().parse(new String(delivery.getBody())));
-        jsonObject = (JSONObject) new JSONParser().parse(new String(delivery.getBody()));
-      } catch (ParseException e) {
+        response = channel.basicGet(queueName, true);
+      } catch (IOException e) {
         e.printStackTrace();
       }
+    } while (response == null);
 
-//      System.out.println(" [x] Received '" + jsonObject.get().toJSONString() + "'");
-      System.out.println(" [x] Received '" + jsonObject.toJSONString() + "'");
-
-      finalChannel.basicAck(delivery.getEnvelope().getDeliveryTag(), false); // acknowledge
-//      ack.set(true);
-      System.out.printf(" [x] Done");
-    };
-
+    JSONObject jsonObject = null;
     try {
-      boolean autoAck = false;
-      channel.basicConsume(queueName, false, deliverCallback, consumerTag -> {
-      });
-    } catch (IOException e) {
+      jsonObject = (JSONObject) new JSONParser().parse(new String(response.getBody()));
+    } catch (ParseException e) {
       e.printStackTrace();
     }
 
-//    while (!ack.get()) {}
+    try {
+      channel.close();
+      connection.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (TimeoutException e) {
+      e.printStackTrace();
+    }
 
-//    return (JSONObject) jsonObject.get();
-    return null;
+    return jsonObject;
   }
 }

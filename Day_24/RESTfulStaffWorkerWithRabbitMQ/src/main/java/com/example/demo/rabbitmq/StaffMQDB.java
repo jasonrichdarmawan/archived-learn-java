@@ -8,6 +8,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -17,6 +18,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.SerializationUtils;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.concurrent.TimeoutException;
 
 @Configuration
@@ -26,6 +29,64 @@ public class StaffMQDB {
 
   @Autowired
   private StaffMyBatis staffMyBatis;
+
+  public void doGetStaffs(String queueName, Channel channel) {
+    List<StaffWorkerModel> responseStaffs = this.staffMyBatis.getStaffs();
+
+    JSONObject response = new JSONObject();
+    if (responseStaffs.size() > 0) {
+      /**
+       * { response: boolean, payload: JSONArray }
+       */
+      response.put("response", true);
+
+      // payload
+      JSONArray responsePayload = new JSONArray();
+      for (StaffWorkerModel staff : responseStaffs) {
+        JSONObject temp = new JSONObject();
+        temp.put("IDKaryawan", staff.getIDKaryawan());
+        temp.put("Nama", staff.getNama());
+        temp.put("TunjanganPulsa", staff.getTunjanganPulsa());
+        temp.put("GajiPokok", staff.getGajiPokok());
+        temp.put("AbsensiHari", staff.getAbsensiHari());
+        temp.put("TunjanganMakan", staff.HitungTunjanganMakan());
+        temp.put("Email", staff.getEmail());
+        responsePayload.add(temp);
+      }
+      response.put("payload", responsePayload);
+    }
+
+    try {
+      channel.basicPublish("", String.format("return%s", queueName), null, response.toString().getBytes());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void doGetStaffById(String payload, String queueName, Channel channel) {
+    StaffWorkerModel responseStaff = this.staffMyBatis.getStaffById(Integer.parseInt(payload));
+    JSONObject response = new JSONObject();
+    JSONObject responsePayload = new JSONObject();
+    if (responseStaff != null) {
+      response.put("response", true);
+      responsePayload.put("IDKaryawan", responseStaff.getIDKaryawan());
+      responsePayload.put("Nama", responseStaff.getNama());
+      responsePayload.put("TunjanganPulsa", responseStaff.getTunjanganPulsa());
+      responsePayload.put("GajiPokok", responseStaff.getGajiPokok());
+      responsePayload.put("AbsensiHari", responseStaff.getAbsensiHari());
+      responsePayload.put("TunjanganMakan", responseStaff.HitungTunjanganMakan());
+      responsePayload.put("Email", responseStaff.getEmail());
+      response.put("payload", responsePayload);
+    } else {
+      response.put("response", false);
+    }
+
+    try {
+      channel.basicPublish("", String.format("return%s", queueName), null, response.toString().getBytes());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 
   public void doPostStaff(String payload, String queueName, Channel channel) {
     StaffWorkerModel requestStaff = new Gson().fromJson(payload, StaffWorkerModel.class);
@@ -136,7 +197,11 @@ public class StaffMQDB {
 
       System.out.println(" [x] Received '" + jsonObject.toJSONString() + "'");
 
-      if (jsonObject.get("type").equals("postStaff")) {
+      if (jsonObject.get("type").equals("getStaffs")) {
+        doGetStaffs(queueName, finalChannel);
+      } else if (jsonObject.get("type").equals("getStaffById")) {
+        doGetStaffById(jsonObject.get("payload").toString(), queueName, finalChannel);
+      } else if (jsonObject.get("type").equals("postStaff")) {
         doPostStaff(jsonObject.get("payload").toString(), queueName, finalChannel);
       } else if (jsonObject.get("type").equals("putStaffById")) {
         doPutStaffById(jsonObject.get("payload").toString(), queueName, finalChannel);

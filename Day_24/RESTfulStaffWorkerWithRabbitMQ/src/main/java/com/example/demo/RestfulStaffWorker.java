@@ -30,7 +30,7 @@ public class RestfulStaffWorker implements CommandLineRunner {
                     "  `GajiPokok` DECIMAL(15,3) NULL,\n" +
                     "  `AbsensiHari` INT NULL,\n" +
                     "  `TunjanganMakan` DECIMAL(15,3) NULL,\n" +
-                    "  `Email` VARCHAR(45) NULL,\n" +
+                    "  `Email` JSON NULL,\n" +
                     "  PRIMARY KEY (`IDKaryawan`));\n"
     );
   }

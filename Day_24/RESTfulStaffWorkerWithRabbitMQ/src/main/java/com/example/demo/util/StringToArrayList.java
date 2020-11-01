@@ -9,18 +9,22 @@ import java.util.Iterator;
 
 public class StringToArrayList {
   public static ArrayList<String> toArrayList(String array) {
-    ArrayList<String> arrayList = new ArrayList<>();
-    JSONArray jsonArray = null;
-    try {
-      jsonArray = (JSONArray) new JSONParser().parse(array);
-    } catch (ParseException e) {
-      e.printStackTrace();
-    }
-    for (Iterator<String> iterator = jsonArray.iterator(); iterator.hasNext(); ) {
-      arrayList.add(iterator.next());
-    }
+    if (array != null) {
+      ArrayList<String> arrayList = new ArrayList<>();
+      JSONArray jsonArray = null;
+      try {
+        jsonArray = (JSONArray) new JSONParser().parse(array);
+      } catch (ParseException e) {
+        e.printStackTrace();
+      }
+      for (Iterator<String> iterator = jsonArray.iterator(); iterator.hasNext(); ) {
+        arrayList.add(iterator.next());
+      }
 
-    return arrayList;
+      return arrayList;
+    } else {
+      return null;
+    }
   }
 
   public static String parseArrayList(ArrayList<String> array) {

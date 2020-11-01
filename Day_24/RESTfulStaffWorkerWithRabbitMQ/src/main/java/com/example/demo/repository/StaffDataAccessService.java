@@ -31,6 +31,7 @@ public class StaffDataAccessService implements StaffDao {
                     rs.getBigDecimal("TunjanganPulsa"),
                     rs.getBigDecimal("GajiPokok"),
                     rs.getInt("AbsensiHari"),
+                    rs.getBigDecimal("TunjanganMakan"),
                     StringToArrayList.toArrayList(rs.getString("Email"))
             )
     );
@@ -47,6 +48,7 @@ public class StaffDataAccessService implements StaffDao {
                     rs.getBigDecimal("TunjanganPulsa"),
                     rs.getBigDecimal("GajiPokok"),
                     rs.getInt("AbsensiHari"),
+                    rs.getBigDecimal("TunjanganMakan"),
                     StringToArrayList.toArrayList(rs.getString("Email"))
             )
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="User_Info">
+    <update id="createTableIfNotExists">
+        CREATE TABLE IF NOT EXISTS `user_info` (
+        `ID` int NOT NULL AUTO_INCREMENT,
+        `User_ID` char(12) NOT NULL,
+        `Account_Number` char(17) NOT NULL,
+        `Full_Name` varchar(35) NOT NULL,
+        `ISO_4217` int NOT NULL,
+        PRIMARY KEY (`ID`),
+        UNIQUE KEY `User_ID_UNIQUE` (`User_ID`),
+        UNIQUE KEY `Account_Number_UNIQUE` (`Account_Number`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+    </update>
+    <select id="selectByUser_ID" parameterType="String" resultType="com.example.bankaccount.model.User_InfoModel">
+        SELECT * FROM user_info WHERE User_ID=#{User_ID}
+    </select>
+    <insert id="insertByUser_ID" parameterType="com.example.bankaccount.model.User_InfoModel">
+        <selectKey order="AFTER" keyProperty="Account_Number" resultType="String">
+            SELECT Account_Number FROM user_info WHERE User_ID=#{User_ID}
+        </selectKey>
+        INSERT INTO user_info (User_ID, Account_Number, Full_Name, ISO_4217) VALUES (#{User_ID}, UUID_SHORT(), #{Full_Name}, #{ISO_4217})
+    </insert>
+</mapper>
