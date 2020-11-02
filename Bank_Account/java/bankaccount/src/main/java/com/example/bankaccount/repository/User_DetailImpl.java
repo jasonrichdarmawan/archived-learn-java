@@ -1,7 +1,7 @@
 package com.example.bankaccount.repository;
 
-import com.example.bankaccount.dao.User_InfoDAO;
-import com.example.bankaccount.model.User_InfoModel;
+import com.example.bankaccount.dao.User_DetailDAO;
+import com.example.bankaccount.model.User_DetailModel;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.io.Reader;
 
 @Repository
-public class User_InfoImpl implements User_InfoDAO {
+public class User_DetailImpl implements User_DetailDAO {
   private SqlSession sqlSession;
 
-  public User_InfoImpl() {
+  public User_DetailImpl() {
     Reader reader = null;
     try {
       reader = Resources.getResourceAsReader("mybatis-config.xml");
@@ -28,19 +28,19 @@ public class User_InfoImpl implements User_InfoDAO {
 
   @Override
   public void createTableIfNotExists() {
-    sqlSession.update("User_Info.createTableIfNotExists");
+    sqlSession.update("User_Detail.createTableIfNotExists");
     sqlSession.commit();
   }
 
   @Override
-  public User_InfoModel insert(User_InfoModel user_infoModel) {
-    sqlSession.insert("User_Info.insertByUser_ID", user_infoModel);
+  public int insert(User_DetailModel user_detailModel) {
+    int rowsAffected = sqlSession.insert("User_Detail.insert", user_detailModel);
     sqlSession.commit();
-    return user_infoModel;
+    return rowsAffected;
   }
 
   @Override
-  public User_InfoModel select(String User_ID) {
-    return sqlSession.selectOne("User_Info.selectByUser_ID", User_ID);
+  public User_DetailModel select(String Account_Number) {
+    return sqlSession.selectOne("User_Detail.selectByAccountNumber", Account_Number);
   }
 }

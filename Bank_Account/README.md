@@ -4,7 +4,7 @@
   - [x] user_login
   - [x] user_info
   - [ ] transactions
-  - [ ] user_detail
+  - [x] user_detail
   - [ ] statements
 
 - [ ] BE: Endpoint
@@ -12,7 +12,7 @@
     - [x] INSERT INTO table `user_login`
       - [x] Hash the PIN in `column Hashed_PIN` with format `iterations:salt:hash`
     - [x] INSERT INTO table `user_info`
-    - [ ] INSERT INTO table `user_detail`
+    - [x] INSERT INTO table `user_detail`
   - [x] Post `api/v1/login`
     - [x] Validate `storedhashed_pin` with `PIN` from @RequestBody
   - [ ] Post `api/v1/token`

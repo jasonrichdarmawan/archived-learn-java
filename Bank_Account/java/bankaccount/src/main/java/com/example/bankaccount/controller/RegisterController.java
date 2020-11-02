@@ -1,13 +1,14 @@
 package com.example.bankaccount.controller;
 
 import com.example.bankaccount.model.RegisterUserModel;
+import com.example.bankaccount.model.User_DetailModel;
 import com.example.bankaccount.model.User_InfoModel;
 import com.example.bankaccount.model.User_LoginModel;
+import com.example.bankaccount.repository.User_DetailImpl;
 import com.example.bankaccount.repository.User_InfoImpl;
 import com.example.bankaccount.repository.User_LoginImpl;
 import com.example.bankaccount.service.GenerateTokenService;
 import com.example.bankaccount.service.GenerateUser_IDService;
-import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,9 @@ public class RegisterController {
   User_InfoImpl user_info;
 
   @Autowired
+  User_DetailImpl user_detail;
+
+  @Autowired
   GenerateUser_IDService generateUser_idService;
 
   @Autowired
@@ -45,12 +49,33 @@ public class RegisterController {
       user_loginModel.setUser_ID(User_ID);
       user_loginModel.setHashed_PIN(registerUserModel.getHashed_PIN());
 
+      /**
+       * TODO: if you wish to refactor it to one line, use Gson. I am just old fashioned.
+       */
       User_InfoModel user_infoModel = new User_InfoModel();
       user_infoModel.setUser_ID(User_ID);
       user_infoModel.setFull_Name(registerUserModel.getFull_Name());
       user_infoModel.setISO_4217(registerUserModel.getISO_4217());
 
-      if (this.user_login.insert(user_loginModel) == 1 && (user_infoModel = this.user_info.insert(user_infoModel)).getAccount_Number() != null) {
+      User_DetailModel user_detailModel = new User_DetailModel();
+      user_detailModel.setBirth_Date(registerUserModel.getBirth_Date());
+      user_detailModel.setAddress_3(registerUserModel.getAddress_3());
+      user_detailModel.setAddress_4(registerUserModel.getAddress_4());
+      user_detailModel.setAddress_1(registerUserModel.getAddress_1());
+      user_detailModel.setAddress_2(registerUserModel.getAddress_2());
+      user_detailModel.setZip_Code(registerUserModel.getZip_Code());
+      user_detailModel.setISO_3166_1(registerUserModel.getISO_3166_1());
+
+      // insert
+      int user_loginRowsAffected = this.user_login.insert(user_loginModel);
+
+      user_infoModel = this.user_info.insert(user_infoModel);
+
+      user_detailModel.setAccount_Number(user_infoModel.getAccount_Number());
+
+      int user_detailRowsAffected = this.user_detail.insert(user_detailModel);
+
+      if (user_loginRowsAffected == 1 && user_infoModel.getAccount_Number() != null && user_detailRowsAffected == 1) {
         Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("message_code", 201);
         responseBody.put("message", "CREATED");
