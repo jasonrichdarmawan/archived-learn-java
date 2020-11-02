@@ -7,7 +7,7 @@ import com.example.bankaccount.model.User_LoginModel;
 import com.example.bankaccount.repository.User_DetailImpl;
 import com.example.bankaccount.repository.User_InfoImpl;
 import com.example.bankaccount.repository.User_LoginImpl;
-import com.example.bankaccount.service.GenerateTokenService;
+import com.example.bankaccount.service.TokenService;
 import com.example.bankaccount.service.GenerateUser_IDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +35,7 @@ public class RegisterController {
   GenerateUser_IDService generateUser_idService;
 
   @Autowired
-  GenerateTokenService generateTokenService;
+  TokenService tokenService;
 
   @PostMapping("api/v1/register")
   public ResponseEntity<?> register(@RequestBody RegisterUserModel registerUserModel) {
@@ -81,7 +81,7 @@ public class RegisterController {
         responseBody.put("message", "CREATED");
         responseBody.put("User_ID", User_ID);
 
-        String token = generateTokenService.generate(user_infoModel.getAccount_Number());
+        String token = tokenService.generate(user_infoModel.getAccount_Number());
         responseBody.put("token", token);
 
         return new ResponseEntity<>(responseBody, HttpStatus.CREATED);

@@ -4,7 +4,7 @@ import com.example.bankaccount.model.User_InfoModel;
 import com.example.bankaccount.model.User_LoginModel;
 import com.example.bankaccount.repository.User_InfoImpl;
 import com.example.bankaccount.repository.User_LoginImpl;
-import com.example.bankaccount.service.GenerateTokenService;
+import com.example.bankaccount.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,14 +24,14 @@ public class LoginController {
   User_InfoImpl user_info;
 
   @Autowired
-  GenerateTokenService generateTokenService;
+  TokenService tokenService;
 
   @PostMapping("api/v1/login")
   public ResponseEntity<?> login(@RequestBody User_LoginModel user_loginModel) {
     if (this.user_login.login(user_loginModel)) {
       User_InfoModel user_infoModel = this.user_info.select(user_loginModel.getUser_ID());
 
-      String token = generateTokenService.generate(user_infoModel.getAccount_Number());
+      String token = tokenService.generate(user_infoModel.getAccount_Number());
 
       Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 200);
