@@ -1,11 +1,11 @@
 ### To Do
 
-- [ ] BE: Auto create table if not exists
+- [x] BE: Auto create table if not exists
   - [x] user_login
   - [x] user_info
-  - [ ] transactions
+  - [x] transactions
   - [x] user_detail
-  - [ ] statements
+  - [x] statements
 
 - [ ] BE: Endpoint
   - [x] Post `api/v1/register`
@@ -21,9 +21,9 @@
     - [x] Get Account Info By Account Number
   - [x] Get `api/v1/history`
     - [x] Get Transactions History By Start and End Date
-  - [ ] Post `api/v1/transaction`
-    - [ ] Post Transaction
-      - [ ] INSERT INTO table `transactions`
+  - [x] Post `api/v1/transaction`
+    - [x] Post Transaction
+      - [x] INSERT INTO table `transactions`
   - [ ] Get `api/v1/balance`
     - [ ] Get Account Balance
       - [ ] SELECT Ending_Balance FROM table `statements` WHERE Account_Number=#{Account_Number} AND Month=#{PreviousMonth} AND YEAR=#{Year}

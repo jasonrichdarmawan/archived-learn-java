@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Statements">
+    <update id="createTableIfNotExists">
+        CREATE TABLE IF NOT EXISTS `statements` (
+        `ID` int NOT NULL AUTO_INCREMENT,
+        `Account_Number` char(17) NOT NULL,
+        `Month` char(2) NOT NULL,
+        `Year` char(4) NOT NULL,
+        `Ending_Balance` decimal(17,4) NOT NULL,
+        PRIMARY KEY (`ID`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+    </update>
+    <select id="selectByMonthAndYear" parameterType="map" resultType="BigDecimal">
+        SELECT Ending_Balance
+        FROM statements
+        WHERE Account_Number=#{Account_Number} AND Month=#{Month} AND Year=#{Year}
+    </select>
+</mapper>

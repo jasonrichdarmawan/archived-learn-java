@@ -5,7 +5,7 @@
 <mapper namespace="Transactions">
     <update id="createTableIfNotExists">
         CREATE TABLE IF NOT EXISTS `transactions` (
-        `ID` int NOT NULL,
+        `ID` int NOT NULL AUTO_INCREMENT,
         `Date` date NOT NULL,
         `Source` char(17) NOT NULL,
         `Destination` char(17) NOT NULL,
@@ -18,11 +18,25 @@
     <select id="selectByStartAndEndDate" parameterType="map" resultType="com.example.bankaccount.model.TransactionsModel">
         SELECT Date, Source, Destination, Destination_Type, Transaction_Value
         FROM transactions
+        WHERE Source=#{Account_Number} OR Destination=#{Account_Number} AND
+        DATE BETWEEN #{Start} AND #{End}
+        ORDER BY ID ASC
+    </select>
+    <select id="selectDebitByStartAndEndDate" parameterType="map" resultType="com.example.bankaccount.model.TransactionsModel">
+        SELECT Date, Source, Destination, Destination_Type, Transaction_Value
+        FROM transactions
         WHERE Source=#{Source} AND
         DATE BETWEEN #{Start} AND #{End}
         ORDER BY ID ASC
     </select>
-<!--    <insert id="insert" parameterType="com.example.bankaccount.model.User_DetailModel">-->
-<!--        INSERT INTO user_detail (Account_Number, Birth_Date, Address_3, Address_4, Address_1, Address_2, Zip_Code, ISO_3166_1) VALUES (#{Account_Number}, #{Birth_Date}, #{Address_3}, #{Address_4}, #{Address_1}, #{Address_2}, #{Zip_Code}, #{ISO_3166_1})-->
-<!--    </insert>-->
+    <select id="selectCreditByStartAndEndDate" parameterType="map" resultType="com.example.bankaccount.model.TransactionsModel">
+        SELECT Date, Source, Destination, Destination_Type, Transaction_Value
+        FROM transactions
+        WHERE Destination=#{Destination} AND
+        DATE BETWEEN #{Start} AND #{End}
+        ORDER BY ID ASC
+    </select>
+    <insert id="insert" parameterType="com.example.bankaccount.model.TransactionsModel">
+        INSERT INTO transactions (Date, Source, Destination, Destination_Type, Transaction_Value) VALUES (#{Date}, #{Source}, #{Destination}, #{Destination_Type}, #{Transaction_Value})
+    </insert>
 </mapper>

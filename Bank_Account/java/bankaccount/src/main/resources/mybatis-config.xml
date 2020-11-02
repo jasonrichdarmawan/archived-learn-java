@@ -20,5 +20,6 @@
         <mapper resource="builder/User_InfoMapper.xml"/>
         <mapper resource="builder/User_DetailMapper.xml"/>
         <mapper resource="builder/TransactionsMapper.xml"/>
+        <mapper resource="builder/StatementsMapper.xml"/>
     </mappers>
 </configuration>

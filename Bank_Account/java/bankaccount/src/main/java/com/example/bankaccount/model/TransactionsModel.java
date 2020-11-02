@@ -24,8 +24,16 @@ public class TransactionsModel {
     return Date;
   }
 
+  public void setDate() {
+    Date = LocalDate.now();
+  }
+
   public String getSource() {
     return Source;
+  }
+
+  public void setSource(String source) {
+    Source = source;
   }
 
   public String getDestination() {

@@ -1,9 +1,6 @@
 package com.example.bankaccount;
 
-import com.example.bankaccount.repository.TransactionsImpl;
-import com.example.bankaccount.repository.User_DetailImpl;
-import com.example.bankaccount.repository.User_InfoImpl;
-import com.example.bankaccount.repository.User_LoginImpl;
+import com.example.bankaccount.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,11 +25,15 @@ public class BankaccountApplication implements CommandLineRunner {
 	@Autowired
 	TransactionsImpl transactions;
 
+	@Autowired
+	StatementsImpl statements;
+
 	@Override
 	public void run(String... args) throws Exception {
 		this.user_login.createTableIfNotExists();
 		this.user_info.createTableIfNotExists();
 		this.user_detail.createTableIfNotExists();
 		this.transactions.createTableIfNotExists();
+		this.statements.createTableIfNotExists();
 	}
 }
