@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.Arrays;
 
 public class PinHashingService {
   /**
@@ -17,10 +18,10 @@ public class PinHashingService {
     byte[] salt = getSalt();
     int iterations = 65536;
 
-    KeySpec keySpec = new PBEKeySpec(pin.toCharArray(), salt, iterations, 128);
+    KeySpec keySpec = new PBEKeySpec(pin.toCharArray(), salt, iterations, 512);
     SecretKeyFactory secretKeyFactory = null;
     try {
-      secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+      secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512"); // HmacSHA1 max length is 160 bits while HmacSHA512 max length is 512 bits.
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }
@@ -28,6 +29,7 @@ public class PinHashingService {
     byte[] Hashed_PIN = new byte[0];
     try {
       Hashed_PIN = secretKeyFactory.generateSecret(keySpec).getEncoded();
+      System.out.println(Hashed_PIN.length);
     } catch (InvalidKeySpecException e) {
       e.printStackTrace();
     }
@@ -56,11 +58,16 @@ public class PinHashingService {
 
     SecretKeyFactory secretKeyFactory = null;
     try {
-      secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+      secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }
 
+    /**
+     * note: storedHashed_PIN is not Hashed_PIN
+     * storedHashed_PIN iterations:salt:hash
+     * Hashed_PIN is just the hash.
+     */
     byte[] Hashed_PIN = new byte[0];
     try {
       Hashed_PIN = secretKeyFactory.generateSecret(keySpec).getEncoded();
@@ -68,12 +75,29 @@ public class PinHashingService {
       e.printStackTrace();
     }
 
-    int difference = hash.length ^ Hashed_PIN.length;
-    for (int i = 0; i < hash.length && i < Hashed_PIN.length; i++) {
-      difference |= hash[i] ^ Hashed_PIN[i];
+    /**
+     * Comparing the stored hash with the generated hash.
+     *
+     * 1. 1 | 1 = 1, bitwise OR, salah satu 1 berarti 1.
+     * 2. 1 | 0 = 1
+     * 2. 1 ^ 1 = 0, bitwise XOR, 1 jika tidak sama.
+     * 3. 1 ^ 0 = 1, 0 jika berbeda.
+     * 4. difference |= hash[i] ^ Hashed_PIN[i]
+     *    => a += b + c, sama seperti: a = a + b + c
+     *    => difference = difference | hash[i] ^ Hashed_PIN[i]
+     *    => urutan: difference = ( difference | hash[i] ) | Hashed_PIN[i]
+     *
+     * Pusing? pakai Arrays.equals(byte[], byte[]); kelar.
+     */
+    int difference = hash.length ^ Hashed_PIN.length; // 16 ^ 16 = 0;
+    for (
+            int i = 0;
+            i < hash.length && i < Hashed_PIN.length; // i < 16 & i < 16; the constraints.
+            i++
+    ) {
+      difference |= hash[i] ^ Hashed_PIN[i]; // intinya: jika beda, ketika bandingin byte by byte maka difference = 1.
     }
     return difference == 0;
-
   }
 
   private byte[] getSalt() {

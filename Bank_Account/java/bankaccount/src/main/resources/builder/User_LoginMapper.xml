@@ -7,7 +7,7 @@
         CREATE TABLE IF NOT EXISTS `user_login` (
         `ID` int NOT NULL AUTO_INCREMENT,
         `User_ID` char(12) NOT NULL,
-        `Hashed_PIN` char(128) NOT NULL,
+        `Hashed_PIN` char(167) NOT NULL,
         PRIMARY KEY (`ID`),
         UNIQUE KEY `User_ID_UNIQUE` (`User_ID`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
