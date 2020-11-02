@@ -5,19 +5,13 @@ import com.example.bankaccount.model.User_LoginModel;
 import com.example.bankaccount.repository.User_InfoImpl;
 import com.example.bankaccount.repository.User_LoginImpl;
 import com.example.bankaccount.service.GenerateTokenService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.crypto.SecretKey;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,0 +1,24 @@
+﻿Class Worker (Abstract)
+- IDKaryawan
+- Nama
+- Tunjangan Pulsa
+- Gaji Pokok
+- Absensi Hari;
++ Absensi()
+
+Class Staff extends Worker
+	- Tunjangan Makan
+	- ArrayList Email
+	+ HitungTunjanganMakan 
+
+- GET request to /staff/ returns a list of all staff
+- GET request to /staff/3 returns the staff with ID 3
+- POST request to /staff/ with a JSON staff object in the request’s body will register staff
+- PUT request to /staff/5 with a JSON staff object in the request’s body will update the object with ID 5
+- DELETE request to /staff/7 deletes the staff with ID 7
+- DELETE request to /staff/ deletes all the products
+
+Connect to database instead of ArrayList as Stored Data
+
+StaffControllerV2 <-> StaffRESTMQ <-> StaffRabbitMQ service <-> StaffMQDB <-> StaffRedis
+
