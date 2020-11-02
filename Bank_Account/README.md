@@ -19,8 +19,8 @@
     - [x] Refresh Access Token
   - [x] Get `api/v1/account`
     - [x] Get Account Info By Account Number
-  - [ ] Get `api/v1/history`
-    - [ ] Get Transactions History By Start and End Date
+  - [x] Get `api/v1/history`
+    - [x] Get Transactions History By Start and End Date
   - [ ] Post `api/v1/transaction`
     - [ ] Post Transaction
       - [ ] INSERT INTO table `transactions`

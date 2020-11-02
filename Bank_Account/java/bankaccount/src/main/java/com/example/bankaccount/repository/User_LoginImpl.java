@@ -46,6 +46,7 @@ public class User_LoginImpl implements User_LoginDAO {
   @Override
   public boolean login(User_LoginModel user_loginModel) {
     String Hashed_PIN = sqlSession.selectOne("User_Login.login", user_loginModel);
+    sqlSession.commit();
     if (Hashed_PIN != null) {
       return pinHashingService.validate(user_loginModel.getPIN(), Hashed_PIN);
     } else {
@@ -54,6 +55,8 @@ public class User_LoginImpl implements User_LoginDAO {
   }
 
   public boolean exist(String User_ID) {
-    return sqlSession.selectOne("User_Login.exist", User_ID);
+    boolean isExist = sqlSession.selectOne("User_Login.exist", User_ID);
+    sqlSession.commit();
+    return isExist;
   }
 }

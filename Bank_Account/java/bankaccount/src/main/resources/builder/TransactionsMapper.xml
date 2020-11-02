@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Transactions">
+    <update id="createTableIfNotExists">
+        CREATE TABLE IF NOT EXISTS `transactions` (
+        `ID` int NOT NULL,
+        `Date` date NOT NULL,
+        `Source` char(17) NOT NULL,
+        `Destination` char(17) NOT NULL,
+        `Destination_Type` int NOT NULL,
+        `Transaction_Value` decimal(17,4) NOT NULL,
+        PRIMARY KEY (`ID`),
+        UNIQUE KEY `ID_UNIQUE` (`ID`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+    </update>
+    <select id="selectByStartAndEndDate" parameterType="map" resultType="com.example.bankaccount.model.TransactionsModel">
+        SELECT Date, Source, Destination, Destination_Type, Transaction_Value
+        FROM transactions
+        WHERE Source=#{Source} AND
+        DATE BETWEEN #{Start} AND #{End}
+        ORDER BY ID ASC
+    </select>
+<!--    <insert id="insert" parameterType="com.example.bankaccount.model.User_DetailModel">-->
+<!--        INSERT INTO user_detail (Account_Number, Birth_Date, Address_3, Address_4, Address_1, Address_2, Zip_Code, ISO_3166_1) VALUES (#{Account_Number}, #{Birth_Date}, #{Address_3}, #{Address_4}, #{Address_1}, #{Address_2}, #{Zip_Code}, #{ISO_3166_1})-->
+<!--    </insert>-->
+</mapper>

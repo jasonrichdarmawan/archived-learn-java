@@ -24,12 +24,12 @@ public class AccountInfoController {
   TokenService tokenService;
 
   @GetMapping("api/v1/account")
-  public ResponseEntity<?> getAccountInfoByAccount_Number(@RequestHeader(value = "Authorization") String Authorization, @RequestBody Object json) {
+  public ResponseEntity<?> getAccountInfoByAccount_Number(@RequestHeader(value = "Authorization") String Authorization, @RequestBody Map json) {
     String token = Authorization.split(" ")[1];
     boolean isVerified = this.tokenService.verify(token);
 
     if (isVerified) {
-      String Account_Number = (String) ((Map) json).get("Account_Number");
+      String Account_Number = (String) json.get("Account_Number");
       User_InfoModel user_infoModel = this.user_info.selectByAccount_Number(Account_Number);
 
       if (user_infoModel != null) {

@@ -1,5 +1,6 @@
 package com.example.bankaccount;
 
+import com.example.bankaccount.repository.TransactionsImpl;
 import com.example.bankaccount.repository.User_DetailImpl;
 import com.example.bankaccount.repository.User_InfoImpl;
 import com.example.bankaccount.repository.User_LoginImpl;
@@ -24,10 +25,14 @@ public class BankaccountApplication implements CommandLineRunner {
 	@Autowired
 	User_DetailImpl user_detail;
 
+	@Autowired
+	TransactionsImpl transactions;
+
 	@Override
 	public void run(String... args) throws Exception {
 		this.user_login.createTableIfNotExists();
 		this.user_info.createTableIfNotExists();
 		this.user_detail.createTableIfNotExists();
+		this.transactions.createTableIfNotExists();
 	}
 }

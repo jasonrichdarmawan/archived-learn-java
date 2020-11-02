@@ -1,7 +1,7 @@
 package com.example.bankaccount.repository;
 
-import com.example.bankaccount.dao.User_DetailDAO;
-import com.example.bankaccount.model.User_DetailModel;
+import com.example.bankaccount.dao.Transactions_DAO;
+import com.example.bankaccount.model.TransactionsModel;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -10,12 +10,16 @@ import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository
-public class User_DetailImpl implements User_DetailDAO {
+public class TransactionsImpl implements Transactions_DAO {
   private SqlSession sqlSession;
 
-  public User_DetailImpl() {
+  public TransactionsImpl() {
     Reader reader = null;
     try {
       reader = Resources.getResourceAsReader("mybatis-config.xml");
@@ -28,21 +32,24 @@ public class User_DetailImpl implements User_DetailDAO {
 
   @Override
   public void createTableIfNotExists() {
-    sqlSession.update("User_Detail.createTableIfNotExists");
+    sqlSession.update("Transactions.createTableIfNotExists");
     sqlSession.commit();
   }
 
   @Override
-  public int insert(User_DetailModel user_detailModel) {
-    int rowsAffected = sqlSession.insert("User_Detail.insert", user_detailModel);
-    sqlSession.commit();
-    return rowsAffected;
+  public int insert(TransactionsModel transactionsModel) {
+    return 0;
   }
 
   @Override
-  public User_DetailModel select(String Account_Number) {
-    User_DetailModel user_detailModel = sqlSession.selectOne("User_Detail.selectByAccountNumber", Account_Number);
+  public List<TransactionsModel> selectByStartEndDate(String source, LocalDate start, LocalDate end) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("Source", source);
+    params.put("Start", start);
+    params.put("End", end);
+
+    List<TransactionsModel> transactions = sqlSession.selectList("Transactions.selectByStartAndEndDate", params);
     sqlSession.commit();
-    return user_detailModel;
+    return transactions;
   }
 }
