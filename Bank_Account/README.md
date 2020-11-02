@@ -15,8 +15,8 @@
     - [x] INSERT INTO table `user_detail`
   - [x] Post `api/v1/login`
     - [x] Validate `storedhashed_pin` with `PIN` from @RequestBody
-  - [ ] Post `api/v1/token`
-    - [ ] Refresh Access Token
+  - [x] Post `api/v1/token`
+    - [x] Refresh Access Token
   - [ ] Get `api/v1/account`
     - [ ] Get Account Info By Account Number
   - [ ] Get `api/v1/history`
