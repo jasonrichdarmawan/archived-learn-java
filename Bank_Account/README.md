@@ -17,8 +17,8 @@
     - [x] Validate `storedhashed_pin` with `PIN` from @RequestBody
   - [x] Post `api/v1/token`
     - [x] Refresh Access Token
-  - [ ] Get `api/v1/account`
-    - [ ] Get Account Info By Account Number
+  - [x] Get `api/v1/account`
+    - [x] Get Account Info By Account Number
   - [ ] Get `api/v1/history`
     - [ ] Get Transactions History By Start and End Date
   - [ ] Post `api/v1/transaction`
