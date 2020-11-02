@@ -40,7 +40,12 @@ public class User_InfoImpl implements User_InfoDAO {
   }
 
   @Override
-  public User_InfoModel select(String User_ID) {
+  public User_InfoModel selectByUser_ID(String User_ID) {
     return sqlSession.selectOne("User_Info.selectByUser_ID", User_ID);
+  }
+
+  @Override
+  public User_InfoModel selectByAccount_Number(String Account_Number) {
+    return sqlSession.selectOne("User_Info.selectByAccount_Number", Account_Number);
   }
 }

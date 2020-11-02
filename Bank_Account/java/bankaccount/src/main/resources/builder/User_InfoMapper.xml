@@ -18,6 +18,9 @@
     <select id="selectByUser_ID" parameterType="String" resultType="com.example.bankaccount.model.User_InfoModel">
         SELECT * FROM user_info WHERE User_ID=#{User_ID}
     </select>
+    <select id="selectByAccount_Number" parameterType="String" resultType="com.example.bankaccount.model.User_InfoModel">
+        SELECT Full_Name, ISO_4217 FROM user_info WHERE Account_Number=#{Account_Number}
+    </select>
     <insert id="insertByUser_ID" parameterType="com.example.bankaccount.model.User_InfoModel">
         <selectKey order="AFTER" keyProperty="Account_Number" resultType="String">
             SELECT Account_Number FROM user_info WHERE User_ID=#{User_ID}

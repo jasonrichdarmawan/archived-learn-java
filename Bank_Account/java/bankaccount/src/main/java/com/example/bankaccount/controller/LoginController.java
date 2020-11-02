@@ -29,7 +29,7 @@ public class LoginController {
   @PostMapping("api/v1/login")
   public ResponseEntity<?> login(@RequestBody User_LoginModel user_loginModel) {
     if (this.user_login.login(user_loginModel)) {
-      User_InfoModel user_infoModel = this.user_info.select(user_loginModel.getUser_ID());
+      User_InfoModel user_infoModel = this.user_info.selectByUser_ID(user_loginModel.getUser_ID());
 
       String token = tokenService.generate(user_infoModel.getAccount_Number());
 
