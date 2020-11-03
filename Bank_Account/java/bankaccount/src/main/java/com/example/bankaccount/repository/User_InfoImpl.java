@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.List;
 
 @Repository
 public class User_InfoImpl implements User_InfoDAO {
@@ -51,5 +52,12 @@ public class User_InfoImpl implements User_InfoDAO {
     User_InfoModel user_infoModel = sqlSession.selectOne("User_Info.selectByAccount_Number", Account_Number);
     sqlSession.commit();
     return user_infoModel;
+  }
+
+  @Override
+  public List<String> getAccountNumbers() {
+    List<String> Account_Numbers = sqlSession.selectList("User_Info.getAccountNumbers");
+    sqlSession.commit();
+    return Account_Numbers;
   }
 }

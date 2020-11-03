@@ -38,7 +38,14 @@ public class StatementsImpl implements StatementsDAO {
 
   @Override
   public int insert(StatementsModel statementsModel) {
-    return 0;
+    int rowsAffected = 0;
+    try {
+      rowsAffected = sqlSession.insert("Statements.insert", statementsModel);
+    } catch (Exception e) {
+
+    }
+    sqlSession.commit();
+    return rowsAffected;
   }
 
   @Override

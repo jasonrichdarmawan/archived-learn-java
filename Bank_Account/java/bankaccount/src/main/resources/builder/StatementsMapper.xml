@@ -10,7 +10,8 @@
         `Month` char(2) NOT NULL,
         `Year` char(4) NOT NULL,
         `Ending_Balance` decimal(17,4) NOT NULL,
-        PRIMARY KEY (`ID`)
+        PRIMARY KEY (`ID`),
+        UNIQUE KEY `UC_Statement` (`Account_Number`,`Month`,`Year`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
     </update>
     <select id="selectByMonthAndYear" parameterType="map" resultType="BigDecimal">
@@ -18,4 +19,7 @@
         FROM statements
         WHERE Account_Number=#{Account_Number} AND Month=#{Month} AND Year=#{Year}
     </select>
+    <insert id="insert" parameterType="com.example.bankaccount.model.StatementsModel">
+        INSERT INTO statements (Account_Number, Month, Year, Ending_Balance) VALUES (#{Account_Number}, #{Month}, #{Year}, #{Ending_Balance})
+    </insert>
 </mapper>

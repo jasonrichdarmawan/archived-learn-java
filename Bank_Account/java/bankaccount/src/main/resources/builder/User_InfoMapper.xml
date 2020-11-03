@@ -27,4 +27,7 @@
         </selectKey>
         INSERT INTO user_info (User_ID, Account_Number, Full_Name, ISO_4217) VALUES (#{User_ID}, UUID_SHORT(), #{Full_Name}, #{ISO_4217})
     </insert>
+    <select id="getAccountNumbers" resultType="String">
+        SELECT Account_Number FROM user_info
+    </select>
 </mapper>

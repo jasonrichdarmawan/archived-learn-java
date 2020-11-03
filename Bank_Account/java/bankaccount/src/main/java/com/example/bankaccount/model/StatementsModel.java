@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 
 public class StatementsModel {
   private String Account_Number;
-  private String Month;
-  private String Year;
+  private int Month;
+  private int Year;
   private BigDecimal Ending_Balance;
 
-  public StatementsModel(String account_number, String month, String year, BigDecimal ending_balance) {
+  public StatementsModel(String account_number, int month, int year, BigDecimal ending_balance) {
     Account_Number = account_number;
     Month = month;
     Year = year;
@@ -19,11 +19,11 @@ public class StatementsModel {
     return Account_Number;
   }
 
-  public String getMonth() {
+  public int getMonth() {
     return Month;
   }
 
-  public String getYear() {
+  public int getYear() {
     return Year;
   }
 
