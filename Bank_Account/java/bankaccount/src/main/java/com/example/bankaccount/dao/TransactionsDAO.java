@@ -2,13 +2,14 @@ package com.example.bankaccount.dao;
 
 import com.example.bankaccount.model.TransactionsModel;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 public interface TransactionsDAO {
   void createTableIfNotExists();
 
-  int insert(TransactionsModel transactionsModel, String account_number);
+  int insert(TransactionsModel transactionsModel, BigDecimal current_balance, String account_number);
 
   List<TransactionsModel> selectByStartAndEndDate(String account_nubmer, LocalDate start, LocalDate end);
 

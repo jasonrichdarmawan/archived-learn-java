@@ -9,5 +9,5 @@ public interface StatementsDAO {
 
   int insert(StatementsModel statementsModel);
 
-  BigDecimal selectByMonthAndYear(String account_number, int previousmonth, int year);
+  BigDecimal selectOpeningBalanceByAccountNumber(String account_number);
 }

@@ -2,7 +2,6 @@ package com.example.bankaccount.repository;
 
 import com.example.bankaccount.dao.StatementsDAO;
 import com.example.bankaccount.model.StatementsModel;
-import com.example.bankaccount.model.TransactionsModel;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.io.IOException;
 import java.io.Reader;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,14 +42,22 @@ public class StatementsImpl implements StatementsDAO {
   }
 
   @Override
-  public BigDecimal selectByMonthAndYear(String account_number, int previousmonth, int year) {
+  public BigDecimal selectOpeningBalanceByAccountNumber(String account_number) {
+    LocalDate now = LocalDate.now();
+    int previousMonth = now.getMonthValue() - 1;
+    int year = now.getYear();
+    if (previousMonth == 0) {
+      previousMonth = 12;
+      year -= 1;
+    }
+
     Map<String, Object> params = new HashMap<>();
     params.put("Account_Number", account_number);
-    params.put("Month", previousmonth);
+    params.put("Month", previousMonth);
     params.put("Year", year);
 
     BigDecimal Ending_Balance = sqlSession.selectOne("Statements.selectByMonthAndYear", params);
     sqlSession.commit();
-    return Ending_Balance;
+    return Ending_Balance == null ? new BigDecimal(0) : Ending_Balance;
   }
 }

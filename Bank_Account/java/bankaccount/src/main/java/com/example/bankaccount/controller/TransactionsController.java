@@ -1,13 +1,16 @@
 package com.example.bankaccount.controller;
 
 import com.example.bankaccount.model.TransactionsModel;
+import com.example.bankaccount.repository.StatementsImpl;
 import com.example.bankaccount.repository.TransactionsImpl;
+import com.example.bankaccount.service.CurrentBalanceService;
 import com.example.bankaccount.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +23,9 @@ public class TransactionsController {
 
   @Autowired
   TransactionsImpl transactions;
+
+  @Autowired
+  CurrentBalanceService currentBalanceService;
 
   @GetMapping("api/v1/history")
   public ResponseEntity<?> getTransactions(@RequestHeader(value = "Authorization") String Authorization, @RequestBody Map json) {
@@ -51,7 +57,8 @@ public class TransactionsController {
 
     if (isVerified) {
       String Account_Number = (String) this.tokenService.getClaim(token, "Account_Number");
-      int rowsAffected = this.transactions.insert(transactionsModel, Account_Number);
+      BigDecimal Current_Balance = this.currentBalanceService.getCurrentBalanceByAccountNumber(Account_Number);
+      int rowsAffected = this.transactions.insert(transactionsModel, Current_Balance, Account_Number);
       if (rowsAffected == 1) {
         Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("message_code", 201);
@@ -69,6 +76,26 @@ public class TransactionsController {
       responseBody.put("message", "Unauthorized");
       return new ResponseEntity<>(responseBody, HttpStatus.UNAUTHORIZED);
     }
+  }
 
+  @GetMapping("api/v1/balance")
+  public ResponseEntity<?> getCurrentBalance(@RequestHeader(value = "Authorization") String Authorization) {
+    String token = Authorization.split(" ")[1];
+    boolean isVerified = this.tokenService.verify(token);
+
+    if (isVerified) {
+      String Account_Number = (String) this.tokenService.getClaim(token, "Account_Number");
+      BigDecimal Current_Balance = this.currentBalanceService.getCurrentBalanceByAccountNumber(Account_Number);
+      Map<String, Object> responseBody = new HashMap<>();
+      responseBody.put("message_code", 200);
+      responseBody.put("message", "OK");
+      responseBody.put("balance", Current_Balance);
+      return new ResponseEntity<>(responseBody, HttpStatus.OK);
+    } else {
+      Map<String, Object> responseBody = new HashMap<>();
+      responseBody.put("message_code", 401);
+      responseBody.put("message", "Unauthorized");
+      return new ResponseEntity<>(responseBody, HttpStatus.UNAUTHORIZED);
+    }
   }
 }
