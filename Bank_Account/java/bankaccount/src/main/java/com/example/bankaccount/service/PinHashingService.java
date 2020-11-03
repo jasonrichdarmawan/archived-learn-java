@@ -3,12 +3,10 @@ package com.example.bankaccount.service;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.math.BigInteger;
-import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
-import java.util.Arrays;
 
 public class PinHashingService {
   /**
@@ -85,7 +83,7 @@ public class PinHashingService {
      * 4. difference |= hash[i] ^ Hashed_PIN[i]
      *    => a += b + c, sama seperti: a = a + b + c
      *    => difference = difference | hash[i] ^ Hashed_PIN[i]
-     *    => urutan: difference = ( difference | hash[i] ) | Hashed_PIN[i]
+     *    => urutan: difference = ( difference | hash[i] ) ^ Hashed_PIN[i]
      *
      * Pusing? pakai Arrays.equals(byte[], byte[]); kelar.
      */
