@@ -41,7 +41,7 @@ public class TransactionsImpl implements TransactionsDAO {
 
   @Override
   public int insert(TransactionsModel transactionsModel, BigDecimal current_balance, String account_number) {
-    if (current_balance.compareTo(transactionsModel.getTransaction_Value()) >= 0) {
+    if (current_balance.compareTo(transactionsModel.getTransaction_Value()) >= 0 && transactionsModel.getTransaction_Value().compareTo(BigDecimal.ZERO) > 0) {
       transactionsModel.setDate();
       transactionsModel.setSource(account_number);
       int rowsAffected = sqlSession.insert("Transactions.insert", transactionsModel);
