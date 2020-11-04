@@ -12,12 +12,14 @@ import com.example.bankaccount.service.GenerateUser_IDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 @RestController
 public class RegisterController {
@@ -37,8 +39,21 @@ public class RegisterController {
   @Autowired
   TokenService tokenService;
 
+  @CrossOrigin("http://localhost:3000")
   @PostMapping("api/v1/register")
   public ResponseEntity<?> register(@RequestBody RegisterUserModel registerUserModel) {
+    // bug prevention: 1st and 2nd name equals to minimum 8 letters to 35 letters.
+    try {
+      if (!Pattern.matches("\\s*(?:[a-zA-Z]\\s*){8,35}$", registerUserModel.getFull_Name())) {
+        Map<String, Object> responseBody = new HashMap<>();
+        responseBody.put("message_code", 400);
+        responseBody.put("message", "Bad Request");
+        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+      }
+    } catch (ArrayIndexOutOfBoundsException e) {
+
+    }
+
     String User_ID = null;
     if (registerUserModel.getUser_ID() == null) {
       User_ID = this.generateUser_idService.generate(registerUserModel.getFull_Name(), registerUserModel.getBirth_Date());

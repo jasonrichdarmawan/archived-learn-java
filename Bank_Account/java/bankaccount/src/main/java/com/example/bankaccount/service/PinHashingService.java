@@ -27,7 +27,6 @@ public class PinHashingService {
     byte[] Hashed_PIN = new byte[0];
     try {
       Hashed_PIN = secretKeyFactory.generateSecret(keySpec).getEncoded();
-      System.out.println(Hashed_PIN.length);
     } catch (InvalidKeySpecException e) {
       e.printStackTrace();
     }
