@@ -1,3 +1,23 @@
+div {
+  padding: 10px
+}
+p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.color-blue {
+  color: blue;
+}
+
+.color-orange {
+  color: orange;
+}
+
+.underline {
+  text-decoration: underline
+}
+
 label {
   margin: 10px;
 }

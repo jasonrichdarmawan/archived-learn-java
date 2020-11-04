@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { loginAsync } from "../../features/authorization/authorizationSlice";
 import "./login.css";
 
-export function Login() {
+export default function Login() {
   const [User_ID, setUser_ID] = useState<string>("");
   const [PIN, setPIN] = useState<number | string>("");
 

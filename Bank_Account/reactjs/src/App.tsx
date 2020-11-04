@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -6,8 +6,6 @@ import {
   logout,
   selectIsLoggedIn,
 } from "./features/authorization/authorizationSlice";
-import { Login } from "./components/login/login";
-import { Register } from "./components/register/register";
 import jwt_decode from "jwt-decode";
 
 function App() {
@@ -32,17 +30,36 @@ function App() {
     }
   }, [dispatch]);
 
+  function withSuspense(WrappedComponent: React.LazyExoticComponent<() => JSX.Element>) {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <WrappedComponent />
+      </Suspense>
+    );
+  }
+
+  const Register = lazy(() => import("./components/register/register"));
+  const Login = lazy(() => import("./components/login/login"));
+
   return (
     <Switch>
       {!isLoggedIn ? (
         <>
           <Switch>
-            <Route exact path="/register">
-              <Register />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
+            <Route
+              exact
+              path="/register"
+              render={() => (
+                withSuspense(Register)
+              )}
+            />
+            <Route
+              exact
+              path="/login"
+              render={() => (
+                withSuspense(Login)
+              )}
+            />
             <Route path="*">
               <Redirect to="/login" />
             </Route>

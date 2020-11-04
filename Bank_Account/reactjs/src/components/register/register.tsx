@@ -21,7 +21,7 @@ interface RegisterResponse {
   token?: string;
 }
 
-export function Register() {
+export default function Register() {
   const [state, setState] = React.useState<RegisterModel>({
     PIN: "",
     Full_Name: "",
