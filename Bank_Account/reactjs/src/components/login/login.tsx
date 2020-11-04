@@ -16,6 +16,7 @@ export function Login() {
 
   return (
     <div>
+      <p>Login</p>
       <form>
         <label>
           <p className="color-blue underline">Silahkan masukkan User ID Anda</p>
@@ -32,7 +33,7 @@ export function Login() {
           <p className="color-blue underline">
             Silahkan masukkan PIN Internet Banking Anda
           </p>
-          <p className="color-orange">Please enter Your Internet Banking PIn</p>
+          <p className="color-orange">Please enter Your Internet Banking PIN</p>
           <input
             type="password"
             value={PIN}
