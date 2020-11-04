@@ -37,9 +37,9 @@
       - [x] Credit: SELECT Transaction_Value FROM table `transactions` WHERE Destination=#{Account_Number}
 
 - FE: View
-  - [ ] Register
-  - [ ] Login
-  - [ ] Logout
-  - [ ] Get Transactions History By Start and End Date
-  - [ ] Transfer Betweeen Accounts
-  - [ ] Get Account Balance
+  - [ ] Register route: `/register`
+  - [ ] Login route: `/logout`
+  - [ ] Logout `button`
+  - [ ] Get Transactions History By Start and End Date route: `/history`
+  - [ ] Transfer Betweeen Accounts route: `/transfer`
+  - [ ] Get Account Balance route: `/balance`
