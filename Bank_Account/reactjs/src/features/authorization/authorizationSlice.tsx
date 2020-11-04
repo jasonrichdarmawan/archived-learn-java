@@ -33,7 +33,7 @@ export const loginAsync = (User_ID: string, PIN: number | string) => async (
   });
   await response.json().then((data) => {
     if (data.message_code === 200) {
-      sessionStorage.setItem("token", `Bearer + data.token`);
+      sessionStorage.setItem("token", data.token);
       dispatch(login());
     } else if (data.messagecode === 404) {
       // TODO
