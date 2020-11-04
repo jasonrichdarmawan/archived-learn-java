@@ -8,6 +8,7 @@ import com.example.bankaccount.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +27,7 @@ public class LoginController {
   @Autowired
   TokenService tokenService;
 
+  @CrossOrigin("http://localhost:3000")
   @PostMapping("api/v1/login")
   public ResponseEntity<?> login(@RequestBody User_LoginModel user_loginModel) {
     if (this.user_login.login(user_loginModel)) {
