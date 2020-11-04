@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginAsync } from "../features/authorization/authorizationSlice";
+import { loginAsync } from "../../features/authorization/authorizationSlice";
 import "./login.css";
 
 export function Login() {

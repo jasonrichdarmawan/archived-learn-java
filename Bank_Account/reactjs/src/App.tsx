@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login, selectIsLoggedIn } from "./features/authorization/authorizationSlice";
-import { Login } from "./components/login";
+import { Login } from "./components/login/login";
 
 function App() {
   const isLoggedIn = useSelector(selectIsLoggedIn);
