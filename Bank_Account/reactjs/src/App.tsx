@@ -20,7 +20,7 @@ function App() {
       if (decoded.exp - Date.now() / 1000 > 0) {
         dispatch(login());
       } else {
-        sessionStorage.removeItem("token");
+        sessionStorage.clear();
       }
 
       // auto logout
@@ -30,7 +30,9 @@ function App() {
     }
   }, [dispatch]);
 
-  function withSuspense(WrappedComponent: React.LazyExoticComponent<() => JSX.Element>) {
+  function withSuspense(
+    WrappedComponent: React.LazyExoticComponent<() => JSX.Element>
+  ) {
     return (
       <Suspense fallback={<div>Loading...</div>}>
         <WrappedComponent />
@@ -41,6 +43,8 @@ function App() {
   const Register = lazy(() => import("./components/register/register"));
   const Login = lazy(() => import("./components/login/login"));
 
+  const Home = lazy(() => import("./components/home/home"));
+
   return (
     <Switch>
       {!isLoggedIn ? (
@@ -49,17 +53,9 @@ function App() {
             <Route
               exact
               path="/register"
-              render={() => (
-                withSuspense(Register)
-              )}
+              render={() => withSuspense(Register)}
             />
-            <Route
-              exact
-              path="/login"
-              render={() => (
-                withSuspense(Login)
-              )}
-            />
+            <Route exact path="/login" render={() => withSuspense(Login)} />
             <Route path="*">
               <Redirect to="/login" />
             </Route>
@@ -67,6 +63,7 @@ function App() {
         </>
       ) : (
         <>
+          <Route exact path="/" render={() => withSuspense(Home)} />
           <Route path="*">
             <Redirect to="/" />
           </Route>

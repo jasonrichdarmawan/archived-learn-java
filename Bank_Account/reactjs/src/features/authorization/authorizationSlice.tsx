@@ -12,11 +12,20 @@ export const authorizationSlice = createSlice({
     },
     logout: (state) => {
       state.isLoggedIn = false;
+      sessionStorage.clear();
     },
   },
 });
 
 export const { login, logout } = authorizationSlice.actions;
+
+interface LoginResponse {
+  message_code: number;
+  message: string;
+  Full_Name: string;
+  token: string;
+  ISO_4217: string;
+}
 
 export const loginAsync = (User_ID: string, PIN: number | string) => async (
   dispatch: AppDispatch
@@ -31,11 +40,13 @@ export const loginAsync = (User_ID: string, PIN: number | string) => async (
       PIN,
     }),
   });
-  await response.json().then((data) => {
+  await response.json().then((data: LoginResponse) => {
     if (data.message_code === 200) {
       sessionStorage.setItem("token", data.token);
+      sessionStorage.setItem("Full_Name", data.Full_Name);
+      sessionStorage.setItem("ISO_4217", data.ISO_4217);
       dispatch(login());
-    } else if (data.messagecode === 404) {
+    } else if (data.message_code === 404) {
       // TODO
     }
   });
