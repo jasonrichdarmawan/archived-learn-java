@@ -31,7 +31,8 @@ public class TransactionsController {
   @Autowired
   CurrentBalanceService currentBalanceService;
 
-  @GetMapping("api/v1/history")
+  @CrossOrigin("http://localhost:3000")
+  @PostMapping("api/v1/history")
   public ResponseEntity<?> getTransactions(@RequestHeader(value = "Authorization") String Authorization, @RequestBody Map json) {
     String token = Authorization.split(" ")[1];
     boolean isVerified = this.tokenService.verify(token);
