@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginAsync } from "../../features/authorization/authorizationSlice";
-import "./login.css";
+import styles from "./login.module.css";
 
 export default function Login() {
   const [User_ID, setUser_ID] = useState<string>("");
@@ -25,12 +25,12 @@ export default function Login() {
   }
 
   return (
-    <div>
-      <p>Login</p>
+    <div className={styles.container}>
+      <p className={styles.text}>Login</p>
       <form onSubmit={handleLogin}>
         <label>
-          <p className="color-blue underline">Silahkan masukkan User ID Anda</p>
-          <p className="color-orange">Please enter Your User ID</p>
+          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>Silahkan masukkan User ID Anda</p>
+          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your User ID</p>
           <input
             type="text"
             value={User_ID}
@@ -43,10 +43,10 @@ export default function Login() {
         <br />
         <br />
         <label>
-          <p className="color-blue underline">
+          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>
             Silahkan masukkan PIN Internet Banking Anda
           </p>
-          <p className="color-orange">Please enter Your Internet Banking PIN</p>
+          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your Internet Banking PIN</p>
           <input
             type="password"
             value={PIN}

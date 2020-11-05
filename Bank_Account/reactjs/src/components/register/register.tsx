@@ -1,5 +1,5 @@
 import React from "react";
-import "./register.css";
+import styles from "./register.module.css";
 
 interface RegisterModel {
   PIN: number | string;
@@ -93,23 +93,23 @@ export default function Register() {
   }
 
   return (
-    <div>
-      <p>Register</p>
+    <div className={styles.container}>
+      <p className={styles.text}>Register</p>
 
       {Object.entries(info).length !== 0 && (
-        <div className="border">
-          <p>{info.message_code}</p>
-          <p>{info.message}</p>
+        <div className={[styles.container, styles.border].join(' ')}>
+          <p className={styles.text}>{info.message_code}</p>
+          <p className={styles.text}>{info.message}</p>
           {info.User_ID && <p>CREATED: {info.User_ID}</p>}
         </div>
       )}
 
       <form onSubmit={handleSubmit}>
         <label>
-          <p className="color-blue underline">
+          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>
             Silahkan masukkan PIN Internet Banking Anda
           </p>
-          <p className="color-orange">Please enter Your Internet Banking PIN</p>
+          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your Internet Banking PIN</p>
           <input
             name="PIN"
             value={state.PIN}
@@ -124,10 +124,10 @@ export default function Register() {
         <br />
 
         <label>
-          <p className="color-blue underline">
+          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>
             Silahkan masukkan Nama Lengkap Anda
           </p>
-          <p className="color-orange">Please enter Your Full Name</p>
+          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your Full Name</p>
           <input
             name="Full_Name"
             value={state.Full_Name}
@@ -142,10 +142,10 @@ export default function Register() {
         <br />
 
         <label>
-          <p className="color-blue underline">
+          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>
             Silahkan masukkan Tanggal Lahir Anda
           </p>
-          <p className="color-orange">Please enter Your Birth Date</p>
+          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your Birth Date</p>
           <input
             name="Birth_Date"
             value={state.Birth_Date}
@@ -158,8 +158,8 @@ export default function Register() {
         <br />
 
         <label>
-          <p className="color-blue underline">Silahkan pilih Mata Uang Anda</p>
-          <p className="color-orange">Please choose Your Currency</p>
+          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>Silahkan pilih Mata Uang Anda</p>
+          <p className={[styles.text, styles.colororange].join(' ')}>Please choose Your Currency</p>
           <select name="ISO_4217" required onChange={(e) => handleChange(e)}>
             <option></option>
             <option value={360}>IDR</option>
@@ -169,15 +169,17 @@ export default function Register() {
         <br />
 
         <label>
-          <p className="color-blue underline">
+          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>
             Silahkan masukkan Kecamatan Anda
           </p>
-          <p className="color-orange">Please enter Your District</p>
+          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your District</p>
           <input
             name="Address_3"
             value={state.Address_3}
             type="text"
             required
+            pattern="\s*(?:[a-zA-Z0-9]\s*){8,35}$"
+            title="Minimum name length is 8 letters to 35 letters"
             onChange={(e) => handleChange(e)}
           />
         </label>
@@ -185,15 +187,17 @@ export default function Register() {
         <br />
 
         <label>
-          <p className="color-blue underline">
+          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>
             Silahkan masukkan Kelurahan Anda
           </p>
-          <p className="color-orange">Please enter Your Sub-district</p>
+          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your Sub-district</p>
           <input
             name="Address_4"
             value={state.Address_4}
             type="text"
             required
+            pattern="\s*(?:[a-zA-Z0-9]\s*){8,35}$"
+            title="Minimum name length is 8 letters to 35 letters"
             onChange={(e) => handleChange(e)}
           />
         </label>
@@ -201,13 +205,15 @@ export default function Register() {
         <br />
 
         <label>
-          <p className="color-blue underline">Silahkan masukkan Alamat Anda</p>
-          <p className="color-orange">Please enter Your Address</p>
+          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>Silahkan masukkan Alamat Anda</p>
+          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your Address</p>
           <input
             name="Address_1"
             value={state.Address_1}
             type="text"
             required
+            pattern="\s*(?:[a-zA-Z0-9]\s*){8,35}$"
+            title="Minimum name length is 8 letters to 35 letters"
             onChange={(e) => handleChange(e)}
           />
         </label>
@@ -215,13 +221,15 @@ export default function Register() {
         <br />
 
         <label>
-          <p className="color-blue underline">Silahkan masukkan Kota Anda</p>
-          <p className="color-orange">Please enter Your City</p>
+          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>Silahkan masukkan Kota Anda</p>
+          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your City</p>
           <input
             name="Address_2"
             value={state.Address_2}
             type="text"
             required
+            pattern="\s*(?:[a-zA-Z0-9]\s*){8,35}$"
+            title="Minimum name length is 8 letters to 35 letters"
             onChange={(e) => handleChange(e)}
           />
         </label>
@@ -229,15 +237,17 @@ export default function Register() {
         <br />
 
         <label>
-          <p className="color-blue underline">
+          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>
             Silahkan masukkan Kode Pos Anda
           </p>
-          <p className="color-orange">Please enter Your Zip Code</p>
+          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your Zip Code</p>
           <input
             name="Zip_Code"
             value={state.Zip_Code}
             type="number"
             required
+            pattern="[0-9]{5}"
+            title="Minimum and Maximum Zip Code length is 5"
             onChange={(e) => handleChange(e)}
           />
         </label>
@@ -245,8 +255,8 @@ export default function Register() {
         <br />
 
         <label>
-          <p className="color-blue underline">Silahkan masukkan Negara Anda</p>
-          <p className="color-orange">Please enter Your Nationality</p>
+          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>Silahkan masukkan Negara Anda</p>
+          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your Nationality</p>
           <select name="ISO_3166_1" required onChange={(e) => handleChange(e)}>
             <option></option>
             <option value={360}>Indonesia</option>

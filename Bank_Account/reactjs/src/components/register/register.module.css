@@ -1,19 +1,28 @@
-div {
+.container {
   padding: 10px
 }
-p {
+
+.text {
   margin: 0;
   font-weight: bold;
 }
 
-.color-blue {
+.colorblue {
   color: blue;
 }
 
-.color-orange {
+.colororange {
   color: orange;
 }
 
 .underline {
   text-decoration: underline
+}
+
+label {
+  margin: 10px;
+}
+
+.border {
+  border: 1px solid #dddddd;
 }
