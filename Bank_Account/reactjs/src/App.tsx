@@ -43,7 +43,10 @@ function App() {
   const Register = lazy(() => import("./components/register/register"));
   const Login = lazy(() => import("./components/login/login"));
 
+  const TwoColumnsLayout = lazy(() => import("./layout/twocolumns/twocolumns"));
+
   const Home = lazy(() => import("./components/home/home"));
+  const History = lazy(() => import("./components/history/history"));
 
   return (
     <Switch>
@@ -63,7 +66,20 @@ function App() {
         </>
       ) : (
         <>
-          <Route exact path="/" render={() => withSuspense(Home)} />
+          <Route path="/">
+            <Suspense fallback="<div>Loading...</div>">
+              <TwoColumnsLayout>
+                <Switch>
+                  <Route exact path="/" render={() => withSuspense(Home)} />
+                  <Route
+                    exact
+                    path="/history"
+                    render={() => withSuspense(History)}
+                  />
+                </Switch>
+              </TwoColumnsLayout>
+            </Suspense>
+          </Route>
           <Route path="*">
             <Redirect to="/" />
           </Route>
