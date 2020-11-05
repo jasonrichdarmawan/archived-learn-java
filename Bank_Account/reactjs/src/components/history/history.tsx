@@ -130,6 +130,7 @@ function Transactions({ transactions }: { transactions: TransactionModel[] }) {
 export default function History() {
   const [isHistoryDisabled, setIsHistoryDisabled] = React.useState(true);
 
+  const Account_Number = sessionStorage.getItem("Account_Number");
   const ISO_4217 = sessionStorage.getItem("ISO_4217");
 
   const lang = {
@@ -146,14 +147,15 @@ export default function History() {
   };
 
   function getTransactions() {
-    setTransactions([
+    let data_Opening_Balance = 2000;
+    let data_transactions: TransactionModel[] = [
       {
         Date: "2020-11-05",
         Source: "98975915454758919",
         Destination: "2",
         Destination_Type: 1,
         Transaction_Value: 2000,
-        Ending_Balance: 2000 - 2000,
+        Ending_Balance: 0,
       },
       {
         Date: "2020-11-06",
@@ -161,9 +163,24 @@ export default function History() {
         Destination: "98975915454758919",
         Destination_Type: 1,
         Transaction_Value: 2000,
-        Ending_Balance: 0 + 2000,
+        Ending_Balance: 0,
       },
-    ]);
+    ];
+    data_transactions.forEach((transaction, index) => {
+      if (index === 0) {
+        data_transactions[index].Ending_Balance = data_Opening_Balance;
+      }
+      if (Account_Number === data_transactions[index].Source) {
+        data_transactions[index].Ending_Balance =
+          data_transactions[Math.max(0, index - 1)].Ending_Balance -
+          transaction.Transaction_Value;
+      } else if (Account_Number === data_transactions[index].Destination) {
+        data_transactions[index].Ending_Balance =
+          data_transactions[Math.max(0, index - 1)].Ending_Balance +
+          transaction.Transaction_Value;
+      }
+    });
+    setTransactions(data_transactions);
   }
 
   const [transactions, setTransactions] = React.useState<TransactionModel[]>(
