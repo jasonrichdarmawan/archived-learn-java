@@ -1,5 +1,6 @@
 package com.example.bankaccount.controller;
 
+import com.example.bankaccount.model.StatementsModel;
 import com.example.bankaccount.model.TransactionsModel;
 import com.example.bankaccount.repository.StatementsImpl;
 import com.example.bankaccount.repository.TransactionsImpl;
@@ -25,6 +26,9 @@ public class TransactionsController {
   TransactionsImpl transactions;
 
   @Autowired
+  StatementsImpl statements;
+
+  @Autowired
   CurrentBalanceService currentBalanceService;
 
   @GetMapping("api/v1/history")
@@ -39,6 +43,9 @@ public class TransactionsController {
 
       String Account_Number = (String) this.tokenService.getClaim(token, "Account_Number");
       List<TransactionsModel> transactions = this.transactions.selectByStartAndEndDate(Account_Number, LocalDate.parse((String) json.get("Start")), LocalDate.parse((String) json.get("End")));
+      BigDecimal Opening_Balance = this.statements.selectOpeningBalanceByAccountNumber(Account_Number);
+
+      responseBody.put("Opening_Balance", Opening_Balance);
       responseBody.put("transactions", transactions);
 
       return new ResponseEntity<>(responseBody, HttpStatus.OK);

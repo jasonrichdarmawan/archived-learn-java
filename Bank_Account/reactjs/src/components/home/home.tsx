@@ -1,7 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { logout } from "../../features/authorization/authorizationSlice";
 import styles from "./home.module.css";
 
 export default function Home() {

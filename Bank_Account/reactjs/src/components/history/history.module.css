@@ -1,0 +1,21 @@
+.flex {
+  display: flex;
+}
+
+.flexcolumn {
+  flex-direction: column;
+}
+
+.f1 {
+  flex: 1
+}
+
+.mright {
+  display:      block;
+  margin-left:  auto;
+  margin-right: 0;
+}
+
+.table {
+  width: 100%;
+}
