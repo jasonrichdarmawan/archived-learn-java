@@ -52,6 +52,7 @@ function App() {
   const Home = lazy(() => import("./components/home/home"));
   const History = lazy(() => import("./components/history/history"));
   const Transfer = lazy(() => import("./components/transfer/transfer"));
+  const Balance = lazy(() => import("./components/balance/balance"));
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -88,6 +89,11 @@ function App() {
                       exact
                       path="/transfer"
                       render={() => withSuspense(Transfer)}
+                    />
+                    <Route
+                      exact
+                      path="/balance"
+                      render={() => withSuspense(Balance)}
                     />
                     <Route>
                       <Redirect to="/" />

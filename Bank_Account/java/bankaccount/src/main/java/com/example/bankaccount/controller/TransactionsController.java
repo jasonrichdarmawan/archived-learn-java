@@ -121,6 +121,7 @@ public class TransactionsController {
     }
   }
 
+  @CrossOrigin("http://localhost:3000")
   @GetMapping("api/v1/balance")
   public ResponseEntity<?> getCurrentBalance(@RequestHeader(value = "Authorization") String Authorization) {
     String token = Authorization.split(" ")[1];
