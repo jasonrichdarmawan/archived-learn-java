@@ -13,8 +13,8 @@ export function historyValidator({
    *    a. Today === Start || Today === End
    *    b. Today < Start || Today < End
    *    c. Start > End
-   *    d. Today - Start > 30 days.
-   *    e. End - Start > 30 days
+   *    d. Today - Start < 30 days.
+   *    e. End - Start < 30 days
    * 4. verified
    */
   const Today = new Date(new Date().toISOString().split("T")[0]);
@@ -31,11 +31,11 @@ export function historyValidator({
     return false;
   }
 
-  if (Today.getTime() - Start.getTime() / (1000 * 3600 * 24) > 30) {
+  if (Today.getTime() - Start.getTime() / (1000 * 3600 * 24) < 30) {
     return false;
   }
 
-  if (End.getTime() - Start.getTime() / (1000 * 3600 * 24) > 30) {
+  if (End.getTime() - Start.getTime() / (1000 * 3600 * 24) < 30) {
     return false;
   }
 

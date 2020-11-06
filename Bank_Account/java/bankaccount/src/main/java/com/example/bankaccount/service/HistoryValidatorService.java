@@ -18,8 +18,8 @@ public class HistoryValidatorService {
      *    a. Today === Start || Today === End
      *    b. Today < Start || Today < End
      *    c. Start > End
-     *    d. Today - Start > 30 days.
-     *    e. End - Start > 30 days
+     *    d. Today - Start < 30 days.
+     *    e. End - Start < 30 days
      * 4. verified
      */
     LocalDate Today = LocalDate.now();

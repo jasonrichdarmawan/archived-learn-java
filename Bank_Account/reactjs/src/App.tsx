@@ -51,6 +51,7 @@ function App() {
 
   const Home = lazy(() => import("./components/home/home"));
   const History = lazy(() => import("./components/history/history"));
+  const Transfer = lazy(() => import("./components/transfer/transfer"));
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -82,6 +83,11 @@ function App() {
                       exact
                       path="/history/:Start?/:End?"
                       render={() => withSuspense(History)}
+                    />
+                    <Route
+                      exact
+                      path="/transfer"
+                      render={() => withSuspense(Transfer)}
                     />
                   </Switch>
                 </TwoColumnsLayout>
