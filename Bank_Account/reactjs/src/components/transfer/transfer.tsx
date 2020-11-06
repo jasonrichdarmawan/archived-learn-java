@@ -38,7 +38,7 @@ export default function Transfer() {
       setAccount_Info({});
       setValid(false);
     }
-  }, [destination]);
+  }, [Account_Number, destination]);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
