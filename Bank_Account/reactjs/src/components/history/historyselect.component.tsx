@@ -50,7 +50,7 @@ export default function HistorySelect({
     setState({ ...state, [e.target.name]: e.target.value });
   }
 
-  const [isHistoryDisabled, setIsHistoryDisabled] = React.useState(true);
+  // const [isHistoryDisabled, setIsHistoryDisabled] = React.useState(true);
 
   const [showError, setShowError] = React.useState("");
 
@@ -110,7 +110,7 @@ export default function HistorySelect({
     <>
       {showError !== "" && <p className={styles.red}>{showError}</p>}
       <p>{ISO_4217 === "360" && lang.ID.Intro.Period}</p>
-      <div>
+      {/* <div>
         <input
           type="radio"
           id="today"
@@ -120,7 +120,7 @@ export default function HistorySelect({
           onChange={() => setIsHistoryDisabled(!isHistoryDisabled)}
         />
         <label htmlFor="today">Hari Ini</label>
-      </div>
+      </div> */}
       <div className={styles.flex}>
         <div className={styles.f1}>
           <input
@@ -128,8 +128,9 @@ export default function HistorySelect({
             id="history"
             name="inputhistory"
             value="history"
-            checked={!isHistoryDisabled}
-            onChange={() => setIsHistoryDisabled(!isHistoryDisabled)}
+            checked
+            // checked={!isHistoryDisabled}
+            // onChange={() => setIsHistoryDisabled(!isHistoryDisabled)}
           />
           <label htmlFor="history">Histori</label>
         </div>
@@ -145,14 +146,14 @@ export default function HistorySelect({
         <input
           type="date"
           className={styles.f1}
-          disabled={isHistoryDisabled}
+          // disabled={isHistoryDisabled}
           name="StartCalendar"
           onChange={(e) => handleChange(e)}
         />
         <input
           type="date"
           className={styles.f1}
-          disabled={isHistoryDisabled}
+          // disabled={isHistoryDisabled}
           name="EndCalendar"
           onChange={(e) => handleChange(e)}
         />
