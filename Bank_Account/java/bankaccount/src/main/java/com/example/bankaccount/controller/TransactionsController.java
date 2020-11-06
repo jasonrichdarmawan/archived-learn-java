@@ -83,6 +83,7 @@ public class TransactionsController {
     }
   }
 
+  @CrossOrigin("http://localhost:3000")
   @PostMapping("api/v1/transaction")
   public ResponseEntity<?> transfer(@RequestHeader(value = "Authorization") String Authorization, @RequestBody TransactionsModel transactionsModel) {
     String token = Authorization.split(" ")[1];
@@ -90,6 +91,15 @@ public class TransactionsController {
 
     if (isVerified) {
       String Account_Number = (String) this.tokenService.getClaim(token, "Account_Number");
+
+      // prevent bug
+      if (Account_Number.equals(transactionsModel.getDestination())) {
+        Map<String, Object> responseBody = new HashMap<>();
+        responseBody.put("message_code", 400);
+        responseBody.put("message", "Bad Request");
+        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+      }
+
       BigDecimal Current_Balance = this.currentBalanceService.getCurrentBalanceByAccountNumber(Account_Number);
       int rowsAffected = this.transactions.insert(transactionsModel, Current_Balance, Account_Number);
       if (rowsAffected == 1) {

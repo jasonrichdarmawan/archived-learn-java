@@ -129,6 +129,7 @@ export default function HistorySelect({
             name="inputhistory"
             value="history"
             checked
+            readOnly
             // checked={!isHistoryDisabled}
             // onChange={() => setIsHistoryDisabled(!isHistoryDisabled)}
           />

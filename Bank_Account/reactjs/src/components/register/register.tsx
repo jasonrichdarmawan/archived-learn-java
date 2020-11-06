@@ -1,25 +1,9 @@
 import React from "react";
 import styles from "./register.module.css";
-
-interface RegisterModel {
-  PIN: number | string;
-  Full_Name: string;
-  Birth_Date: string;
-  ISO_4217: number | string;
-  Address_3: string;
-  Address_4: string;
-  Address_1: string;
-  Address_2: string;
-  Zip_Code: number | string;
-  ISO_3166_1: number | string;
-}
-
-interface RegisterResponse {
-  message_code?: number;
-  message?: string;
-  User_ID?: string;
-  token?: string;
-}
+import postRegister, {
+  RegisterModel,
+  RegisterResponse,
+} from "./register.service";
 
 export default function Register() {
   const [state, setState] = React.useState<RegisterModel>({
@@ -66,18 +50,11 @@ export default function Register() {
     }
   }
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     e.stopPropagation();
 
-    const response = await fetch("http://localhost:8080/api/v1/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(state),
-    });
-    await response.json().then((data: RegisterResponse) => {
+    postRegister(state).then((data) => {
       if (data.message_code === 201) {
         sessionStorage.setItem("token", `Bearer + data.token`);
         setInfo({
@@ -97,7 +74,7 @@ export default function Register() {
       <p className={styles.text}>Register</p>
 
       {Object.entries(info).length !== 0 && (
-        <div className={[styles.container, styles.border].join(' ')}>
+        <div className={[styles.container, styles.border].join(" ")}>
           <p className={styles.text}>{info.message_code}</p>
           <p className={styles.text}>{info.message}</p>
           {info.User_ID && <p>CREATED: {info.User_ID}</p>}
@@ -106,10 +83,16 @@ export default function Register() {
 
       <form onSubmit={handleSubmit}>
         <label>
-          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>
+          <p
+            className={[styles.text, styles.colorblue, styles.underline].join(
+              " "
+            )}
+          >
             Silahkan masukkan PIN Internet Banking Anda
           </p>
-          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your Internet Banking PIN</p>
+          <p className={[styles.text, styles.colororange].join(" ")}>
+            Please enter Your Internet Banking PIN
+          </p>
           <input
             name="PIN"
             value={state.PIN}
@@ -124,10 +107,16 @@ export default function Register() {
         <br />
 
         <label>
-          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>
+          <p
+            className={[styles.text, styles.colorblue, styles.underline].join(
+              " "
+            )}
+          >
             Silahkan masukkan Nama Lengkap Anda
           </p>
-          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your Full Name</p>
+          <p className={[styles.text, styles.colororange].join(" ")}>
+            Please enter Your Full Name
+          </p>
           <input
             name="Full_Name"
             value={state.Full_Name}
@@ -142,10 +131,16 @@ export default function Register() {
         <br />
 
         <label>
-          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>
+          <p
+            className={[styles.text, styles.colorblue, styles.underline].join(
+              " "
+            )}
+          >
             Silahkan masukkan Tanggal Lahir Anda
           </p>
-          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your Birth Date</p>
+          <p className={[styles.text, styles.colororange].join(" ")}>
+            Please enter Your Birth Date
+          </p>
           <input
             name="Birth_Date"
             value={state.Birth_Date}
@@ -158,8 +153,16 @@ export default function Register() {
         <br />
 
         <label>
-          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>Silahkan pilih Mata Uang Anda</p>
-          <p className={[styles.text, styles.colororange].join(' ')}>Please choose Your Currency</p>
+          <p
+            className={[styles.text, styles.colorblue, styles.underline].join(
+              " "
+            )}
+          >
+            Silahkan pilih Mata Uang Anda
+          </p>
+          <p className={[styles.text, styles.colororange].join(" ")}>
+            Please choose Your Currency
+          </p>
           <select name="ISO_4217" required onChange={(e) => handleChange(e)}>
             <option></option>
             <option value={360}>IDR</option>
@@ -169,10 +172,16 @@ export default function Register() {
         <br />
 
         <label>
-          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>
+          <p
+            className={[styles.text, styles.colorblue, styles.underline].join(
+              " "
+            )}
+          >
             Silahkan masukkan Kecamatan Anda
           </p>
-          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your District</p>
+          <p className={[styles.text, styles.colororange].join(" ")}>
+            Please enter Your District
+          </p>
           <input
             name="Address_3"
             value={state.Address_3}
@@ -187,10 +196,16 @@ export default function Register() {
         <br />
 
         <label>
-          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>
+          <p
+            className={[styles.text, styles.colorblue, styles.underline].join(
+              " "
+            )}
+          >
             Silahkan masukkan Kelurahan Anda
           </p>
-          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your Sub-district</p>
+          <p className={[styles.text, styles.colororange].join(" ")}>
+            Please enter Your Sub-district
+          </p>
           <input
             name="Address_4"
             value={state.Address_4}
@@ -205,8 +220,16 @@ export default function Register() {
         <br />
 
         <label>
-          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>Silahkan masukkan Alamat Anda</p>
-          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your Address</p>
+          <p
+            className={[styles.text, styles.colorblue, styles.underline].join(
+              " "
+            )}
+          >
+            Silahkan masukkan Alamat Anda
+          </p>
+          <p className={[styles.text, styles.colororange].join(" ")}>
+            Please enter Your Address
+          </p>
           <input
             name="Address_1"
             value={state.Address_1}
@@ -221,8 +244,16 @@ export default function Register() {
         <br />
 
         <label>
-          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>Silahkan masukkan Kota Anda</p>
-          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your City</p>
+          <p
+            className={[styles.text, styles.colorblue, styles.underline].join(
+              " "
+            )}
+          >
+            Silahkan masukkan Kota Anda
+          </p>
+          <p className={[styles.text, styles.colororange].join(" ")}>
+            Please enter Your City
+          </p>
           <input
             name="Address_2"
             value={state.Address_2}
@@ -237,10 +268,16 @@ export default function Register() {
         <br />
 
         <label>
-          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>
+          <p
+            className={[styles.text, styles.colorblue, styles.underline].join(
+              " "
+            )}
+          >
             Silahkan masukkan Kode Pos Anda
           </p>
-          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your Zip Code</p>
+          <p className={[styles.text, styles.colororange].join(" ")}>
+            Please enter Your Zip Code
+          </p>
           <input
             name="Zip_Code"
             value={state.Zip_Code}
@@ -255,8 +292,16 @@ export default function Register() {
         <br />
 
         <label>
-          <p className={[styles.text, styles.colorblue, styles.underline].join(' ')}>Silahkan masukkan Negara Anda</p>
-          <p className={[styles.text, styles.colororange].join(' ')}>Please enter Your Nationality</p>
+          <p
+            className={[styles.text, styles.colorblue, styles.underline].join(
+              " "
+            )}
+          >
+            Silahkan masukkan Negara Anda
+          </p>
+          <p className={[styles.text, styles.colororange].join(" ")}>
+            Please enter Your Nationality
+          </p>
           <select name="ISO_3166_1" required onChange={(e) => handleChange(e)}>
             <option></option>
             <option value={360}>Indonesia</option>

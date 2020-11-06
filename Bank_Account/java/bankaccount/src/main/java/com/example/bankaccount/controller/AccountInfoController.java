@@ -7,13 +7,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 @RestController
 public class AccountInfoController {
@@ -23,13 +21,21 @@ public class AccountInfoController {
   @Autowired
   TokenService tokenService;
 
-  @GetMapping("api/v1/account")
-  public ResponseEntity<?> getAccountInfoByAccount_Number(@RequestHeader(value = "Authorization") String Authorization, @RequestBody Map json) {
+  @CrossOrigin("http://localhost:3000")
+  @GetMapping("api/v1/account/{Account_Number}")
+  public ResponseEntity<?> getAccountInfoByAccount_Number(@RequestHeader(value = "Authorization") String Authorization, @PathVariable("Account_Number") String Account_Number) {
     String token = Authorization.split(" ")[1];
     boolean isVerified = this.tokenService.verify(token);
 
+    // expensive query prevention;
+    if (!Pattern.matches("[0-9]{17}", Account_Number)) {
+      Map<String, Object> responseBody = new HashMap<>();
+      responseBody.put("message_code", 404);
+      responseBody.put("message", "NOT_FOUND");
+      return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+    }
+
     if (isVerified) {
-      String Account_Number = (String) json.get("Account_Number");
       User_InfoModel user_infoModel = this.user_info.selectByAccount_Number(Account_Number);
 
       if (user_infoModel != null) {
