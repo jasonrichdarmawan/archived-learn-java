@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./history.module.css";
-import { TransactionModel } from "./historyService";
+import { TransactionModel } from "./history.service";
 
 export default function Transactions({ transactions }: { transactions: TransactionModel[] }) {
   const Account_Number = sessionStorage.getItem("Account_Number");

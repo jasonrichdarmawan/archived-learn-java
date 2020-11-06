@@ -9,6 +9,8 @@ import {
 import jwt_decode from "jwt-decode";
 
 function App() {
+  const [isLoading, setIsLoading] = React.useState(true);
+
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch();
 
@@ -28,6 +30,8 @@ function App() {
         dispatch(logout());
       }, decoded.exp * 1000 - Date.now());
     }
+
+    setIsLoading(false);
   }, [dispatch]);
 
   function withSuspense(
@@ -48,8 +52,10 @@ function App() {
   const Home = lazy(() => import("./components/home/home"));
   const History = lazy(() => import("./components/history/history"));
 
+  if (isLoading) return <div>Loading...</div>;
+
   return (
-    <Switch>
+    <>
       {!isLoggedIn ? (
         <>
           <Switch>
@@ -66,26 +72,25 @@ function App() {
         </>
       ) : (
         <>
-          <Route path="/">
-            <Suspense fallback="<div>Loading...</div>">
-              <TwoColumnsLayout>
-                <Switch>
-                  <Route exact path="/" render={() => withSuspense(Home)} />
-                  <Route
-                    exact
-                    path="/history"
-                    render={() => withSuspense(History)}
-                  />
-                </Switch>
-              </TwoColumnsLayout>
-            </Suspense>
-          </Route>
-          <Route path="*">
-            <Redirect to="/" />
-          </Route>
+          <Switch>
+            <Route path="/">
+              <Suspense fallback="<div>Loading...</div>">
+                <TwoColumnsLayout>
+                  <Switch>
+                    <Route exact path="/" render={() => withSuspense(Home)} />
+                    <Route
+                      exact
+                      path="/history/:Start?/:End?"
+                      render={() => withSuspense(History)}
+                    />
+                  </Switch>
+                </TwoColumnsLayout>
+              </Suspense>
+            </Route>
+          </Switch>
         </>
       )}
-    </Switch>
+    </>
   );
 }
 

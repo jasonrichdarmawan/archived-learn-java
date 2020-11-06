@@ -1,7 +1,7 @@
 import React from "react";
-import HistorySelect from "./historyselectComponent";
-import { TransactionModel } from "./historyService";
-import Transactions from "./transactionsComponent";
+import HistorySelect from "./historyselect.component";
+import { TransactionModel } from "./history.service";
+import Transactions from "./transactions.component";
 
 export default function History() {
   const [isTransactionsShown, setIsTransactionsShown] = React.useState(false);
@@ -9,6 +9,10 @@ export default function History() {
   const [transactions, setTransactions] = React.useState<TransactionModel[]>(
     []
   );
+
+  React.useEffect(() => {
+
+  }, [isTransactionsShown])
 
   return (
     <>

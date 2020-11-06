@@ -1,12 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
 import { logout } from "../../features/authorization/authorizationSlice";
 import styles from "./twocolumns.module.css";
 
-
 interface ChildrenProps {
-  children: JSX.Element
+  children: JSX.Element;
 }
 
 export default function TwoColumns(props: ChildrenProps): JSX.Element {
@@ -32,25 +30,17 @@ export default function TwoColumns(props: ChildrenProps): JSX.Element {
         <div className={styles.nav}>
           <ul>
             <li>
-              <NavLink to="/history">
-                {ISO_4217 === "360" && lang.ID.History}
-              </NavLink>
+              <a href="/history">{ISO_4217 === "360" && lang.ID.History}</a>
             </li>
             <li>
-              <NavLink to="/transfer">
-                {ISO_4217 === "360" && lang.ID.Transfer}
-              </NavLink>
+              <a href="/transfer">{ISO_4217 === "360" && lang.ID.Transfer}</a>
             </li>
             <li>
-              <NavLink to="/balance">
-                {ISO_4217 === "360" && lang.ID.Balance}
-              </NavLink>
+              <a href="/balance">{ISO_4217 === "360" && lang.ID.Balance}</a>
             </li>
           </ul>
         </div>
-        <div className={styles.article}>
-          {props.children}
-        </div>
+        <div className={styles.article}>{props.children}</div>
       </div>
     </div>
   );

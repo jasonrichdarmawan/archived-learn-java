@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -32,8 +33,21 @@ public class TransactionsController {
   CurrentBalanceService currentBalanceService;
 
   @CrossOrigin("http://localhost:3000")
-  @PostMapping("api/v1/history")
-  public ResponseEntity<?> getTransactions(@RequestHeader(value = "Authorization") String Authorization, @RequestBody Map json) {
+  @GetMapping("api/v1/history/{Start}/{End}")
+  public ResponseEntity<?> getTransactions(@RequestHeader(value = "Authorization") String Authorization, @PathVariable("Start") String start, @PathVariable("End") String end) {
+    // bug prevention
+    LocalDate Start = null;
+    LocalDate End = null;
+    try {
+      Start = LocalDate.parse(start);
+      End = LocalDate.parse(end);
+    } catch (DateTimeParseException e) {
+      Map<String, Object> responseBody = new HashMap<>();
+      responseBody.put("message_code", 400);
+      responseBody.put("message", e.getMessage());
+      return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+    }
+
     String token = Authorization.split(" ")[1];
     boolean isVerified = this.tokenService.verify(token);
 
@@ -43,7 +57,7 @@ public class TransactionsController {
       responseBody.put("message", "OK");
 
       String Account_Number = (String) this.tokenService.getClaim(token, "Account_Number");
-      List<TransactionsModel> transactions = this.transactions.selectByStartAndEndDate(Account_Number, LocalDate.parse((String) json.get("Start")), LocalDate.parse((String) json.get("End")));
+      List<TransactionsModel> transactions = this.transactions.selectByStartAndEndDate(Account_Number, Start, End);
       BigDecimal Opening_Balance = this.statements.selectOpeningBalanceByAccountNumber(Account_Number);
 
       responseBody.put("Opening_Balance", Opening_Balance);
@@ -74,8 +88,8 @@ public class TransactionsController {
         return new ResponseEntity<>(responseBody, HttpStatus.CREATED);
       } else {
         Map<String, Object> responseBody = new HashMap<>();
-        responseBody.put("message_code", 401);
-        responseBody.put("message", "Unauthorized");
+        responseBody.put("message_code", 402);
+        responseBody.put("message", "Payment Required");
         return new ResponseEntity<>(responseBody, HttpStatus.UNAUTHORIZED);
       }
     } else {

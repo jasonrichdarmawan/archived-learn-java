@@ -1,4 +1,4 @@
-export interface getTransactionsRequestBody {
+export interface getTransactionsPathVariable {
   Start: string;
   End: string;
 }
@@ -22,17 +22,13 @@ export interface getTransactionsResponseBody {
 export default async function getTransactions({
   Start,
   End,
-}: getTransactionsRequestBody) {
-  const response = await fetch("http://localhost:8080/api/v1/history", {
-    method: "POST",
+}: getTransactionsPathVariable) {
+  const response = await fetch(`http://localhost:8080/api/v1/history/${Start}/${End}`, {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${sessionStorage.getItem("token")}`,
     },
-    body: JSON.stringify({
-      Start,
-      End,
-    }),
   });
   return await response
     .json()
