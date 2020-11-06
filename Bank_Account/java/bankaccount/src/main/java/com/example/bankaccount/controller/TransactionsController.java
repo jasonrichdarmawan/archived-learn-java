@@ -1,10 +1,10 @@
 package com.example.bankaccount.controller;
 
-import com.example.bankaccount.model.StatementsModel;
 import com.example.bankaccount.model.TransactionsModel;
 import com.example.bankaccount.repository.StatementsImpl;
 import com.example.bankaccount.repository.TransactionsImpl;
 import com.example.bankaccount.service.CurrentBalanceService;
+import com.example.bankaccount.service.HistoryValidatorService;
 import com.example.bankaccount.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +32,9 @@ public class TransactionsController {
   @Autowired
   CurrentBalanceService currentBalanceService;
 
+  @Autowired
+  HistoryValidatorService historyValidatorService;
+
   @CrossOrigin("http://localhost:3000")
   @GetMapping("api/v1/history/{Start}/{End}")
   public ResponseEntity<?> getTransactions(@RequestHeader(value = "Authorization") String Authorization, @PathVariable("Start") String start, @PathVariable("End") String end) {
@@ -41,10 +44,18 @@ public class TransactionsController {
     try {
       Start = LocalDate.parse(start);
       End = LocalDate.parse(end);
+//      System.out.println(start + end + Start + End);
     } catch (DateTimeParseException e) {
       Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 400);
       responseBody.put("message", e.getMessage());
+      return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+    }
+
+    if (!historyValidatorService.validate(Start, End)) {
+      Map<String, Object> responseBody = new HashMap<>();
+      responseBody.put("message_code", 400);
+      responseBody.put("message", "Bad Requet");
       return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
     }
 

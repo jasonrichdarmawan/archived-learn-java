@@ -5,6 +5,7 @@ import getTransactions, {
 } from "./history.service";
 import styles from "./history.module.css";
 import { NavLink, useParams } from "react-router-dom";
+import { historyValidator } from "./history.validator";
 
 interface HistorySelectInterface {
   setTransactions: React.Dispatch<React.SetStateAction<TransactionModel[]>>;
@@ -27,7 +28,12 @@ export default function HistorySelect({
       TransactionType: {
         All: "Semua Transaksi",
       },
-      Note: "Catatan : Histori transaksi maksimal 31 hari yang lalu.",
+      Note: "Catatan : Histori transaksi maksimal 30 hari yang lalu.",
+      Submit: "Kirim",
+      Error: {
+        FormatDate: "Format tanggal salah. Format tanggal: yyyy-mm-dd",
+        MaxDaysBetween: "Histori transaksi maksimal 30 hari yang lalu.",
+      },
     },
   };
 
@@ -46,7 +52,10 @@ export default function HistorySelect({
 
   const [isHistoryDisabled, setIsHistoryDisabled] = React.useState(true);
 
+  const [showError, setShowError] = React.useState("");
+
   const { Start, End } = useParams<getTransactionsPathVariable>();
+
   React.useEffect(() => {
     function handleGetTransactions({
       Start,
@@ -73,22 +82,33 @@ export default function HistorySelect({
     }
 
     const DatePattern = new RegExp("[0-9]{4}-[0-9]{2}-[0-9]{2}");
-    if (
-      DatePattern.test(Start) &&
-      DatePattern.test(End) &&
-      parseInt(End.split("-")[2]) - parseInt(Start.split("-")[2]) >= 0
-    ) {
-      /**
-       * bug prevention, user manually request for example:
-       * 1. /2020-11-2/2020-11-6
-       * 2. /2020-11-06/2020-11-05
-       */
-      handleGetTransactions({ Start, End });
+    /**
+     * bug prevention, user manually request for example:
+     * 1. /2020-11-2/2020-11-6
+     * 2. /2020-11-06/2020-11-05
+     */
+    if (DatePattern.test(Start) && DatePattern.test(End)) {
+      if (historyValidator({ Start: new Date(Start), End: new Date(End) })) {
+        handleGetTransactions({ Start, End });
+      } else {
+        setShowError(lang.ID.Error.MaxDaysBetween);
+      }
+    } else if (Start != null && End != null) {
+      setShowError(lang.ID.Error.FormatDate);
     }
-  }, [Start, End, setTransactions, setIsTransactionsShown, Account_Number]);
+  }, [
+    Start,
+    End,
+    setTransactions,
+    setIsTransactionsShown,
+    Account_Number,
+    lang.ID.Error.MaxDaysBetween,
+    lang.ID.Error.FormatDate,
+  ]);
 
   return (
     <>
+      {showError !== "" && <p className={styles.red}>{showError}</p>}
       <p>{ISO_4217 === "360" && lang.ID.Intro.Period}</p>
       <div>
         <input
@@ -156,7 +176,9 @@ export default function HistorySelect({
           state.StartCalendar !== null ? state.StartCalendar : today
         }/${state.EndCalendar !== null ? state.EndCalendar : today}`}
       >
-        <button className={styles.mright}>Kirim</button>
+        <button className={styles.mright}>
+          {ISO_4217 === "360" && lang.ID.Submit}
+        </button>
       </NavLink>
     </>
   );
