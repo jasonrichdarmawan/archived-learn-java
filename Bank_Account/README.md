@@ -41,5 +41,5 @@
   - [x] Login route: `/logout`
   - [x] Logout `button`
   - [x] Get Transactions History By Start and End Date route: `/history`
-  - [ ] Transfer Betweeen Accounts route: `/transfer`
-  - [ ] Get Account Balance route: `/balance`
+  - [x] Transfer Betweeen Accounts route: `/transfer`
+  - [x] Get Account Balance route: `/balance`
