@@ -66,7 +66,7 @@ function App() {
               render={() => withSuspense(Register)}
             />
             <Route exact path="/login" render={() => withSuspense(Login)} />
-            <Route path="*">
+            <Route>
               <Redirect to="/login" />
             </Route>
           </Switch>
@@ -89,6 +89,9 @@ function App() {
                       path="/transfer"
                       render={() => withSuspense(Transfer)}
                     />
+                    <Route>
+                      <Redirect to="/" />
+                    </Route>
                   </Switch>
                 </TwoColumnsLayout>
               </Suspense>
