@@ -2,6 +2,7 @@ package com.example.bankaccount.controller.admin;
 
 import com.example.bankaccount.model.TransactionsModel;
 import com.example.bankaccount.model.admin.Admin_TransactionsModel;
+import com.example.bankaccount.repository.User_InfoImpl;
 import com.example.bankaccount.repository.admin.Admin_LoginImpl;
 import com.example.bankaccount.repository.admin.Admin_TransactionsImpl;
 import com.example.bankaccount.service.TokenService;
@@ -28,6 +29,9 @@ public class AdminTransactionsController {
   @Autowired
   TransferService transferService;
 
+  @Autowired
+  User_InfoImpl user_info;
+
   @CrossOrigin("http://localhost:3000")
   @PostMapping("api/v1/admin/transaction")
   public ResponseEntity<?> transfer(@RequestHeader(value = "Authorization") String Authorization, @RequestBody Admin_TransactionsModel admin_transactionsModel) {
@@ -51,6 +55,16 @@ public class AdminTransactionsController {
       if (!admin_login.exist(User_ID)) {
         responseBody.put("message_code", 404);
         responseBody.put("message", "NOT_FOUND");
+
+        return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+      }
+
+      /**
+       * bug prevention: prevent transfering to account that does not exist.
+       */
+      if (!this.user_info.isAccount_NumberExists(admin_transactionsModel.getDestination())) {
+        responseBody.put("message_code", 404);
+        responseBody.put("message", "NOT FOUND");
 
         return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
       }
