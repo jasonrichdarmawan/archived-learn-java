@@ -43,3 +43,19 @@
   - [x] Get Transactions History By Start and End Date route: `/history`
   - [x] Transfer Betweeen Accounts route: `/transfer`
   - [x] Get Account Balance route: `/balance`
+
+- [ ] BE: Extra Todos
+  - [ ] Refactor the code to use RabbitMQ
+  - [ ] Pattern Tester / bug prevention
+    - [x] RegisterController
+      - [x] post "api/v1/register" Full_Name pattern tester to generate User_ID with format: First_NameSecond_Nameddyy
+    - [x] TransactionsController
+      - [x] post "api/v1/transaction" pattern tester
+      - [x] get "api/v1/history" pattern tester to prevent expensive query (more info on the source code)
+    - [x] AccountInfoController
+      - [x] get "api/v1/account" pattern tester
+    - [ ] Refactor the Pattern Tester to the Model, for better readibility.
+  - [ ] post "api/v1/register" rollback feature if the process fail.
+
+- [ ] FE: Extra Todos
+  - [x] Scoped Components

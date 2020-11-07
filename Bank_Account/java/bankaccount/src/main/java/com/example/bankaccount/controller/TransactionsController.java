@@ -48,7 +48,6 @@ public class TransactionsController {
     try {
       Start = LocalDate.parse(start);
       End = LocalDate.parse(end);
-//      System.out.println(start + end + Start + End);
     } catch (DateTimeParseException e) {
       Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 400);
