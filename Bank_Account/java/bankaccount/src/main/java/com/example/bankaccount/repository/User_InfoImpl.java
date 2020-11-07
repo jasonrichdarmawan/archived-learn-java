@@ -55,6 +55,13 @@ public class User_InfoImpl implements User_InfoDAO {
   }
 
   @Override
+  public boolean isAccount_NumberExists(String Account_Number) {
+    boolean response = sqlSession.selectOne("User_Info.isAccount_NumberExists", Account_Number);
+    sqlSession.commit();
+    return response;
+  }
+
+  @Override
   public List<String> getAccountNumbers() {
     List<String> Account_Numbers = sqlSession.selectList("User_Info.getAccountNumbers");
     sqlSession.commit();

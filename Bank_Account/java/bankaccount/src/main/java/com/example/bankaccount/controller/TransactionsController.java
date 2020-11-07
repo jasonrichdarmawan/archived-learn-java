@@ -3,6 +3,7 @@ package com.example.bankaccount.controller;
 import com.example.bankaccount.model.TransactionsModel;
 import com.example.bankaccount.repository.StatementsImpl;
 import com.example.bankaccount.repository.TransactionsImpl;
+import com.example.bankaccount.repository.User_InfoImpl;
 import com.example.bankaccount.service.CurrentBalanceService;
 import com.example.bankaccount.service.HistoryValidatorService;
 import com.example.bankaccount.service.TokenService;
@@ -28,6 +29,9 @@ public class TransactionsController {
 
   @Autowired
   StatementsImpl statements;
+
+  @Autowired
+  User_InfoImpl user_info;
 
   @Autowired
   CurrentBalanceService currentBalanceService;
@@ -92,8 +96,13 @@ public class TransactionsController {
     if (isVerified) {
       String Account_Number = (String) this.tokenService.getClaim(token, "Account_Number");
 
-      // prevent bug
-      if (Account_Number.equals(transactionsModel.getDestination())) {
+      /**
+       * prevent bug
+       * 1. Source === Destination
+       * 2. Destination does not exists
+       * @// TODO: 07/11/2020 refactor bug prevention to support different Destination_Type. 
+       */
+      if (Account_Number.equals(transactionsModel.getDestination()) || !user_info.isAccount_NumberExists(transactionsModel.getDestination())) {
         Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("message_code", 400);
         responseBody.put("message", "Bad Request");
