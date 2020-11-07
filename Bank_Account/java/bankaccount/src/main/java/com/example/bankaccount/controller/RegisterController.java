@@ -42,16 +42,19 @@ public class RegisterController {
   @CrossOrigin("http://localhost:3000")
   @PostMapping("api/v1/register")
   public ResponseEntity<?> register(@RequestBody RegisterUserModel registerUserModel) {
+    Map<String, Object> responseBody = new HashMap<>();
+
     // bug prevention: 1st and 2nd name equals to minimum 8 letters to 35 letters.
     try {
       if (!Pattern.matches("\\s*(?:[a-zA-Z]\\s*){8,35}$", registerUserModel.getFull_Name())) {
-        Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("message_code", 400);
         responseBody.put("message", "Bad Request");
         return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
       }
     } catch (ArrayIndexOutOfBoundsException e) {
-
+      responseBody.put("message_code", 400);
+      responseBody.put("message", "Bad Request");
+      return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
     }
 
     String User_ID = null;
@@ -91,7 +94,6 @@ public class RegisterController {
       int user_detailRowsAffected = this.user_detail.insert(user_detailModel);
 
       if (user_loginRowsAffected == 1 && user_infoModel.getAccount_Number() != null && user_detailRowsAffected == 1) {
-        Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("message_code", 201);
         responseBody.put("message", "CREATED");
         responseBody.put("User_ID", User_ID);
@@ -102,13 +104,11 @@ public class RegisterController {
         return new ResponseEntity<>(responseBody, HttpStatus.CREATED);
       } else {
         // TODO: rollback
-        Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("message_code", 500);
         responseBody.put("message", "Internal Server Error");
         return new ResponseEntity<>(responseBody, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     } else {
-      Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 400);
       responseBody.put("message", "The User ID already exists.");
       return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);

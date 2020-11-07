@@ -3,7 +3,6 @@ package com.example.bankaccount.controller;
 import com.example.bankaccount.model.User_InfoModel;
 import com.example.bankaccount.repository.User_InfoImpl;
 import com.example.bankaccount.service.TokenService;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +26,10 @@ public class AccountInfoController {
     String token = Authorization.split(" ")[1];
     boolean isVerified = this.tokenService.verify(token);
 
+    Map<String, Object> responseBody = new HashMap<>();
+
     // expensive query prevention;
     if (!Pattern.matches("[0-9]{17}", Account_Number)) {
-      Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 404);
       responseBody.put("message", "NOT_FOUND");
       return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
@@ -39,7 +39,6 @@ public class AccountInfoController {
       User_InfoModel user_infoModel = this.user_info.selectByAccount_Number(Account_Number);
 
       if (user_infoModel != null) {
-        Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("message_code", 200);
         responseBody.put("message", "OK");
 
@@ -51,13 +50,11 @@ public class AccountInfoController {
 
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
       } else {
-        Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("message_code", 404);
         responseBody.put("message", "NOT_FOUND");
         return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
       }
     } else {
-      Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 401);
       responseBody.put("message", "Unauthorized");
       return new ResponseEntity<>(responseBody, HttpStatus.UNAUTHORIZED);

@@ -2,12 +2,10 @@ package com.example.bankaccount.repository;
 
 import com.example.bankaccount.dao.TransactionsDAO;
 import com.example.bankaccount.model.TransactionsModel;
-import com.example.bankaccount.service.CurrentBalanceService;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;

@@ -21,7 +21,9 @@ public class TransferService {
   @Autowired
   TransactionsImpl transactions;
 
-  public ResponseEntity transfer(String Source, TransactionsModel transactionsModel, BigDecimal Current_Balance) {
+  public ResponseEntity<?> transfer(String Source, TransactionsModel transactionsModel, BigDecimal Current_Balance) {
+    Map<String, Object> responseBody = new HashMap<>();
+
     /**
      * prevent bug
      * return false if:
@@ -32,7 +34,6 @@ public class TransferService {
      * TransactionModel has Source but we can't trust it, we get the Source from the decoded token.
      */
     if (Source.equals(transactionsModel.getDestination()) || !user_info.isAccount_NumberExists(transactionsModel.getDestination())) {
-      Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 400);
       responseBody.put("message", "Bad Request");
       return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
@@ -40,12 +41,10 @@ public class TransferService {
 
     int rowsAffected = this.transactions.insert(transactionsModel, Current_Balance, Source);
     if (rowsAffected == 1) {
-      Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 201);
       responseBody.put("message", "CREATED");
       return new ResponseEntity<>(responseBody, HttpStatus.CREATED);
     } else {
-      Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 402);
       responseBody.put("message", "Payment Required");
       return new ResponseEntity<>(responseBody, HttpStatus.UNAUTHORIZED);

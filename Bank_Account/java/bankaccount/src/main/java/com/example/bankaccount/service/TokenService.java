@@ -21,14 +21,12 @@ public class TokenService {
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.MINUTE, 10);
 
-    String token = Jwts.builder()
+    return Jwts.builder()
             .claim("Account_Number", account_number)
             .claim("User_ID", user_id)
             .setExpiration(calendar.getTime())
             .signWith(key)
             .compact();
-
-    return token;
   }
 
   public boolean verify(String token) {
@@ -51,14 +49,12 @@ public class TokenService {
     String account_number = (String) getClaim(oldToken, "Account_Number");
     String user_id = (String) getClaim(oldToken, "User_ID");
 
-    String newToken = Jwts.builder()
+    return Jwts.builder()
             .claim("Account_Number", account_number)
             .claim("User_ID", user_id)
             .setExpiration(calendar.getTime())
             .signWith(key)
             .compact();
-
-    return newToken;
   }
 
   public Object getClaim(String token, String claim) {

@@ -2,14 +2,12 @@ package com.example.bankaccount.service;
 
 import com.example.bankaccount.model.StatementsModel;
 import com.example.bankaccount.repository.StatementsImpl;
-import com.example.bankaccount.repository.TransactionsImpl;
 import com.example.bankaccount.repository.User_InfoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -37,9 +35,7 @@ public class CreateStatementsService {
         year -= 1;
       }
 
-      Iterator<String> iterator = account_numbers.iterator();
-      while (iterator.hasNext()) {
-        String Account_Number = iterator.next();
+      for (String Account_Number : account_numbers) {
         BigDecimal Ending_Balance = currentBalanceService.getCurrentBalanceByAccountNumber(Account_Number);
         statements.insert(new StatementsModel(Account_Number, previousMonth, year, Ending_Balance));
       }

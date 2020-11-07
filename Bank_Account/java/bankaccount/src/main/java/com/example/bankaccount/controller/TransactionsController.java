@@ -3,7 +3,6 @@ package com.example.bankaccount.controller;
 import com.example.bankaccount.model.TransactionsModel;
 import com.example.bankaccount.repository.StatementsImpl;
 import com.example.bankaccount.repository.TransactionsImpl;
-import com.example.bankaccount.repository.User_InfoImpl;
 import com.example.bankaccount.service.CurrentBalanceService;
 import com.example.bankaccount.service.HistoryValidatorService;
 import com.example.bankaccount.service.TokenService;
@@ -32,9 +31,6 @@ public class TransactionsController {
   StatementsImpl statements;
 
   @Autowired
-  User_InfoImpl user_info;
-
-  @Autowired
   CurrentBalanceService currentBalanceService;
 
   @Autowired
@@ -46,23 +42,23 @@ public class TransactionsController {
   @CrossOrigin("http://localhost:3000")
   @GetMapping("api/v1/history/{Start}/{End}")
   public ResponseEntity<?> getTransactions(@RequestHeader(value = "Authorization") String Authorization, @PathVariable("Start") String start, @PathVariable("End") String end) {
+    Map<String, Object> responseBody = new HashMap<>();
+
     // bug prevention
-    LocalDate Start = null;
-    LocalDate End = null;
+    LocalDate Start;
+    LocalDate End;
     try {
       Start = LocalDate.parse(start);
       End = LocalDate.parse(end);
     } catch (DateTimeParseException e) {
-      Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 400);
       responseBody.put("message", e.getMessage());
       return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
     }
 
     if (!historyValidatorService.validate(Start, End)) {
-      Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 400);
-      responseBody.put("message", "Bad Requet");
+      responseBody.put("message", "Bad Request");
       return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
     }
 
@@ -70,7 +66,6 @@ public class TransactionsController {
     boolean isVerified = this.tokenService.verify(token);
 
     if (isVerified) {
-      Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 200);
       responseBody.put("message", "OK");
 
@@ -83,7 +78,6 @@ public class TransactionsController {
 
       return new ResponseEntity<>(responseBody, HttpStatus.OK);
     } else {
-      Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 401);
       responseBody.put("message", "Unauthorized");
       return new ResponseEntity<>(responseBody, HttpStatus.UNAUTHORIZED);

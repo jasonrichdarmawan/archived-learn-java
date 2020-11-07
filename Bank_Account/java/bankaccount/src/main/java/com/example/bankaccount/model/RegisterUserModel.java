@@ -2,10 +2,7 @@ package com.example.bankaccount.model;
 
 import com.example.bankaccount.service.PinHashingService;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import java.math.BigInteger;
 import java.time.LocalDate;
 
 public class RegisterUserModel {

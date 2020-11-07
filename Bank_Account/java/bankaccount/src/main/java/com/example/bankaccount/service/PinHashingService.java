@@ -26,20 +26,17 @@ public class PinHashingService {
 
     byte[] Hashed_PIN = new byte[0];
     try {
+      assert secretKeyFactory != null;
       Hashed_PIN = secretKeyFactory.generateSecret(keySpec).getEncoded();
     } catch (InvalidKeySpecException e) {
       e.printStackTrace();
     }
 
-    // TODO: thread safe.
-    StringBuffer stringBuffer = new StringBuffer();
-    stringBuffer.append(iterations);
-    stringBuffer.append(":");
-    stringBuffer.append(toHex(salt));
-    stringBuffer.append(":");
-    stringBuffer.append(toHex(Hashed_PIN));
-
-    return stringBuffer.toString();
+    return iterations +
+            ":" +
+            toHex(salt) +
+            ":" +
+            toHex(Hashed_PIN);
   }
 
   /**
@@ -67,6 +64,7 @@ public class PinHashingService {
      */
     byte[] Hashed_PIN = new byte[0];
     try {
+      assert secretKeyFactory != null;
       Hashed_PIN = secretKeyFactory.generateSecret(keySpec).getEncoded();
     } catch (InvalidKeySpecException e) {
       e.printStackTrace();
@@ -106,8 +104,7 @@ public class PinHashingService {
 
   private String toHex(byte[] bytes) {
     BigInteger bigInteger = new BigInteger(1, bytes);
-    String hex = bigInteger.toString(16);
-    return hex;
+    return bigInteger.toString(16);
   }
 
   private byte[] fromHex(String hex) {

@@ -1,6 +1,5 @@
 package com.example.bankaccount.repository.admin;
 
-import com.example.bankaccount.service.PinHashingService;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

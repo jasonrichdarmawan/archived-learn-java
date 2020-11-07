@@ -39,10 +39,11 @@ public class StatementsImpl implements StatementsDAO {
   @Override
   public int insert(StatementsModel statementsModel) {
     int rowsAffected = 0;
+    // the table is hard coded to be unique, so in case of a failure, it will throws an error.
     try {
       rowsAffected = sqlSession.insert("Statements.insert", statementsModel);
     } catch (Exception e) {
-
+      rowsAffected = 0;
     }
     sqlSession.commit();
     return rowsAffected;

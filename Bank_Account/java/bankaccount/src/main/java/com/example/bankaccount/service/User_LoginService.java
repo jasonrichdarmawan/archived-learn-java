@@ -23,13 +23,14 @@ public class User_LoginService {
   @Autowired
   TokenService tokenService;
 
-  public ResponseEntity login(User_LoginModel user_loginModel) {
+  public ResponseEntity<?> login(User_LoginModel user_loginModel) {
+    Map<String, Object> responseBody = new HashMap<>();
+
     if (this.user_login.login(user_loginModel)) {
       User_InfoModel user_infoModel = this.user_info.selectByUser_ID(user_loginModel.getUser_ID());
 
       String token = tokenService.generate(user_infoModel.getAccount_Number(), user_infoModel.getUser_ID());
 
-      Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 200);
       responseBody.put("message", "OK");
       responseBody.put("Full_Name", user_infoModel.getFull_Name());
@@ -38,7 +39,6 @@ public class User_LoginService {
 
       return new ResponseEntity<>(responseBody, HttpStatus.OK);
     } else {
-      Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 404);
       responseBody.put("message", "NOT_FOUND");
 

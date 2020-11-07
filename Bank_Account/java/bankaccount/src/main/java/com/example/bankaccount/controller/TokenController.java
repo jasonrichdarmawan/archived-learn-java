@@ -20,8 +20,9 @@ public class TokenController {
   public ResponseEntity<?> refreshToken(@RequestHeader(value="Authorization") String Authorization) {
     String oldToken = Authorization.split(" ")[1];
 
+    Map<String, Object> responseBody = new HashMap<>();
+
     if (tokenService.verify(oldToken)) {
-      Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 200);
       responseBody.put("message", "OK");
 
@@ -30,7 +31,6 @@ public class TokenController {
 
       return new ResponseEntity<>(responseBody, HttpStatus.CREATED);
     } else {
-      Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 201);
       responseBody.put("message", "Unauthorized");
       return new ResponseEntity<>(responseBody, HttpStatus.UNAUTHORIZED);

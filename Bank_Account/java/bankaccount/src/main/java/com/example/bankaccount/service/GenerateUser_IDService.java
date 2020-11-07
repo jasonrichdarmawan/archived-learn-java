@@ -31,7 +31,7 @@ public class GenerateUser_IDService {
       if (ch > 'z') {
         ch = 'a';
         --index;
-      };
+      }
       User_ID.setCharAt(index, ch);
       ++ch;
     }
