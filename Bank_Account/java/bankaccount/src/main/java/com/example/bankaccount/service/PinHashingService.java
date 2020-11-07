@@ -33,13 +33,6 @@ public class PinHashingService {
       e.printStackTrace();
       return "invalid"; // @todo: rollback.
     }
-
-//    byte[] Hashed_PIN = new byte[0];
-//    try {
-//      Hashed_PIN = secretKeyFactory.generateSecret(keySpec).getEncoded();
-//    } catch (InvalidKeySpecException e) {
-//      e.printStackTrace();
-//    }
   }
 
   /**
@@ -89,18 +82,6 @@ public class PinHashingService {
       e.printStackTrace();
       return false;
     }
-
-//    /**
-//     * note: storedHashed_PIN is not Hashed_PIN
-//     * storedHashed_PIN iterations:salt:hash
-//     * Hashed_PIN is just the hash.
-//     */
-//    byte[] Hashed_PIN = new byte[0];
-//    try {
-//      Hashed_PIN = secretKeyFactory.generateSecret(keySpec).getEncoded();
-//    } catch (InvalidKeySpecException e) {
-//      e.printStackTrace();
-//    }
   }
 
   private byte[] getSalt() {
