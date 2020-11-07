@@ -37,6 +37,15 @@ public class AdminTransactionsController {
     Map<String, Object> responseBody = new HashMap<>();
 
     if (isVerified) {
+      String Account_Number = (String) this.tokenService.getClaim(token, "Account_Number");
+
+      if (Account_Number.equals(admin_transactionsModel.getDestination())) {
+        responseBody.put("message_code", 400);
+        responseBody.put("message", "Bad Request");
+
+        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+      }
+
       String User_ID = (String) this.tokenService.getClaim(token, "User_ID");
 
       if (!admin_login.exist(User_ID)) {
