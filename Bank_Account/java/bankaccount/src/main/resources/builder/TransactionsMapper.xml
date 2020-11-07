@@ -18,8 +18,8 @@
     <select id="selectByStartAndEndDate" parameterType="map" resultType="com.example.bankaccount.model.TransactionsModel">
         SELECT Date, Source, Destination, Destination_Type, Transaction_Value
         FROM transactions
-        WHERE DATE BETWEEN #{Start} AND #{End} AND
-        Source=#{Account_Number} OR Destination=#{Account_Number}
+        WHERE Source=#{Account_Number} AND Date BETWEEN #{Start} AND #{End}
+        OR Destination=#{Account_Number} AND Date BETWEEN #{Start} AND #{End}
         ORDER BY ID ASC
     </select>
     <select id="selectDebitByStartAndEndDate" parameterType="map" resultType="com.example.bankaccount.model.TransactionsModel">
