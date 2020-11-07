@@ -7,6 +7,7 @@ import com.example.bankaccount.repository.User_InfoImpl;
 import com.example.bankaccount.service.CurrentBalanceService;
 import com.example.bankaccount.service.HistoryValidatorService;
 import com.example.bankaccount.service.TokenService;
+import com.example.bankaccount.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,9 @@ public class TransactionsController {
 
   @Autowired
   HistoryValidatorService historyValidatorService;
+
+  @Autowired
+  TransferService transferService;
 
   @CrossOrigin("http://localhost:3000")
   @GetMapping("api/v1/history/{Start}/{End}")
@@ -95,32 +99,8 @@ public class TransactionsController {
     if (isVerified) {
       String Account_Number = (String) this.tokenService.getClaim(token, "Account_Number");
 
-      /**
-       * prevent bug
-       * 1. Source === Destination
-       * 2. Destination does not exists
-       * @// TODO: 07/11/2020 refactor bug prevention to support different Destination_Type. 
-       */
-      if (Account_Number.equals(transactionsModel.getDestination()) || !user_info.isAccount_NumberExists(transactionsModel.getDestination())) {
-        Map<String, Object> responseBody = new HashMap<>();
-        responseBody.put("message_code", 400);
-        responseBody.put("message", "Bad Request");
-        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
-      }
-
       BigDecimal Current_Balance = this.currentBalanceService.getCurrentBalanceByAccountNumber(Account_Number);
-      int rowsAffected = this.transactions.insert(transactionsModel, Current_Balance, Account_Number);
-      if (rowsAffected == 1) {
-        Map<String, Object> responseBody = new HashMap<>();
-        responseBody.put("message_code", 201);
-        responseBody.put("message", "CREATED");
-        return new ResponseEntity<>(responseBody, HttpStatus.CREATED);
-      } else {
-        Map<String, Object> responseBody = new HashMap<>();
-        responseBody.put("message_code", 402);
-        responseBody.put("message", "Payment Required");
-        return new ResponseEntity<>(responseBody, HttpStatus.UNAUTHORIZED);
-      }
+      return this.transferService.transfer(Account_Number, transactionsModel, Current_Balance);
     } else {
       Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 401);

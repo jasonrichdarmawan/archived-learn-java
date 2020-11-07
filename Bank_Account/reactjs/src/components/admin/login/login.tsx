@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginAsync } from "../../features/authorization/authorizationSlice";
-import LoginComponent from "./login.component";
+import { loginAsync } from "../../../features/authorization/authorizationSlice";
+import LoginComponent from "../../login/login.component";
 
-export default function Login() {
+export default function AdminLogin() {
   const [User_ID, setUser_ID] = useState<string>("");
   const [PIN, setPIN] = useState<number | string>("");
 
@@ -13,7 +13,7 @@ export default function Login() {
     e.preventDefault();
     e.stopPropagation();
 
-    dispatch(loginAsync("api/v1/login", User_ID, PIN));
+    dispatch(loginAsync("api/v1/admin/login", User_ID, PIN));
   }
 
   return (

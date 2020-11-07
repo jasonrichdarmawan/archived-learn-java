@@ -8,6 +8,7 @@ interface ChildrenProps {
 }
 
 export default function TwoColumns(props: ChildrenProps): JSX.Element {
+  const isAdmin = sessionStorage.getItem("admin");
   const ISO_4217 = sessionStorage.getItem("ISO_4217");
   const dispatch = useDispatch();
 
@@ -16,6 +17,7 @@ export default function TwoColumns(props: ChildrenProps): JSX.Element {
       History: "Histori Transaksi",
       Transfer: "Transfer Dana",
       Balance: "Informasi Saldo",
+      AdminTransfer: "Penambahan Dana",
     },
   };
 
@@ -38,6 +40,13 @@ export default function TwoColumns(props: ChildrenProps): JSX.Element {
             <li>
               <a href="/balance">{ISO_4217 === "360" && lang.ID.Balance}</a>
             </li>
+            {isAdmin === "true" && (
+              <li>
+                <a href="/admin/transfer">
+                  {ISO_4217 === "360" && lang.ID.AdminTransfer}
+                </a>
+              </li>
+            )}
           </ul>
         </div>
         <div className={styles.article}>{props.children}</div>

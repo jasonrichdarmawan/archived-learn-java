@@ -28,10 +28,10 @@ interface LoginResponse {
   ISO_4217: string;
 }
 
-export const loginAsync = (User_ID: string, PIN: number | string) => async (
+export const loginAsync = (endpoint: string, User_ID: string, PIN: number | string) => async (
   dispatch: AppDispatch
 ) => {
-  const response = await fetch("http://localhost:8080/api/v1/login", {
+  const response = await fetch(`http://localhost:8080/${endpoint}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -50,6 +50,11 @@ export const loginAsync = (User_ID: string, PIN: number | string) => async (
         data.token
       );
       sessionStorage.setItem("Account_Number", decoded.Account_Number);
+
+      if (endpoint === "api/v1/admin/login") {
+        sessionStorage.setItem("admin", "true");
+      }
+
       dispatch(login());
     } else if (data.message_code === 404) {
       // TODO

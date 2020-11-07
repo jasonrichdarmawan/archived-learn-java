@@ -96,7 +96,7 @@ public class RegisterController {
         responseBody.put("message", "CREATED");
         responseBody.put("User_ID", User_ID);
 
-        String token = tokenService.generate(user_infoModel.getAccount_Number());
+        String token = tokenService.generate(user_infoModel.getAccount_Number(), user_infoModel.getUser_ID());
         responseBody.put("token", token);
 
         return new ResponseEntity<>(responseBody, HttpStatus.CREATED);

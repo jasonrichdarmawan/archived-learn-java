@@ -15,7 +15,7 @@ public class TokenService {
   @Value("${jwt.secret}")
   private String jwtSecret;
 
-  public String generate(String account_number) {
+  public String generate(String account_number, String user_id) {
     SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
 
     Calendar calendar = Calendar.getInstance();
@@ -23,6 +23,7 @@ public class TokenService {
 
     String token = Jwts.builder()
             .claim("Account_Number", account_number)
+            .claim("User_ID", user_id)
             .setExpiration(calendar.getTime())
             .signWith(key)
             .compact();
@@ -47,10 +48,12 @@ public class TokenService {
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.MINUTE, 10);
 
-    String account_number = (String) Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(oldToken).getBody().get("Account_Number");
+    String account_number = (String) getClaim(oldToken, "Account_Number");
+    String user_id = (String) getClaim(oldToken, "User_ID");
 
     String newToken = Jwts.builder()
             .claim("Account_Number", account_number)
+            .claim("User_ID", user_id)
             .setExpiration(calendar.getTime())
             .signWith(key)
             .compact();

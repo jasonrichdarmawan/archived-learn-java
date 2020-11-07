@@ -9,6 +9,8 @@ import {
 import jwt_decode from "jwt-decode";
 
 function App() {
+  const isAdmin = sessionStorage.getItem("admin");
+
   const [isLoading, setIsLoading] = React.useState(true);
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -47,12 +49,18 @@ function App() {
   const Register = lazy(() => import("./components/register/register"));
   const Login = lazy(() => import("./components/login/login"));
 
+  const AdminLogin = lazy(() => import("./components/admin/login/login"));
+
   const TwoColumnsLayout = lazy(() => import("./layout/twocolumns/twocolumns"));
 
   const Home = lazy(() => import("./components/home/home"));
   const History = lazy(() => import("./components/history/history"));
   const Transfer = lazy(() => import("./components/transfer/transfer"));
   const Balance = lazy(() => import("./components/balance/balance"));
+
+  const AdminTransfer = lazy(
+    () => import("./components/admin/transfer/transfer")
+  );
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -67,6 +75,11 @@ function App() {
               render={() => withSuspense(Register)}
             />
             <Route exact path="/login" render={() => withSuspense(Login)} />
+            <Route
+              exact
+              path="/admin/login"
+              render={() => withSuspense(AdminLogin)}
+            />
             <Route>
               <Redirect to="/login" />
             </Route>
@@ -95,6 +108,13 @@ function App() {
                       path="/balance"
                       render={() => withSuspense(Balance)}
                     />
+                    {isAdmin === "true" && (
+                      <Route
+                        exact
+                        path="/admin/transfer"
+                        render={() => withSuspense(AdminTransfer)}
+                      />
+                    )}
                     <Route>
                       <Redirect to="/" />
                     </Route>

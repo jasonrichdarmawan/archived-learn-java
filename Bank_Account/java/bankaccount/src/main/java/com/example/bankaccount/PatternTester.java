@@ -1,9 +1,10 @@
 package com.example.bankaccount;
 
-import org.apache.catalina.User;
-
 import java.util.regex.Pattern;
 
+/**
+ * @// TODO: 07/11/2020 refactor with @SpringBootTest, move this to the test folder.
+ */
 public class PatternTester {
   public static void Full_Name() {
     String[] pass = new String[]{"abcd abcd", "abcdefgh"};

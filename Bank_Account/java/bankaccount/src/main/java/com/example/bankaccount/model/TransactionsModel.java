@@ -12,8 +12,13 @@ public class TransactionsModel {
   private int Destination_Type;
   private BigDecimal Transaction_Value;
 
-  public TransactionsModel(@JsonProperty("Date") LocalDate date, @JsonProperty("Source") String source, @JsonProperty("Destination") String destination, @JsonProperty("Destination_Type") int destination_type, @JsonProperty("Transaction_Value") BigDecimal transaction_value) {
-    Date = date;
+  public TransactionsModel(String destination, int destination_Type, BigDecimal transaction_Value) {
+    Destination = destination;
+    Destination_Type = destination_Type;
+    Transaction_Value = transaction_Value;
+  }
+
+  public TransactionsModel(@JsonProperty("Source") String source, @JsonProperty("Destination") String destination, @JsonProperty("Destination_Type") int destination_type, @JsonProperty("Transaction_Value") BigDecimal transaction_value) {
     Source = source;
     Destination = destination;
     Destination_Type = destination_type;

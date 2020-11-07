@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Admin_Login">
+    <update id="createTableIfNotExists">
+        CREATE TABLE IF NOT EXISTS `admin_login` (
+        `ID` int NOT NULL AUTO_INCREMENT,
+        `User_ID` char(12) NOT NULL,
+        PRIMARY KEY (`ID`),
+        UNIQUE KEY `User_ID_UNIQUE` (`User_ID`)
+        ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+    </update>
+    <select id="exist" parameterType="String" resultType="boolean">
+        SELECT EXISTS(SELECT 1 FROM admin_login WHERE User_ID=#{User_ID})
+    </select>
+</mapper>
