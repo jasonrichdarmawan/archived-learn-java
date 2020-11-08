@@ -21,10 +21,13 @@ public class RegisterUserModel {
   private PinHashingService pinHashingService;
 
   public RegisterUserModel(@JsonProperty("User_ID") String user_id, @JsonProperty("PIN") String pin, @JsonProperty("Full_Name") String full_name, @JsonProperty("Birth_Date") LocalDate birth_date, @JsonProperty("ISO_4217") int iso_4217, @JsonProperty("Address_3") String address_3, @JsonProperty("Address_4") String address_4, @JsonProperty("Address_1") String address_1, @JsonProperty("Address_2") String address_2, @JsonProperty("Zip_Code") int zip_code, @JsonProperty("ISO_3166_1") int iso_3166_1) {
-    pinHashingService = new PinHashingService();
+    pinHashingService = new PinHashingService(); // intention: the server should not store the PIN in POJO. Anyway, it's over-engineering. Currently User_LoginModel store the PIN in POJO.
 
     User_ID = user_id;
     Hashed_PIN = pinHashingService.hash(pin);
+
+    pinHashingService = null; // null as it no longer required.
+
     Full_Name = full_name;
     Birth_Date = birth_date;
     ISO_4217 = iso_4217;
