@@ -18,7 +18,8 @@ public class TransactionsModel {
     Transaction_Value = transaction_Value;
   }
 
-  public TransactionsModel(@JsonProperty("Source") String source, @JsonProperty("Destination") String destination, @JsonProperty("Destination_Type") int destination_type, @JsonProperty("Transaction_Value") BigDecimal transaction_value) {
+  public TransactionsModel(@JsonProperty("Date") LocalDate date, @JsonProperty("Source") String source, @JsonProperty("Destination") String destination, @JsonProperty("Destination_Type") int destination_type, @JsonProperty("Transaction_Value") BigDecimal transaction_value) {
+    Date = date;
     Source = source;
     Destination = destination;
     Destination_Type = destination_type;
