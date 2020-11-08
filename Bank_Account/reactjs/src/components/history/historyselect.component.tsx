@@ -33,6 +33,11 @@ export default function HistorySelect({
       Error: {
         FormatDate: "Format tanggal salah. Format tanggal: yyyy-mm-dd",
         MaxDaysBetween: "Histori transaksi maksimal 30 hari yang lalu.",
+        SameAsToday:
+          "Tanggal awal atau Tanggal akhir sama dengan tanggal hari ini.",
+        ExceedToday:
+          "Tanggal awal atau Tanggal akhir lebih besar dari tanggal hari ini.",
+        StartExceedEnd: "Tanggal awal melebihi Tanggal akhir",
       },
     },
   };
@@ -88,23 +93,25 @@ export default function HistorySelect({
      * 2. /2020-11-06/2020-11-05
      */
     if (DatePattern.test(Start) && DatePattern.test(End)) {
-      if (historyValidator({ Start: new Date(Start), End: new Date(End) })) {
+      let response = historyValidator({
+        Start: new Date(Start),
+        End: new Date(End),
+      });
+      if (response === 0) {
         handleGetTransactions({ Start, End });
-      } else {
+      } else if (response === 1) {
+        setShowError(lang.ID.Error.ExceedToday);
+      } else if (response === 2) {
+        setShowError(lang.ID.Error.SameAsToday);
+      } else if (response === 3) {
+        setShowError(lang.ID.Error.StartExceedEnd);
+      } else if (response === 4 || response === 5) {
         setShowError(lang.ID.Error.MaxDaysBetween);
       }
     } else if (Start != null && End != null) {
       setShowError(lang.ID.Error.FormatDate);
     }
-  }, [
-    Start,
-    End,
-    setTransactions,
-    setIsTransactionsShown,
-    Account_Number,
-    lang.ID.Error.MaxDaysBetween,
-    lang.ID.Error.FormatDate,
-  ]);
+  }, [Start, End, setTransactions, setIsTransactionsShown, Account_Number, lang.ID.Error.MaxDaysBetween, lang.ID.Error.FormatDate, lang.ID.Error.ExceedToday, lang.ID.Error.SameAsToday, lang.ID.Error.StartExceedEnd]);
 
   return (
     <>

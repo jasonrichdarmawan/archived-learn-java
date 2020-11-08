@@ -6,7 +6,7 @@ interface historyValidatorModel {
 export function historyValidator({
   Start,
   End,
-}: historyValidatorModel): boolean {
+}: historyValidatorModel): number {
   /**
    * expensive query prevention:
    * 1. return false
@@ -17,27 +17,29 @@ export function historyValidator({
    *    e. End - Start < 30 days
    * 4. verified
    */
-  const Today = new Date(new Date().toISOString().split("T")[0]);
+  const Today = new Date();
+  Today.setUTCHours(24,0,0,0);
 
   if (Today.getTime() === Start.getTime() || Today.getTime() === End.getTime()) {
-    return false;
+    return 1;
   }
 
   if (Today.getTime() < Start.getTime() || Today.getTime() < End.getTime()) {
-    return false;
+    console.log(Today, Start)
+    return 2;
   }
 
   if (Start.getTime() > End.getTime()) {
-    return false;
+    return 3;
   }
 
   if (Today.getTime() - Start.getTime() / (1000 * 3600 * 24) < 30) {
-    return false;
+    return 4;
   }
 
   if (End.getTime() - Start.getTime() / (1000 * 3600 * 24) < 30) {
-    return false;
+    return 5;
   }
 
-  return true;
+  return 0;
 }
