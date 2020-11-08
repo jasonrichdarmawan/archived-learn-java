@@ -2,10 +2,11 @@ package com.example.bankaccount.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class TransactionsModel {
+public class TransactionsModel implements Serializable {
   private LocalDate Date;
   private String Source;
   private String Destination;

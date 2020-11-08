@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RabbitMQConfig {
+public class TransactionsMQ {
 
-  static final String topicExchangeName = "spring-boot-exchange";
-  static final String queueName = "spring-boot";
+  static final String topicExchangeName = "transactions";
+  static final String queueName = "transfer";
 
   @Bean
   TopicExchange exchange() {
@@ -28,7 +28,7 @@ public class RabbitMQConfig {
 
   @Bean
   Binding binding(Queue queue, TopicExchange exchange) {
-    return BindingBuilder.bind(queue).to(exchange).with("foo.bar.#");
+    return BindingBuilder.bind(queue).to(exchange).with("transfer");
   }
 
   @Bean
@@ -41,8 +41,8 @@ public class RabbitMQConfig {
   }
 
   @Bean
-  MessageListenerAdapter listenerAdapter(Receiver receiver) {
-    return new MessageListenerAdapter(receiver, "receiveMessage");
+  MessageListenerAdapter listenerAdapter(TransactionsReceiver transactionsReceiver) {
+    return new MessageListenerAdapter(transactionsReceiver, "transfer");
   }
 
 }
