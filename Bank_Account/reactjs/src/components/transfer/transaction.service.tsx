@@ -1,6 +1,29 @@
 export interface postTransactionResponse {
   message_code?: number;
   message?: string;
+  location?: string;
+}
+
+export interface transaction_progressResponse {
+  message_code: number;
+  message: string;
+  progress: {
+    message_code: number;
+    acount_Number: null;
+    progress_ID: null;
+  };
+}
+
+export async function transaction_progress(location: string) {
+  const response = await fetch(location, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    },
+  });
+
+  return response.json().then((data: transaction_progressResponse) => data);
 }
 
 export default async function postTransaction(
@@ -19,7 +42,5 @@ export default async function postTransaction(
       Transaction_Value,
     }),
   });
-  return await response
-    .json()
-    .then((data: postTransactionResponse) => data);
+  return await response.json().then((data: postTransactionResponse) => data);
 }

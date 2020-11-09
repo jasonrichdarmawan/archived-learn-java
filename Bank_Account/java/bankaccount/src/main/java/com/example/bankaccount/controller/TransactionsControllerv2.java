@@ -2,15 +2,15 @@ package com.example.bankaccount.controller;
 
 import com.example.bankaccount.RabbitMQ.Sender;
 import com.example.bankaccount.model.TransactionsModel;
-import com.example.bankaccount.service.CurrentBalanceService;
+import com.example.bankaccount.model.Transactions_ProgressModel;
+import com.example.bankaccount.repository.Transactions_ProgressImpl;
 import com.example.bankaccount.service.TokenService;
-import com.example.bankaccount.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +20,40 @@ public class TransactionsControllerv2 {
   TokenService tokenService;
 
   @Autowired
+  Transactions_ProgressImpl transactions_progress;
+
+  @Autowired
   Sender sender;
+
+  @CrossOrigin("http://localhost:3000")
+  @GetMapping("api/v2/transaction/{Progress_ID}")
+  public ResponseEntity<?> transaction_progress(@RequestHeader(value = "Authorization") String Authorization, @PathVariable("Progress_ID") String Progress_ID) {
+    Map<String, Object> responseBody = new HashMap<>();
+
+    String token = Authorization.split(" ")[1];
+    boolean isVerified = this.tokenService.verify(token);
+
+    if (isVerified) {
+      String Account_Number = (String) this.tokenService.getClaim(token, "Account_Number");
+      Transactions_ProgressModel transactions_progressModel = this.transactions_progress.selectByProgress_IDAndAccount_Number(Progress_ID, Account_Number);
+
+      if (transactions_progressModel != null) {
+        responseBody.put("message_code", 302);
+        responseBody.put("message", "FOUND");
+        responseBody.put("progress", transactions_progressModel);
+        return new ResponseEntity<>(responseBody, HttpStatus.FOUND);
+      } else {
+        responseBody.put("message_code", 404);
+        responseBody.put("message", "NOT FOUND");
+        return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
+      }
+
+    } else {
+      responseBody.put("message_code", 404);
+      responseBody.put("message", "NOT_FOUND");
+      return new ResponseEntity(responseBody, HttpStatus.NOT_FOUND);
+    }
+  }
 
   @CrossOrigin("http://localhost:3000")
   @PostMapping("api/v2/transaction")
@@ -33,13 +66,20 @@ public class TransactionsControllerv2 {
     if (isVerified) {
       String Account_Number = (String) this.tokenService.getClaim(token, "Account_Number");
 
+      Transactions_ProgressModel transactions_progressModel = new Transactions_ProgressModel();
+      transactions_progressModel.setAccount_Number(Account_Number);
+      transactions_progressModel.setMessage_Code("202");
+      transactions_progressModel = this.transactions_progress.insert(transactions_progressModel);
+
       transactionsModel.setSource(Account_Number);
+      transactionsModel.setProgress_ID(transactions_progressModel.getProgress_ID());
       sender.rabbitTemplate.convertAndSend("transactions", "transfer", transactionsModel);
 
-      // @// TODO: 09/11/2020 refactor with HTTP callback, so the server can return a real response.
-      responseBody.put("message_code", 200);
+      responseBody.put("message_code", 202);
       responseBody.put("message", "On queue");
-      return new ResponseEntity<>(responseBody, HttpStatus.OK);
+      responseBody.put("location", String.format("http://localhost:8080/api/v2/transaction/%s", transactions_progressModel.getProgress_ID()));
+
+      return new ResponseEntity(responseBody, HttpStatus.OK);
     } else {
       responseBody.put("message_code", 401);
       responseBody.put("message", "Unauthorized");

@@ -29,6 +29,9 @@ public class BankaccountApplication implements CommandLineRunner {
   TransactionsImpl transactions;
 
   @Autowired
+  Transactions_ProgressImpl transactions_progress;
+
+  @Autowired
   StatementsImpl statements;
 
   @Autowired
@@ -46,6 +49,7 @@ public class BankaccountApplication implements CommandLineRunner {
     this.user_info.createTableIfNotExists();
     this.user_detail.createTableIfNotExists();
     this.transactions.createTableIfNotExists();
+    this.transactions_progress.createTableIfNotExists();
     this.statements.createTableIfNotExists();
 
     this.admin_login.createTableIfNotExists();

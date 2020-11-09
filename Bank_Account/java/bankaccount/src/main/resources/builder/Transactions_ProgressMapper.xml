@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Transactions_Progress">
+    <update id="createTableIfNotExists">
+        CREATE TABLE IF NOT EXISTS `transactions_progress` (
+        `ID` int NOT NULL AUTO_INCREMENT,
+        `Progress_ID` char(17) NOT NULL,
+        `Account_Number` char(17) NOT NULL,
+        `Message_Code` char(3) NOT NULL,
+        PRIMARY KEY (`ID`),
+        UNIQUE KEY `Progress_ID_UNIQUE` (`Progress_ID`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+    </update>
+    <insert id="insert" parameterType="com.example.bankaccount.model.Transactions_ProgressModel">
+        <selectKey order="BEFORE" keyProperty="Progress_ID" resultType="String">
+            SELECT UUID_SHORT()
+        </selectKey>
+        INSERT INTO transactions_progress (Progress_ID, Account_Number, Message_Code) VALUES (#{Progress_ID}, #{Account_Number}, #{Message_Code})
+    </insert>
+    <select id="selectByProgress_IDAndAccount_Number" parameterType="map" resultType="com.example.bankaccount.model.Transactions_ProgressModel">
+        SELECT Message_Code FROM transactions_progress WHERE Progress_ID=#{Progress_ID} AND Account_Number=#{Account_Number}
+    </select>
+    <update id="updateByProgress_ID" parameterType="com.example.bankaccount.model.Transactions_ProgressModel">
+        UPDATE transactions_progress SET Message_Code=#{Message_Code} WHERE Progress_ID=#{Progress_ID}
+    </update>
+</mapper>

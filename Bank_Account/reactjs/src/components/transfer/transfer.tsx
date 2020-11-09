@@ -2,6 +2,7 @@ import React from "react";
 import getAccount_Info, { Account_InfoModel } from "./account_info.service";
 import postTransaction, {
   postTransactionResponse,
+  transaction_progress,
 } from "./transaction.service";
 import styles from "./transfer.module.css";
 
@@ -26,7 +27,11 @@ export default function Transfer() {
 
   React.useEffect(() => {
     let pattern = new RegExp("[0-9]");
-    if (pattern.test(destination) && destination.length === 17 && Account_Number !== destination) {
+    if (
+      pattern.test(destination) &&
+      destination.length === 17 &&
+      Account_Number !== destination
+    ) {
       const timeout = setTimeout(() => {
         getAccount_Info(destination).then((data) => {
           setAccount_Info(data.account_info);
@@ -46,7 +51,21 @@ export default function Transfer() {
 
     if (valid && Account_Number !== destination) {
       postTransaction(destination, parseInt(Transaction_Value)).then((data) => {
-        setResponse({ message_code: data.message_code, message: data.message });
+        setResponse({
+          message_code: data.message_code,
+          message: data.message,
+        });
+        setTimeout(() => {
+          const location = data.location;
+          if (location !== undefined) {
+            transaction_progress(location).then((data) => {
+              setResponse({
+                message_code: data.message_code,
+                message: data.message,
+              });
+            });
+          }
+        }, 1000);
       });
     } else {
       setResponse({

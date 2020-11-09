@@ -12,6 +12,7 @@ public class TransactionsModel implements Serializable {
   private String Destination;
   private int Destination_Type;
   private BigDecimal Transaction_Value;
+  private String Progress_ID; // this attribute is for TransactionsControllerv2, this is not stored in transactions table.
 
   public TransactionsModel(String destination, int destination_Type, BigDecimal transaction_Value) {
     Destination = destination;
@@ -53,5 +54,13 @@ public class TransactionsModel implements Serializable {
 
   public BigDecimal getTransaction_Value() {
     return Transaction_Value;
+  }
+
+  public String getProgress_ID() {
+    return Progress_ID;
+  }
+
+  public void setProgress_ID(String progress_ID) {
+    Progress_ID = progress_ID;
   }
 }

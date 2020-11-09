@@ -20,6 +20,7 @@
         <mapper resource="builder/User_InfoMapper.xml"/>
         <mapper resource="builder/User_DetailMapper.xml"/>
         <mapper resource="builder/TransactionsMapper.xml"/>
+        <mapper resource="builder/Transactions_ProgressMapper.xml"/>
         <mapper resource="builder/StatementsMapper.xml"/>
 
         <mapper resource="builder/admin/Admin_LoginMapper.xml"/>
