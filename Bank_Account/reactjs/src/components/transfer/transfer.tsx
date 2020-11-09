@@ -1,8 +1,8 @@
 import React from "react";
 import getAccount_Info, { Account_InfoModel } from "./account_info.service";
 import postTransaction, {
-  postTransactionResponse,
   transaction_progress,
+  transaction_progressResponse,
 } from "./transaction.service";
 import styles from "./transfer.module.css";
 
@@ -23,7 +23,9 @@ export default function Transfer() {
   const [Account_Info, setAccount_Info] = React.useState<Account_InfoModel>();
   const [Transaction_Value, setTransaction_Value] = React.useState("");
   const [valid, setValid] = React.useState(false);
-  const [response, setResponse] = React.useState<postTransactionResponse>({});
+  const [response, setResponse] = React.useState<transaction_progressResponse>(
+    {}
+  );
 
   React.useEffect(() => {
     let pattern = new RegExp("[0-9]");
@@ -62,6 +64,7 @@ export default function Transfer() {
               setResponse({
                 message_code: data.message_code,
                 message: data.message,
+                progress: data.progress,
               });
             });
           }
@@ -81,6 +84,9 @@ export default function Transfer() {
         <div>
           <p>Message_Code: {response.message_code}</p>
           <p>Message: {response.message}</p>
+          {response.progress !== undefined && (
+            <p>Progress: {response.progress.message_Code}</p>
+          )}
         </div>
       )}
       <form onSubmit={(e) => handleSubmit(e)}>

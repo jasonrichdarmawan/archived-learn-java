@@ -5,10 +5,10 @@ export interface postTransactionResponse {
 }
 
 export interface transaction_progressResponse {
-  message_code: number;
-  message: string;
-  progress: {
-    message_code: number;
+  message_code?: number;
+  message?: string;
+  progress?: {
+    message_Code: number;
     acount_Number: null;
     progress_ID: null;
   };
