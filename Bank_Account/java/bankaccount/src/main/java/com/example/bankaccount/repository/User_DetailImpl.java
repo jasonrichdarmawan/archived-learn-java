@@ -2,47 +2,46 @@ package com.example.bankaccount.repository;
 
 import com.example.bankaccount.dao.User_DetailDAO;
 import com.example.bankaccount.model.User_DetailModel;
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import java.io.IOException;
-import java.io.Reader;
 
 @Repository
 public class User_DetailImpl implements User_DetailDAO {
-  private SqlSession sqlSession;
+  @Autowired
+  private MyBatis myBatis;
 
-  public User_DetailImpl() {
-    Reader reader = null;
-    try {
-      reader = Resources.getResourceAsReader("mybatis-config.xml");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
-    sqlSession = sqlSessionFactory.openSession();
-  }
+  private SqlSession sqlSession;
 
   @Override
   public void createTableIfNotExists() {
+    sqlSession = myBatis.getSqlSessionFactory().openSession();
+
     sqlSession.update("User_Detail.createTableIfNotExists");
     sqlSession.commit();
+
+    sqlSession.close();
   }
 
   @Override
   public int insert(User_DetailModel user_detailModel) {
+    sqlSession = myBatis.getSqlSessionFactory().openSession();
+
     int rowsAffected = sqlSession.insert("User_Detail.insert", user_detailModel);
     sqlSession.commit();
+
+    sqlSession.close();
     return rowsAffected;
   }
 
   @Override
   public User_DetailModel select(String Account_Number) {
+    sqlSession = myBatis.getSqlSessionFactory().openSession();
+
     User_DetailModel user_detailModel = sqlSession.selectOne("User_Detail.selectByAccountNumber", Account_Number);
-    sqlSession.commit();
+
+    sqlSession.close();
+
     return user_detailModel;
   }
 }

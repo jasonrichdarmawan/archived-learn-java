@@ -1,37 +1,33 @@
 package com.example.bankaccount.repository.admin;
 
-import org.apache.ibatis.io.Resources;
+import com.example.bankaccount.repository.MyBatis;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import java.io.IOException;
-import java.io.Reader;
 
 @Repository
 public class Admin_LoginImpl {
+
+  @Autowired
+  private MyBatis myBatis;
+
   private SqlSession sqlSession;
 
-  public Admin_LoginImpl() {
-    Reader reader = null;
-    try {
-      reader = Resources.getResourceAsReader("mybatis-config.xml");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
-    sqlSession = sqlSessionFactory.openSession();
-  }
-
   public void createTableIfNotExists() {
+    sqlSession = myBatis.getSqlSessionFactory().openSession();
+
     sqlSession.update("Admin_Login.createTableIfNotExists");
     sqlSession.commit();
+
+    sqlSession.close();
   }
 
   public boolean exist(String User_ID) {
+    sqlSession = myBatis.getSqlSessionFactory().openSession();
+
     boolean isExist = sqlSession.selectOne("Admin_Login.exist", User_ID);
-    sqlSession.commit();
+    sqlSession.close();
+
     return isExist;
   }
 }
