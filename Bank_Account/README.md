@@ -36,7 +36,7 @@
       - [x] Debit: SELECT Transaction_Value FROM table `transactions` WHERE Source=#{Account_Number}
       - [x] Credit: SELECT Transaction_Value FROM table `transactions` WHERE Destination=#{Account_Number}
 
-- FE: View
+- FE: Web View
   - [x] Register route: `/register`
   - [x] Login route: `/logout`
   - [x] Logout `button`
@@ -44,8 +44,16 @@
   - [x] Transfer Betweeen Accounts route: `/transfer`
   - [x] Get Account Balance route: `/balance`
 
+- FE: Mobile View
+  - [ ] Register
+  - [ ] Login
+  - [ ] Logout
+  - [ ] Get Transactions History By Start and End Date
+  - [ ] Transfer Between Accounts
+  - [ ] Get Account Balance
+
 - [ ] BE: Extra Todos
-  - [ ] Refactor the code to use RabbitMQ
+  - [x] Refactor the code to use RabbitMQ
   - [ ] Pattern Tester / bug prevention
     - [x] RegisterController
       - [x] post "api/v1/register" Full_Name pattern tester to generate User_ID with format: First_NameSecond_Nameddyy
@@ -56,6 +64,8 @@
       - [x] get "api/v1/account" pattern tester
     - [ ] Refactor the Pattern Tester to the Model, for better readibility.
   - [ ] post "api/v1/register" rollback feature if the process fail.
+  - [ ] SQL Injection prevention (will be defined later)
+  - [ ] Tests (will be defined later)
 
 - [ ] FE: Extra Todos
   - [x] Scoped Components
