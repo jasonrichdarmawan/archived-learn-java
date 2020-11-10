@@ -30,7 +30,7 @@ export default async function postTransaction(
   Destination: string,
   Transaction_Value: number
 ) {
-  const response = await fetch(`http://localhost:8080/api/v2/transaction`, {
+  const response = await fetch(`${process.env.REACT_APP_baseUrl}/api/v2/transaction`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

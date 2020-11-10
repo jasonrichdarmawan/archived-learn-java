@@ -5,7 +5,7 @@ export interface getBalanceResponse {
 }
 
 export default async function getBalance() {
-  const response = await fetch(`http://localhost:8080/api/v1/balance`, {
+  const response = await fetch(`${process.env.REACT_APP_baseUrl}/api/v1/balance`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

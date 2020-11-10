@@ -31,7 +31,7 @@ interface LoginResponse {
 export const loginAsync = (endpoint: string, User_ID: string, PIN: number | string) => async (
   dispatch: AppDispatch
 ) => {
-  const response = await fetch(`http://localhost:8080/${endpoint}`, {
+  const response = await fetch(`${process.env.REACT_APP_baseUrl}/${endpoint}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

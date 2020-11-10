@@ -11,7 +11,7 @@ export interface getAccount_InfoResponseBody {
 
 export default async function getAccount_Info(Account_Number: string) {
   const response = await fetch(
-    `http://localhost:8080/api/v1/account/${Account_Number}`,
+    `${process.env.REACT_APP_baseUrl}/api/v1/account/${Account_Number}`,
     {
       method: "GET",
       headers: {
