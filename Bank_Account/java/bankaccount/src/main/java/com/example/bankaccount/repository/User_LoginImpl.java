@@ -3,15 +3,9 @@ package com.example.bankaccount.repository;
 import com.example.bankaccount.dao.User_LoginDAO;
 import com.example.bankaccount.model.User_LoginModel;
 import com.example.bankaccount.service.PinHashingService;
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import java.io.IOException;
-import java.io.Reader;
 
 @Repository
 public class User_LoginImpl implements User_LoginDAO {
