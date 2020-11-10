@@ -25,6 +25,9 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import Config from 'react-native-config';
+
+Config.BASE_URL;
 
 declare const global: {HermesInternal: null | {}};
 
@@ -44,10 +47,10 @@ const App = () => {
           )}
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
+              <Text style={styles.sectionTitle}>{Config.BASE_URL}</Text>
               <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-                screen and then come back to see your edits.
+                Edit <Text style={styles.highlight}>App.tsx</Text> to change
+                this screen and then come back to see your edits.
               </Text>
             </View>
             <View style={styles.sectionContainer}>
