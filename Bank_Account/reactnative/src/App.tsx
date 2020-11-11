@@ -13,29 +13,44 @@ import History from './components/History/History';
 import {RootState} from './app/store';
 import jwt_decode from 'jwt-decode';
 import {IToken} from './features/authorization/token.types';
-import {Pressable} from 'react-native';
+import {AppState, AppStateStatus, Pressable} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './App.styles';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const App = () => {
+  const appState = React.useRef(AppState.currentState);
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const token = useSelector((state: RootState) => state.authorization.token);
 
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    // decode and check if token has expired.
-    if (token != null && token !== '') {
-      const decoded = jwt_decode(token) as IToken;
+    AppState.addEventListener('change', _handleAppStateChange);
 
-      // auto logout
-      setTimeout(() => {
-        dispatch(logout());
-      }, decoded.exp * 1000 - Date.now());
+    return () => {
+      AppState.removeEventListener('change', _handleAppStateChange);
+    };
+  });
+
+  function _handleAppStateChange(nextAppState: AppStateStatus) {
+    if (
+      appState.current.match(/inactive|background/) &&
+      nextAppState === 'active'
+    ) {
+      if (token != null && token !== '') {
+        const decoded = jwt_decode(token) as IToken;
+
+        // auto logout
+        if (decoded.exp * 1000 - Date.now() < 0) {
+          dispatch(logout());
+        }
+      }
     }
-  }, [dispatch, token]);
+
+    appState.current = nextAppState;
+  }
 
   return (
     <NavigationContainer>
