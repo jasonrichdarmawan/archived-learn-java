@@ -46,7 +46,7 @@
 
 - FE: Mobile View
   - [x] Login
-  - [ ] Logout
+  - [x] Logout
   - [ ] Get Transactions History By Start and End Date
   - [ ] Transfer Between Accounts
   - [ ] Get Account Balance
@@ -68,3 +68,4 @@
 
 - [ ] FE: Extra Todos
   - [x] Scoped Components
+  - [ ] Refactor the Auto Logout logic.
