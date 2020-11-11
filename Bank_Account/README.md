@@ -45,8 +45,7 @@
   - [x] Get Account Balance route: `/balance`
 
 - FE: Mobile View
-  - [ ] Register
-  - [ ] Login
+  - [x] Login
   - [ ] Logout
   - [ ] Get Transactions History By Start and End Date
   - [ ] Transfer Between Accounts

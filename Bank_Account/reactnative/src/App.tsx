@@ -21,7 +21,7 @@ const App = () => {
         {!isLoggedIn ? (
           <>
             <Stack.Screen
-              name="Home"
+              name="First"
               component={First}
               options={{headerShown: false}}
             />

@@ -22,16 +22,6 @@ const First = ({navigation}: Props) => {
         ]}>
         <Text>Login</Text>
       </Pressable>
-      {/* <Pressable
-        onPress={() => handleRoute('Register')}
-        style={({pressed}) => [
-          {
-            backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
-          },
-          styles.wrapperPressable,
-        ]}>
-        <Text>Register</Text>
-      </Pressable> */}
       <Text>{Config.baseUrl}</Text>
     </View>
   );
