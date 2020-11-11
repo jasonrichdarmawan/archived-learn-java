@@ -97,7 +97,7 @@ export default function Register() {
             name="PIN"
             value={state.PIN}
             type="password"
-            pattern="[0-9]{6}"
+            pattern="^[0-9]{6}$"
             title="Minimum and Maximum PIN length is 6"
             required
             onChange={(e) => handleChange(e)}
