@@ -1,21 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import Config from 'react-native-config';
+import {Text} from 'react-native';
 
 const Home = () => {
-  return (
-    <View style={styles.flexcenter}>
-      <Text>{Config.baseUrl}</Text>
-    </View>
-  );
+  return <Text>It works</Text>;
 };
-
-const styles = StyleSheet.create({
-  flexcenter: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default Home;
