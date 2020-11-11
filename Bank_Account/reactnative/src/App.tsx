@@ -13,6 +13,9 @@ import History from './components/History/History';
 import {RootState} from './app/store';
 import jwt_decode from 'jwt-decode';
 import {IToken} from './features/authorization/token.types';
+import {Pressable} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import styles from './App.styles';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -50,7 +53,23 @@ const App = () => {
             <Stack.Screen
               name="Home"
               component={Home}
-              options={{headerShown: false}}
+              options={{
+                headerTitle: '',
+                headerRight: () => (
+                  <Pressable
+                    style={({pressed}) => [
+                      {
+                        backgroundColor: pressed
+                          ? 'rgb(210, 230, 255)'
+                          : 'white',
+                      },
+                      styles.headerRight,
+                    ]}
+                    onPress={() => dispatch(logout())}>
+                    <Icon name="logout" size={24} color="blue" />
+                  </Pressable>
+                ),
+              }}
             />
             <Stack.Screen
               name="History"
