@@ -35,7 +35,7 @@ export default function LoginComponent({
           </p>
           <input
             type="text"
-            pattern="[a-zA-Z0-9]{12}"
+            pattern="^[a-zA-Z0-9]{12}$"
             title="Minimum and Maximum User_ID length is 12 characters and does not have special characters"
             required
             onChange={(e) => onChangeUser_ID(e.target.value)}
@@ -56,7 +56,7 @@ export default function LoginComponent({
           </p>
           <input
             type="password"
-            pattern="[0-9]{6}"
+            pattern="^[0-9]{6}$"
             title="Minimum and Maximum PIN length is 6"
             required
             onChange={(e) => handleParsePIN(e)}
