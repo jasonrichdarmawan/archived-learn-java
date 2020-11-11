@@ -1,4 +1,6 @@
 import React from 'react';
+import {Text} from 'react-native';
+import Config from 'react-native-config';
 import {useDispatch} from 'react-redux';
 import {loginAsync} from '../../features/authorization/authorizationSlice';
 import LoginComponent, {PIN_Pattern, User_ID_Pattern} from './Login.component';
@@ -16,13 +18,16 @@ const Login = () => {
   }
 
   return (
-    <LoginComponent
-      handleLogin={handleLogin}
-      User_ID={User_ID}
-      setUser_ID={setUser_ID}
-      PIN={PIN}
-      setPIN={setPIN}
-    />
+    <>
+      <Text>{Config.baseUrl}</Text>
+      <LoginComponent
+        handleLogin={handleLogin}
+        User_ID={User_ID}
+        setUser_ID={setUser_ID}
+        PIN={PIN}
+        setPIN={setPIN}
+      />
+    </>
   );
 };
 

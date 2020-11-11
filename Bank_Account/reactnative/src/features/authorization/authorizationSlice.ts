@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AppDispatch, RootState} from '../../app/store';
 import jwt_decode from 'jwt-decode';
 import {LoginResponse} from './LoginResponse.types';
-import {token} from './token.types';
+import {IToken} from './token.types';
 import {sessionStorage} from './sessionStorage.types';
 import Config from 'react-native-config';
 
@@ -23,7 +23,9 @@ export const authorizationSlice = createSlice({
       state.Full_Name = action.payload.Full_Name;
       state.ISO_4217 = action.payload.ISO_4217;
     },
-    logout: (state = initialState) => state,
+    logout: (state) => {
+      state.isLoggedIn = false;
+    },
   },
 });
 
@@ -44,7 +46,7 @@ export const loginAsync = (User_ID: string, PIN: number | string) => async (
   });
   await response.json().then((data: LoginResponse) => {
     if (data.message_code === 200) {
-      const decoded = jwt_decode(data.token) as token;
+      const decoded = jwt_decode(data.token) as IToken;
       dispatch(
         login({
           isLoggedIn: true,
@@ -61,6 +63,6 @@ export const loginAsync = (User_ID: string, PIN: number | string) => async (
 };
 
 export const selectIsLoggedIn = (state: RootState) =>
-  state.authorization.Full_Name;
+  state.authorization.isLoggedIn;
 
 export default authorizationSlice.reducer;
