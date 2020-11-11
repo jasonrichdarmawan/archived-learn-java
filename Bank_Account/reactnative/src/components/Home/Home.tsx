@@ -1,10 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import Config from 'react-native-config';
 
 const Home = () => {
   return (
     <View style={styles.flexcenter}>
-      <Text>It works</Text>
+      <Text>{Config.baseUrl}</Text>
     </View>
   );
 };

@@ -30,6 +30,12 @@ public class TransactionsControllerv2 {
   public ResponseEntity<?> transaction_progress(@RequestHeader(value = "Authorization") String Authorization, @PathVariable("Progress_ID") String Progress_ID) {
     Map<String, Object> responseBody = new HashMap<>();
 
+    if (!Authorization.contains("Bearer ")) {
+      responseBody.put("message_code", 400);
+      responseBody.put("message", "Bad Request");
+      return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+    }
+
     String token = Authorization.split(" ")[1];
     boolean isVerified = this.tokenService.verify(token);
 
