@@ -20,11 +20,16 @@ export const authorizationSlice = createSlice({
     login: (state: sessionStorage, action: PayloadAction<sessionStorage>) => {
       state.isLoggedIn = action.payload.isLoggedIn;
       state.token = action.payload.token;
+      state.Account_Number = action.payload.Account_Number;
       state.Full_Name = action.payload.Full_Name;
       state.ISO_4217 = action.payload.ISO_4217;
     },
     logout: (state) => {
       state.isLoggedIn = false;
+      state.token = '';
+      state.Account_Number = '';
+      state.Full_Name = '';
+      state.ISO_4217 = '';
     },
   },
 });
@@ -60,6 +65,20 @@ export const loginAsync = (User_ID: string, PIN: number | string) => async (
       // TODO
     }
   });
+};
+
+export const validateToken = (token: string) => (dispatch: AppDispatch) => {
+  if (token != null && token !== '') {
+    const decoded = jwt_decode(token) as IToken;
+
+    // auto logout
+    if (decoded.exp * 1000 - Date.now() < 0) {
+      dispatch(logout());
+      return false;
+    } else {
+      return true;
+    }
+  }
 };
 
 export const selectIsLoggedIn = (state: RootState) =>

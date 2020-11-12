@@ -1,12 +1,26 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-import styles from './History.styles';
+import HistorySelect from './HistorySelect.component';
+import {TransactionModel} from './HistorySelect.service';
+import Transactions from './Transactions.component';
 
 const History = () => {
+  const [isTransactionsShown, setIsTransactionsShown] = React.useState(false);
+
+  const [transactions, setTransactions] = React.useState<TransactionModel[]>(
+    [],
+  );
+
   return (
-    <View style={styles.container}>
-      <Text>It works</Text>
-    </View>
+    <>
+      {!isTransactionsShown ? (
+        <HistorySelect
+          setTransactions={setTransactions}
+          setIsTransactionsShown={setIsTransactionsShown}
+        />
+      ) : (
+        <Transactions transactions={transactions} />
+      )}
+    </>
   );
 };
 
