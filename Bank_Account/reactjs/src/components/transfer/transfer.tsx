@@ -47,6 +47,14 @@ export default function Transfer() {
     }
   }, [Account_Number, destination]);
 
+  function handleParseTransaction_Value(value: string) {
+    if (value.length === 1) {
+      setTransaction_Value(value.replace(/[^1-9]/g, ""));
+    } else {
+      setTransaction_Value(value.replace(/[^0-9]/g, ""));
+    }
+  }
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     e.stopPropagation();
@@ -123,7 +131,9 @@ export default function Transfer() {
             className={styles.f50p}
             type="number"
             required
-            onChange={(e) => setTransaction_Value(e.target.value)}
+            value={Transaction_Value}
+            pattern="[0-9]"
+            onChange={(e) => handleParseTransaction_Value(e.target.value)}
           />
           <div className={styles.f100p} />
         </div>
