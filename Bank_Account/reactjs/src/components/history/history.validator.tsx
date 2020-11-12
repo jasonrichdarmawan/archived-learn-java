@@ -18,6 +18,7 @@ export function historyValidator({
    * 4. verified
    */
   const Today = new Date();
+  Today.setHours(0,0,0,0);
   Today.setUTCHours(24,0,0,0);
 
   if (Today.getTime() === Start.getTime() || Today.getTime() === End.getTime()) {
@@ -25,7 +26,6 @@ export function historyValidator({
   }
 
   if (Today.getTime() < Start.getTime() || Today.getTime() < End.getTime()) {
-    console.log(Today, Start)
     return 2;
   }
 

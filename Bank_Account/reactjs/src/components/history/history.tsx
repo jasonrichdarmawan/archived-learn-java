@@ -10,10 +10,6 @@ export default function History() {
     []
   );
 
-  React.useEffect(() => {
-
-  }, [isTransactionsShown])
-
   return (
     <>
       {!isTransactionsShown ? (
