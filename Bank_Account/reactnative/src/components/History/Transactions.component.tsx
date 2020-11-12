@@ -3,7 +3,7 @@ import {Text, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../app/store';
-import styles from '../History/History.styles';
+import styles from './History.styles';
 import {TransactionModel} from './HistorySelect.service';
 
 const Transactions = ({transactions}: {transactions: TransactionModel[]}) => {
