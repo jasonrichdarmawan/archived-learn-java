@@ -137,7 +137,7 @@ export default function Transfer() {
           />
           <div className={styles.f100p} />
         </div>
-        <button type="submit">{ISO_4217 && lang.ID.Transaction_Value}</button>
+        <button type="submit">{ISO_4217 && lang.ID.Send}</button>
       </form>
     </>
   );
