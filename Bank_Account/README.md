@@ -47,9 +47,9 @@
 - FE: Mobile View
   - [x] Login
   - [x] Logout
-  - [ ] Get Transactions History By Start and End Date
-  - [ ] Transfer Between Accounts
-  - [ ] Get Account Balance
+  - [x] Get Transactions History By Start and End Date
+  - [x] Transfer Between Accounts
+  - [x] Get Account Balance
 
 - [ ] BE: Extra Todos
   - [x] Refactor the code to use RabbitMQ
@@ -66,6 +66,6 @@
   - [ ] SQL Injection prevention (will be defined later)
   - [ ] Tests (will be defined later)
 
-- [ ] FE: Extra Todos
+- [ ] FE Web: Extra Todos
   - [x] Scoped Components
   - [ ] Refactor the Auto Logout logic.
