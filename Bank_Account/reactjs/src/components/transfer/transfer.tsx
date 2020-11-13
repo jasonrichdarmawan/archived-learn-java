@@ -59,7 +59,7 @@ export default function Transfer() {
     e.preventDefault();
     e.stopPropagation();
 
-    if (valid && Account_Number !== destination) {
+    if (valid && Account_Number !== destination && Transaction_Value !== "") {
       postTransaction(destination, parseInt(Transaction_Value)).then((data) => {
         setResponse({
           message_code: data.message_code,
