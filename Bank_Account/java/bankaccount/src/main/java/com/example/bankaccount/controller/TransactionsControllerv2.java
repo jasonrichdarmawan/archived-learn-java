@@ -10,6 +10,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,7 +65,7 @@ public class TransactionsControllerv2 {
 
   @CrossOrigin("http://localhost:3000")
   @PostMapping("api/v2/transaction")
-  public ResponseEntity<?> transfer(@RequestHeader(value = "Authorization") String Authorization, @RequestBody TransactionsModel transactionsModel) {
+  public ResponseEntity<?> transfer(@RequestHeader(value = "Authorization") String Authorization, @RequestBody TransactionsModel transactionsModel, UriComponentsBuilder uriComponentsBuilder) {
     Map<String, Object> responseBody = new HashMap<>();
 
     String token = Authorization.split(" ")[1];
@@ -83,7 +85,8 @@ public class TransactionsControllerv2 {
 
       responseBody.put("message_code", 202);
       responseBody.put("message", "On queue");
-      responseBody.put("location", String.format("http://localhost:8080/api/v2/transaction/%s", transactions_progressModel.getProgress_ID()));
+      UriComponents uriComponents = uriComponentsBuilder.path("/api/v2/transaction/{Progress_ID}").buildAndExpand(transactions_progressModel.getProgress_ID());
+      responseBody.put("location", uriComponents.toUri());
 
       return new ResponseEntity(responseBody, HttpStatus.OK);
     } else {

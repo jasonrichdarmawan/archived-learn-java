@@ -17,6 +17,7 @@ import {AppState, AppStateStatus, Pressable} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './App.styles';
 import Balance from './components/Balance/Balance';
+import Transfer from './components/Transfer/Transfer';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -95,6 +96,11 @@ const App = () => {
             <Stack.Screen
               name="Balance"
               component={Balance}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Transfer"
+              component={Transfer}
               options={{headerShown: false}}
             />
           </>
