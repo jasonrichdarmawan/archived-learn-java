@@ -27,6 +27,8 @@ public class Admin_TransactionsImpl {
     admin_transactionsModel.setDate();
     admin_transactionsModel.setUser_ID(user_id);
 
+    sqlSession = myBatis.getSqlSessionFactory().openSession();
+
     int rowsAffected = sqlSession.insert("Admin_Transactions.insert", admin_transactionsModel);
     sqlSession.commit();
 
