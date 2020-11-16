@@ -1,3 +1,14 @@
+### Disclaimer
+
+This source code intentionally configure mapper with `.xml` because the banking industry uses it.
+
+The disadvantages which are it requires a interface DAO + the implementation (loose one source of truth) for each table. This may lead to problem when you're on a deadline. For example:
+1. `repository/User_LoginImpl.java` implements `DAO/User_LoginDAO.java` but it has method which is not defined in the interface.
+2. `repository/admin/AdminLoginImpl.java` but it did not implements DAO.
+3. Loose mapper usage: `sqlSession.selectOne("mapper namespace.mapper id", params)`. For example `sqlSession.update("Transactions_Progress.createTableIfNotExists");` and `sqlSession.update("Transactions.createTableIfNotExists");` it looks similar, and you may not notice it until the deployment.
+
+If you use @Mapper, you will not have this problem since you don't need `repository/User_LoginImpl.java`, and you don't need to manually build the `SqlSession`.
+
 ### Documentation
 
 - [ ] [Presentation](https://lnkd.in/gGJ36Pz)
