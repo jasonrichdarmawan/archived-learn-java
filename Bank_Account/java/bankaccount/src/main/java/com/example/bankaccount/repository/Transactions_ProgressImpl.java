@@ -23,7 +23,7 @@ public class Transactions_ProgressImpl {
   public void createTableIfNotExists() {
     sqlSession = myBatis.getSqlSessionFactory().openSession();
 
-    sqlSession.update("Transactions.createTableIfNotExists");
+    sqlSession.update("Transactions_Progress.createTableIfNotExists");
     sqlSession.commit();
 
     sqlSession.close();
