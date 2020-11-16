@@ -20,6 +20,12 @@ public class NameController {
 
   @PostMapping("api/v1/name")
   public ResponseEntity<?> insert(@RequestBody NameModel nameModel) {
+
+    // validator
+    if (!nameModel.requestIsValid()) {
+      return ResponseEntity.badRequest().build();
+    }
+
     if (nameMapper.insert(nameModel) == 1) {
       return new ResponseEntity<>(nameModel, HttpStatus.OK);
     } else {

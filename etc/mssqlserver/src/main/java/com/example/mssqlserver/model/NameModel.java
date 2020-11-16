@@ -21,8 +21,8 @@ public class NameModel {
     return name;
   }
 
-  public boolean isValid() {
-    if (this.id == null || this.name == null) return false;
+  public boolean requestIsValid() {
+    if (this.name.isEmpty()) return false;
 
     return true;
   }
