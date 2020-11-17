@@ -9,7 +9,7 @@ import java.util.List;
 public interface NameMapper {
 
   @Select("SELECT * FROM name")
-  public List<NameModel> selectAll();
+  List<NameModel> selectAll();
 
   @SelectKey(statement = "SELECT NEWID()", keyProperty = "newid", resultType = String.class, before = true)
   @Insert("INSERT INTO name (name, newid) VALUES (#{name}, #{newid})")
