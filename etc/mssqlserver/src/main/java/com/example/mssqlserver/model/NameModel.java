@@ -2,6 +2,7 @@ package com.example.mssqlserver.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+@SuppressWarnings("unused") // MyBatis does not need a defined constructor nor a setters.
 @JsonInclude(JsonInclude.Include.NON_NULL) // filter: only non_null, alternative: spring.jackson.default-property-inclusion=NON_NULL in application.properties
 public class NameModel {
   private Integer id;
@@ -21,8 +22,6 @@ public class NameModel {
   }
 
   public boolean requestIsValid() {
-    if (this.name.isEmpty()) return false;
-
-    return true;
+    return !this.name.isEmpty();
   }
 }
