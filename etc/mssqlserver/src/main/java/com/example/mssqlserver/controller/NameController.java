@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 public class NameController {
 
@@ -19,13 +21,7 @@ public class NameController {
   }
 
   @PostMapping("api/v1/name")
-  public ResponseEntity<?> insert(@RequestBody NameModel nameModel) {
-
-    // validator
-    if (!nameModel.requestIsValid()) {
-      return ResponseEntity.badRequest().build();
-    }
-
+  public ResponseEntity<?> insert(@Valid @RequestBody NameModel nameModel) {
     if (nameMapper.insert(nameModel) == 1) {
       return new ResponseEntity<>(nameModel, HttpStatus.OK);
     } else {
