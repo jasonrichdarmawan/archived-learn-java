@@ -1,5 +1,8 @@
 package com.example.mssqlserver.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL) // filter: only non_null, alternative: spring.jackson.default-property-inclusion=NON_NULL in application.properties
 public class NameModel {
   private Integer id;
   private String name;
