@@ -11,7 +11,8 @@ public interface NameMapper {
   @Select("SELECT * FROM name")
   public List<NameModel> selectAll();
 
-  @Insert("INSERT INTO name (name) VALUES (#{name})")
-  @Options(useGeneratedKeys = true, keyProperty = "id")
+  @SelectKey(statement = "SELECT NEWID()", keyProperty = "newid", resultType = String.class, before = true)
+  @Insert("INSERT INTO name (name, newid) VALUES (#{name}, #{newid})")
+//  @Options(useGeneratedKeys = true, keyProperty = "id")
   int insert(NameModel nameModel);
 }
