@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-public class gNameController {
+public class NameController {
 
   @Autowired
   private NameMapper nameMapper;
