@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,7 +66,7 @@ public class TransactionsControllerv2 {
 
   @CrossOrigin("http://localhost:3000")
   @PostMapping("api/v2/transaction")
-  public ResponseEntity<?> transfer(@RequestHeader(value = "Authorization") String Authorization, @RequestBody TransactionsModel transactionsModel, UriComponentsBuilder uriComponentsBuilder) {
+  public ResponseEntity<?> transfer(@RequestHeader(value = "Authorization") String Authorization, @Valid @RequestBody TransactionsModel transactionsModel, UriComponentsBuilder uriComponentsBuilder) {
     Map<String, Object> responseBody = new HashMap<>();
 
     String token = Authorization.split(" ")[1];

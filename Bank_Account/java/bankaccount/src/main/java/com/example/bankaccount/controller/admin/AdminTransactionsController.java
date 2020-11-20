@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class AdminTransactionsController {
 
   @CrossOrigin("http://localhost:3000")
   @PostMapping("api/v1/admin/transaction")
-  public ResponseEntity<?> transfer(@RequestHeader(value = "Authorization") String Authorization, @RequestBody Admin_TransactionsModel admin_transactionsModel) {
+  public ResponseEntity<?> transfer(@RequestHeader(value = "Authorization") String Authorization, @Valid @RequestBody Admin_TransactionsModel admin_transactionsModel) {
     String token = Authorization.split(" ")[1];
     boolean isVerified = this.tokenService.verify(token);
 

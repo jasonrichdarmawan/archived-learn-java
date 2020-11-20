@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,16 +25,16 @@ public class AdminLoginController {
 
   @CrossOrigin("http://localhost:3000")
   @PostMapping("api/v1/admin/login")
-  public ResponseEntity<?> login(@RequestBody User_LoginModel user_loginModel) {
-
-    if (!this.admin_login.exist(user_loginModel.getUser_ID())) {
+  public ResponseEntity<?> login(@Valid @RequestBody User_LoginModel user_loginModel) {
+    boolean User_ID_isAdmin = this.admin_login.exist(user_loginModel.getUser_ID());
+    if (User_ID_isAdmin) {
+      return this.user_loginService.login(user_loginModel);
+    } else {
       Map<String, Object> responseBody = new HashMap<>();
       responseBody.put("message_code", 404);
       responseBody.put("message", "NOT_FOUND");
 
       return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
     }
-
-    return this.user_loginService.login(user_loginModel);
   }
 }

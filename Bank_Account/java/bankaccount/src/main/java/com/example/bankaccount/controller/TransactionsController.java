@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -86,7 +87,7 @@ public class TransactionsController {
 
   @CrossOrigin("http://localhost:3000")
   @PostMapping("api/v1/transaction")
-  public ResponseEntity<?> transfer(@RequestHeader(value = "Authorization") String Authorization, @RequestBody TransactionsModel transactionsModel) {
+  public ResponseEntity<?> transfer(@RequestHeader(value = "Authorization") String Authorization, @Valid @RequestBody TransactionsModel transactionsModel) {
     String token = Authorization.split(" ")[1];
     boolean isVerified = this.tokenService.verify(token);
 

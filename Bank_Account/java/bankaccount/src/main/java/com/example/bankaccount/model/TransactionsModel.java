@@ -1,7 +1,9 @@
 package com.example.bankaccount.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,8 +11,12 @@ import java.time.LocalDate;
 public class TransactionsModel implements Serializable {
   private LocalDate Date;
   private String Source;
+  @Pattern(regexp = "[0-9]{17}", message = "Destination length must be 17")
   private String Destination;
+  @Range(min = 1, max = 10, message = "Destination_Type is unknown")
   private int Destination_Type;
+  @NotNull(message = "Transaction_Value must not be null")
+  @DecimalMin(value = "1.0", message = "Transaction_Value must not be null")
   private BigDecimal Transaction_Value;
   private String Progress_ID; // this attribute is for TransactionsControllerv2, this is not stored in transactions table.
 

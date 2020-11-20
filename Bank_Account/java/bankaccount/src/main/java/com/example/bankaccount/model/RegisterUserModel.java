@@ -3,11 +3,13 @@ package com.example.bankaccount.model;
 import com.example.bankaccount.service.PinHashingService;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 public class RegisterUserModel {
   private String User_ID;
   private String Hashed_PIN;
+  @Pattern(regexp = "\\s*(?:[a-zA-Z]\\s*){8,35}$", message = "Full Name length must be 8 - 35")
   private String Full_Name;
   private LocalDate Birth_Date;
   private int ISO_4217;

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 public class LoginController {
   @Autowired
@@ -16,7 +18,7 @@ public class LoginController {
 
   @CrossOrigin("http://localhost:3000")
   @PostMapping("api/v1/login")
-  public ResponseEntity<?> login(@RequestBody User_LoginModel user_loginModel) {
+  public ResponseEntity<?> login(@Valid @RequestBody User_LoginModel user_loginModel) {
     return this.user_loginService.login(user_loginModel);
   }
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -41,21 +42,23 @@ public class RegisterController {
 
   @CrossOrigin("http://localhost:3000")
   @PostMapping("api/v1/register")
-  public ResponseEntity<?> register(@RequestBody RegisterUserModel registerUserModel) {
+  public ResponseEntity<?> register(@Valid @RequestBody RegisterUserModel registerUserModel) {
     Map<String, Object> responseBody = new HashMap<>();
-
-    // bug prevention: 1st and 2nd name equals to minimum 8 letters to 35 letters.
-    try {
-      if (!Pattern.matches("\\s*(?:[a-zA-Z]\\s*){8,35}$", registerUserModel.getFull_Name())) {
-        responseBody.put("message_code", 400);
-        responseBody.put("message", "Bad Request");
-        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
-      }
-    } catch (ArrayIndexOutOfBoundsException e) {
-      responseBody.put("message_code", 400);
-      responseBody.put("message", "Bad Request");
-      return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
-    }
+/**
+ * @// TODO: 20/11/2020 cleanup 
+ */
+//    // bug prevention: 1st and 2nd name equals to minimum 8 letters to 35 letters.
+//    try {
+//      if (!Pattern.matches("\\s*(?:[a-zA-Z]\\s*){8,35}$", registerUserModel.getFull_Name())) {
+//        responseBody.put("message_code", 400);
+//        responseBody.put("message", "Bad Request");
+//        return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+//      }
+//    } catch (ArrayIndexOutOfBoundsException e) {
+//      responseBody.put("message_code", 400);
+//      responseBody.put("message", "Bad Request");
+//      return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
+//    }
 
     String User_ID = null;
     if (registerUserModel.getUser_ID() == null) {
