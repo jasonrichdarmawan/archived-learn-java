@@ -1,3 +1,7 @@
+### Update
+
+`./java` folder is no longer maintained and moved to a [new repository](https://github.com/kidfrom/be-bankaccount/).
+
 ### Disclaimer
 
 This source code intentionally configure mapper with `.xml` because the banking industry uses it.

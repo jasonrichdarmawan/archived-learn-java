@@ -100,9 +100,9 @@ export default function HistorySelect({
       if (response === 0) {
         handleGetTransactions({ Start, End });
       } else if (response === 1) {
-        setShowError(lang.ID.Error.ExceedToday);
-      } else if (response === 2) {
         setShowError(lang.ID.Error.SameAsToday);
+      } else if (response === 2) {
+        setShowError(lang.ID.Error.ExceedToday);
       } else if (response === 3) {
         setShowError(lang.ID.Error.StartExceedEnd);
       } else if (response === 4 || response === 5) {

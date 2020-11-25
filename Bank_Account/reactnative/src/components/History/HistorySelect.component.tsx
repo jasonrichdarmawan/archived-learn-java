@@ -114,9 +114,9 @@ const HistorySelect = ({
     if (validator === 0) {
       handleGetTransactions({Start, End, token});
     } else if (validator === 1) {
-      setError(ISO_4217 === 360 ? lang.ID.Error.ExceedToday : '');
-    } else if (validator === 2) {
       setError(ISO_4217 === 360 ? lang.ID.Error.SameAsToday : '');
+    } else if (validator === 2) {
+      setError(ISO_4217 === 360 ? lang.ID.Error.ExceedToday : '');
     } else if (validator === 3) {
       setError(ISO_4217 === 360 ? lang.ID.Error.StartExceedEnd : '');
     } else if (validator === 4 || validator === 5) {
