@@ -1,6 +1,8 @@
 ### Update
 
-`./java` folder is no longer maintained and moved to a [new repository](https://github.com/kidfrom/be-bankaccount/).
+`./java` folder is no longer maintained and moved to a [new repository.](https://github.com/kidfrom/be-bankaccount/)
+`./reactjs` folder is no longer maintained and moved to a [new repository.](https://github.com/kidfrom/fe-web-bankaccount/)
+`./reactnative` folder is no longer maintained and moved to a [new repository.](https://github.com/kidfrom/fe-mobile-bankaccount/)
 
 ### Disclaimer
 
