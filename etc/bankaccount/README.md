@@ -17,6 +17,23 @@ Endpoint:
           “amount”: 15000
         }
         ```
+
+Set up test:
+1. Edit docker-compose.yml
+   
+   1. Hapus service `be-bankaccount`
+   2. Buka port 3306 untuk service `db-mysql`
+
+       ```
+       ...
+       db-mysql:
+         ports:
+           - 3306:3306
+       ...
+       ```
+   3. docker-compose up
+   4. Jalankan test.
+   
         
 Test `./src/test/java/codeassignment/bankaccount`:
 1.	Test for client facing endpoint `/controller`
