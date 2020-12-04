@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 
@@ -112,6 +113,7 @@ class AccountControllerTest {
   }
 
   @Test
+  @Transactional
   void postTransferCreated() throws Exception {
     HashMap<String, Object> requestBody = new HashMap<>();
     requestBody.put("to_account_number", "555002");
