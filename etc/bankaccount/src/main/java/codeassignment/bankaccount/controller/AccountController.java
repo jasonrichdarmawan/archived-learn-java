@@ -8,6 +8,7 @@ import codeassignment.bankaccount.model.PostTransferModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +46,7 @@ public class AccountController {
   }
 
   @PostMapping("/{from_account_number}/transfer")
+  @Transactional(rollbackFor = Exception.class)
   public ResponseEntity<Object> postTransfer(@PathVariable("from_account_number") @Pattern(regexp = "[0-9]+", message = "uri /account/{from_account_number}/transfer, {from_account_number} must only contain number") String fromAccountNumber, @Valid @RequestBody PostTransferModel requestBody) {
     if (fromAccountNumber.equals(requestBody.getTo_account_number())) {
       return ResponseEntity.badRequest().body("from_account_number must not be equal to to_account_number");
@@ -61,10 +63,10 @@ public class AccountController {
         } else {
 
           if (accountMapper.updateBalance(currentBalance.subtract(requestBody.getAmount()), fromAccountNumber) != 1) {
-            return ResponseEntity.status(500).body("Update failed");
+            throw new RuntimeException("Update failed");
           } else {
             if (accountMapper.addBalance(requestBody) != 1) {
-              return ResponseEntity.status(500).body("Update failed");
+              throw new RuntimeException("Update failed");
             } else {
               return new ResponseEntity<>("", HttpStatus.CREATED);
             }
