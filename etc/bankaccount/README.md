@@ -17,9 +17,14 @@ Endpoint:
           “amount”: 15000
         }
         ```
+        
+Test `./src/test/java/codeassignment/bankaccount`:
+1.	Test for client facing endpoint `/controller`
+2.	1 unit test mapper's method with rollback `/mapper`.
 
 Depedency yang digunakan:
 1.	Client Java Application dengan Spring Framework dan Spring Boot
+
         ```
         a.	Spring Web
         b.	MyBatis Framework
