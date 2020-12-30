@@ -3,9 +3,9 @@ package com.example.websocket3.model;
 public class ReceiveMessageModel {
   private final String from;
   private final String to; // dev only.
-  private final int[] audio;
+  private final String audio;
 
-  public ReceiveMessageModel(String from, String to, int[] audio) {
+  public ReceiveMessageModel(String from, String to, String audio) {
     this.from = from;
     this.audio = audio;
     this.to = to;
@@ -15,7 +15,7 @@ public class ReceiveMessageModel {
     return from;
   }
 
-  public int[] getAudio() {
+  public String getAudio() {
     return audio;
   }
 
