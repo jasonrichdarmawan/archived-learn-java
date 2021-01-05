@@ -2,9 +2,9 @@ logging.level:
   root: INFO
   org.springframework.security: TRACE
 
-#spring:
-#  security:
-#    oauth2:
-#      resourceserver:
-#        jwt:
-#          jwk-set-uri: http://auth-server:9000/oauth2/jwks
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9000/oauth2/jwks
