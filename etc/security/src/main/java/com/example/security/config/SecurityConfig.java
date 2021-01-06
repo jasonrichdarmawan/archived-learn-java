@@ -22,21 +22,22 @@ import java.util.Set;
 // Option 2: Remove the Business Logic from the method.
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig
-//        extends WebSecurityConfigurerAdapter
+        // Option 3: handle it at Request Level
+        extends WebSecurityConfigurerAdapter
 {
 
-//  // Option 3: handle it at Request Level.
-//  @Override
-//  protected void configure(HttpSecurity http) throws Exception {
-//    http
-//            .authorizeRequests((auth) -> auth
-//                    .mvcMatchers("/location").hasAuthority("captain")
-//                    .anyRequest().authenticated()
-//            )
-//            .oauth2ResourceServer((oauth2) -> oauth2
-//                    .jwt(Customizer.withDefaults())
-//            );
-//  }
+  // Option 3: handle it at Request Level.
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http
+            .authorizeRequests((auth) -> auth
+                    .mvcMatchers("/location").hasAuthority("captain")
+                    .anyRequest().authenticated()
+            )
+            .oauth2ResourceServer((oauth2) -> oauth2
+                    .jwt(Customizer.withDefaults())
+            );
+  }
 
 //  // Resource server depends on the authorization server to make authorization decision.
 //  // Disable resource server before using this.
@@ -66,6 +67,7 @@ public class SecurityConfig
           implements Converter<Jwt, Collection<GrantedAuthority>> {
     JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
 
+//    // Option 1:
 //    @Override
 //    public Collection<GrantedAuthority> convert(Jwt jwt) {
 //      Collection<GrantedAuthority> grantedAuthorities = jwtGrantedAuthoritiesConverter.convert(jwt);
@@ -77,6 +79,7 @@ public class SecurityConfig
 //      return updatedGrantedAuthorities;
 //    }
 
+    // Option 2:
     @Override
     public Collection<GrantedAuthority> convert(Jwt jwt) {
       Collection<GrantedAuthority> grantedAuthorities = jwtGrantedAuthoritiesConverter.convert(jwt);

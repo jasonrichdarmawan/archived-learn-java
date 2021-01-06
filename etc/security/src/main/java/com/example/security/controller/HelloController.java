@@ -25,6 +25,12 @@ public class HelloController {
     return "Hello " + name;
   }
 
+  // known bug caused by curl:
+  // if user do `curl localhost:8080/location -i -H "Authorization: Bearer tokenHere" --data "Seattle"
+  // the request header Content-Type's value is Content-Type: application/x-www-form-urlencoded
+  // This cause issue, e.g if user send location "Seattle", the returned value would be "Seattle="
+  // The fix is to make sure the request header Content Type's value is Content-Type: text/plain
+  // reference: https://stackoverflow.com/a/43056956/13285583
   @PostMapping("/location")
   public String changeLocation(Authentication authentication, @RequestBody String location) {
 //    // see SecurityConfig.java customJwtAuthenticationConverter
