@@ -2,13 +2,23 @@ package com.example.springsecurityh2.model;
 
 public class UserModel {
   private String user;
-  private String scopes;
+  private String password;
+  private boolean active;
+  private String roles;
 
   public String getUser() {
     return user;
   }
 
-  public String getScopes() {
-    return scopes;
+  public String getPassword() {
+    return password;
+  }
+
+  public boolean getActive() {
+    return active;
+  }
+
+  public String getRoles() {
+    return roles;
   }
 }

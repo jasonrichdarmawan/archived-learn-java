@@ -4,9 +4,11 @@ import com.example.springsecurityh2.model.UserModel;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Optional;
+
 @Mapper
 public interface UserMapper {
 
-  @Select("SELECT user, scopes FROM user WHERE user=#{user} AND password=#{password}")
-  UserModel getUser(String user, String password);
+  @Select("SELECT user, password, active, roles FROM user WHERE user=#{user}")
+  Optional<UserModel> getUser(String user);
 }
