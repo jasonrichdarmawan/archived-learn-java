@@ -35,8 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
+            .csrf().disable() // TODO: implement csrf.
             .authorizeRequests()
-            .antMatchers("/api/v1/hello/").hasAuthority(AIRCRAFT_BOARD.getPermission())
+            .antMatchers("/api/v1/hello/").hasAuthority(AIRCRAFT_BOARD.getAuthority())
+            .antMatchers("/api/v1/hello/location").hasRole(UserRoles.PILOT.name())
             .anyRequest().authenticated()
             .and()
             .httpBasic();

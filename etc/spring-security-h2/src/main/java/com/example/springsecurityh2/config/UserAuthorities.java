@@ -5,13 +5,13 @@ public enum UserAuthorities {
   AIRCRAFT_BOARD("aircraft:board"),
   SHIP_SAIL("ship:sail");
 
-  private final String permission;
+  private final String authority;
 
-  UserAuthorities(String permission) {
-    this.permission = permission;
+  UserAuthorities(String authority) {
+    this.authority = authority;
   }
 
-  public String getPermission() {
-    return permission;
+  public String getAuthority() {
+    return authority;
   }
 }
