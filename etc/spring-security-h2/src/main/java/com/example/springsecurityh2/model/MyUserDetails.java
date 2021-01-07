@@ -1,9 +1,11 @@
 package com.example.springsecurityh2.model;
 
+import com.example.springsecurityh2.config.UserRoles;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -20,9 +22,14 @@ public class MyUserDetails implements UserDetails {
     this.username = user.getUser();
     this.password = user.getPassword();
     this.active = user.getActive();
-    this.authorities = Arrays.stream(user.getRoles().split(","))
-            .map(SimpleGrantedAuthority::new)
-            .collect(Collectors.toList());
+
+    String[] roles = user.getRoles().split(",");
+    this.authorities = new ArrayList<>(roles.length);
+    for (String role : roles) {
+      this.authorities.addAll(UserRoles.valueOf(role).getGrantedAuthorities());
+    }
+
+
   }
 
   @Override

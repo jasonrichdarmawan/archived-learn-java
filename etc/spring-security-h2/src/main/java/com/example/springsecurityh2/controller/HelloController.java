@@ -2,12 +2,10 @@ package com.example.springsecurityh2.controller;
 
 import com.example.springsecurityh2.service.LocationService;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/v1/hello")
 public class HelloController {
 
   private final LocationService locationService;

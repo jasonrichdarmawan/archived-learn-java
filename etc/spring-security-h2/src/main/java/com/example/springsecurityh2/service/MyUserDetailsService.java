@@ -3,6 +3,7 @@ package com.example.springsecurityh2.service;
 import com.example.springsecurityh2.mapper.UserMapper;
 import com.example.springsecurityh2.model.MyUserDetails;
 import com.example.springsecurityh2.model.UserModel;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
