@@ -1,11 +1,11 @@
 insert into user
-values(1,'pilot-client','secret',1,'PILOT');
+values(1,'pilot-client','$2a$10$IYB6yC7ANnc4N66SjttBcetmYsPdwOqbpuixIIyrAMDBehIkXeHem',1,'PILOT');
 
 insert into user
-values(2,'passenger-client','secret',1,'PASSENGER');
+values(2,'passenger-client','$2a$10$IWdOGhzvnx5yPqQeyY5hQObDbWV6q94jdlDztNOSl5ygFQMrNUWmi',1,'PASSENGER');
 
 insert into user
-values(3,'inactive-client','secret',0,'PILOT');
+values(3,'inactive-client','$2a$10$vUX9hFCVVBrFHFWQoRJLUuJbSaZfdlT3.Gw3GAMpLLVTkRqXNlj.6',0,'PILOT');
 
 insert into user
-values(4,'skipper-client','secret',1,'SKIPPER');
+values(4,'skipper-client','$2a$10$5ZF0MFdZi2bLnO1OSAZ7LOib.maP1YG.RFYiBwrTNyJwQVKbIkl4S',1,'SKIPPER');
