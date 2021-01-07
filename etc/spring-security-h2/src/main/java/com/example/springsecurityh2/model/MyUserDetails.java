@@ -6,10 +6,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {
 
@@ -23,13 +21,28 @@ public class MyUserDetails implements UserDetails {
     this.password = user.getPassword();
     this.active = user.getActive();
 
-    String[] roles = user.getRoles().split(",");
-    this.authorities = new ArrayList<>(roles.length);
+    // setAuthorities
+    String rolesString = user.getRoles();
+    String[] roles = new String[0];
+    if (rolesString != null) {
+      roles = rolesString.split(",");
+    }
+
+    String authoritiesString = user.getAuthorities();
+    String[] authorities = new String[0];
+    if (authoritiesString != null) {
+      authorities = authoritiesString.split(",");
+    }
+
+    this.authorities = new ArrayList<>(roles.length + authorities.length);
+
     for (String role : roles) {
       this.authorities.addAll(UserRoles.valueOf(role).getGrantedAuthorities());
     }
 
-
+    for (String authority : authorities) {
+      this.authorities.add(new SimpleGrantedAuthority(authority));
+    }
   }
 
   @Override

@@ -9,6 +9,6 @@ import java.util.Optional;
 @Mapper
 public interface UserMapper {
 
-  @Select("SELECT user, password, active, roles FROM user WHERE user=#{user}")
+  @Select("SELECT user, password, active, roles, authorities FROM user WHERE user=#{user}")
   Optional<UserModel> getUser(String user);
 }

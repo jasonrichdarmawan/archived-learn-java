@@ -8,10 +8,10 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static com.example.springsecurityh2.config.UserAuthorities.AIRCRAFT_BOARD;
+import static com.example.springsecurityh2.config.UserAuthorities.AIRCRAFT_FLY;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -38,8 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http
             .csrf().disable() // TODO: implement csrf.
             .authorizeRequests()
-            .antMatchers("/api/v1/hello/").hasAuthority(AIRCRAFT_BOARD.getAuthority())
-            .antMatchers("/api/v1/hello/location").hasRole(UserRoles.PILOT.name())
+            .antMatchers("/api/v1/hello/").hasAuthority(AIRCRAFT_BOARD.getAuthority()) // pilot-client, deadhead-client, passenger-client
+            .antMatchers("/api/v1/hello/location").hasAuthority(AIRCRAFT_FLY.getAuthority()) // pilot-client, deadhead-client
             .anyRequest().authenticated()
             .and()
             .httpBasic();

@@ -5,6 +5,7 @@ public class UserModel {
   private String password;
   private boolean active;
   private String roles;
+  private String authorities;
 
   public String getUser() {
     return user;
@@ -20,5 +21,9 @@ public class UserModel {
 
   public String getRoles() {
     return roles;
+  }
+
+  public String getAuthorities() {
+    return authorities;
   }
 }
