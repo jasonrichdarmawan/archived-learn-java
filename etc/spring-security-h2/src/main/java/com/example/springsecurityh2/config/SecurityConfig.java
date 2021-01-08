@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import static com.example.springsecurityh2.config.UserAuthorities.AIRCRAFT_BOARD;
 import static com.example.springsecurityh2.config.UserAuthorities.AIRCRAFT_FLY;
@@ -39,6 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http
             // The response will contain XSRF-TOKEN's cookie.
+            // in development this should be disabled because to login you need to
+            // GET the CSRF Token by hitting any endpoint
+            // Login by hitting POST endpoint /login with form-data key `username`, `password`, `_csrf`
+            // And, to logout by hitting POST endpoint /logout with form-data key `_csrf`.
 //            .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 //            .and()
 
@@ -59,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             // by default the session either expired after 30 minutes of inactivity or if the browser is closed.
             // the 'remember-me' cookie helps user get 'JSESSIONID' cookie without prompting login.
             .formLogin()
-            .defaultSuccessUrl("/api/v1/hello/", true) // force redirect after successful login
+//            .defaultSuccessUrl("/api/v1/hello/", true) // force redirect after successful login
             .and()
 
             // 'remember-me' cookie value is `base64(username + : + expirationTime + : + md5Hex(username + : + expirationTime + : + password + : + key))
