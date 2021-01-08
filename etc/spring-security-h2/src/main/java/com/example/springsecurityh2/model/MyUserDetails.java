@@ -5,16 +5,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class MyUserDetails implements UserDetails {
 
   private final String username;
   private final String password;
   private final boolean active;
-  private final List<GrantedAuthority> authorities;
+  private final Set<GrantedAuthority> authorities;
 
   public MyUserDetails(UserModel user) {
     this.username = user.getUser();
@@ -34,7 +32,7 @@ public class MyUserDetails implements UserDetails {
       authorities = authoritiesString.split(",");
     }
 
-    this.authorities = new ArrayList<>(roles.length + authorities.length);
+    this.authorities = new HashSet<>(roles.length + authorities.length);
 
     for (String role : roles) {
       this.authorities.addAll(UserRoles.valueOf(role).getGrantedAuthorities());
