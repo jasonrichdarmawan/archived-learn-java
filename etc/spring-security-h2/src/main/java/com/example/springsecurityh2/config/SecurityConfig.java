@@ -41,13 +41,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             // The response will contain XSRF-TOKEN's cookie.
 //            .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 //            .and()
+
             .csrf().disable()
             .authorizeRequests()
             .antMatchers("/api/v1/hello/").hasAuthority(AIRCRAFT_BOARD.getAuthority()) // pilot-client, deadhead-client, passenger-client
             .antMatchers("/api/v1/hello/location").hasAuthority(AIRCRAFT_FLY.getAuthority()) // pilot-client, deadhead-client
             .anyRequest().authenticated()
             .and()
-            .httpBasic();
+
+//            // login with request header Authorization Basic with encoded base64. The password is in plain text
+//            // can't logout
+//            .httpBasic()
+
+            // login with form-data on POST endpoint /login
+            // can logout on GET endpoint /logout
+            // can add key 'remember-me' with value 'on'
+            // by default the session either expired after 30 minutes of inactivity or if the browser is closed.
+            // the 'remember-me' cookie helps user get 'JSESSIONID' cookie without prompting login.
+            .formLogin()
+            .defaultSuccessUrl("/api/v1/hello/", true) // force redirect after successful login
+            .and()
+
+            // 'remember-me' cookie value is `base64(username + : + expirationTime + : + md5Hex(username + : + expirationTime + : + password + : + key))
+            .rememberMe();
   }
 
   @Bean
