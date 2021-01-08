@@ -39,15 +39,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
-            // The response will contain XSRF-TOKEN's cookie.
-            // in development this should be disabled because to login you need to
-            // GET the CSRF Token by hitting any endpoint
-            // Login by hitting POST endpoint /login with form-data key `username`, `password`, `_csrf`
-            // And, to logout by hitting POST endpoint /logout with form-data key `_csrf`.
+//            // The response will contain XSRF-TOKEN's cookie.
+//            // in development this should be disabled because to login you need to
+//            // GET the CSRF Token by hitting any endpoint
+//            // Login by hitting POST endpoint /login with form-data key `username`, `password`, `_csrf`
+//            // And, to logout by hitting POST endpoint /logout with form-data key `_csrf`.
 //            .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 //            .and()
 
+            // To login, hit POST endpoint /login with form-data key `username`, `password`.
+            // To logout, hit GET endpoint /logout.
+            // @see: https://docs.spring.io/spring-security/site/docs/3.2.8.RELEASE/apidocs/org/springframework/security/config/annotation/web/configurers/LogoutConfigurer.html
+            // don't use GET endpoint /logout to logout in a production.
             .csrf().disable()
+
             .authorizeRequests()
             .antMatchers("/api/v1/hello/").hasAuthority(AIRCRAFT_BOARD.getAuthority()) // pilot-client, deadhead-client, passenger-client
             .antMatchers("/api/v1/hello/location").hasAuthority(AIRCRAFT_FLY.getAuthority()) // pilot-client, deadhead-client
