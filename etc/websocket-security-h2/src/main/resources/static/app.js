@@ -1,14 +1,23 @@
 document.getElementById("connect").addEventListener("click", connect);
 document.getElementById("disconnect").addEventListener("click", disconnect);
+document.getElementById("sendMessage").addEventListener("click", sendMessage);
 
 var stompClient = null;
+var user = null;
+var channelId = null;
+
+function view(connected) {
+  document.getElementById("connect").disabled = connected;
+  document.getElementById("disconnect").disabled = !connected;
+  document.getElementById("sendMessage").disabled = !connected;
+}
 
 function connect(e) {
   e.preventDefault();
 
-  var user = document.getElementById("user").value;
+  user = document.getElementById("user").value;
   var password = document.getElementById("password").value;
-  var channelId = document.getElementById("channelId").value;
+  channelId = document.getElementById("channelId").value;
 
   if (user && password && channelId) {
     var socket = new SockJS("/chat");
@@ -30,13 +39,24 @@ function connect(e) {
       });
 
       // TODO: stompClient.connect(, callback) behavior.
-      document.getElementById("connect").disabled = true;
-      document.getElementById("disconnect").disabled = false;
+      view(true);
     });
   }
 }
 
 function disconnect() {
   stompClient.disconnect();
+  view(false);
   console.log("Disconnected");
+}
+
+function sendMessage(e) {
+  e.preventDefault();
+
+  var text = document.getElementById("messageText").value;
+
+  var messageModel = { user, text };
+
+  stompClient.send(`/app/channel/${channelId}`, {}, JSON.stringify(messageModel));
+  document.getElementById("messageText").value = "";
 }
