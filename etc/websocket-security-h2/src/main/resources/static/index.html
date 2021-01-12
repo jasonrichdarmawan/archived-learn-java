@@ -24,10 +24,23 @@
     <div class="row">
         <form class="form-inline">
             <div class="form-group">
-                <label for="messageText">Message</label>
-                <input type="text" id="messageText" class="form-control">
+                <label for="channelMessageText">Channel Message</label>
+                <input type="text" id="channelMessageText" class="form-control">
             </div>
-            <button id="sendMessage" class="btn btn-primary" type="submit" disabled>Send Message</button>
+            <button id="sendChannelMessage" class="btn btn-primary" type="submit" disabled>Send Channel Message</button>
+        </form>
+    </div>
+
+    <div class="row">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="toUser">Username</label>
+                <input type="text" id="toUser" class="form-control">
+
+                <label for="privateMessageText">Private Message</label>
+                <input type="text" id="privateMessageText" class="form-control">
+            </div>
+            <button id="sendPrivateMessage" class="btn btn-primary" type="submit" disabled>Send Private Message</button>
         </form>
     </div>
 
