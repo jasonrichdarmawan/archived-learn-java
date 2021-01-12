@@ -4,6 +4,7 @@
   - [X] ws://localhost:8080/chat
 - [ ] Secured SUBSCRIBE
   - [ ] ws://localhost:8080/user
+    - [ ] Security Reference: [/user/queue](https://www.baeldung.com/spring-websockets-send-message-to-user)
   - [ ] ws://localhost:8080/topic/channel/{id}
 - [ ] Secured SEND
   - [ ] ws://localhost:8080/app/user/{userName}
