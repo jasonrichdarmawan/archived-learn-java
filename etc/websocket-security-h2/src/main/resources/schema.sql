@@ -1,0 +1,16 @@
+CREATE TABLE user (
+  id INTEGER NOT NULL,
+  user VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  active INTEGER NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE channel (
+  id INTEGER NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  admins VARCHAR(255) NOT NULL,
+  members VARCHAR(255) NULL,
+  PRIMARY KEY (id)
+);

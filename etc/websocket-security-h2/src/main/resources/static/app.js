@@ -3,7 +3,6 @@ document.getElementById("disconnect").addEventListener("click", disconnect);
 document.getElementById("sendMessage").addEventListener("click", sendMessage);
 
 var stompClient = null;
-var user = null;
 var channelId = null;
 
 function view(connected) {
@@ -12,17 +11,32 @@ function view(connected) {
   document.getElementById("sendMessage").disabled = !connected;
 }
 
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
 function connect(e) {
   e.preventDefault();
 
-  user = document.getElementById("user").value;
-  var password = document.getElementById("password").value;
   channelId = document.getElementById("channelId").value;
 
-  if (user && password && channelId) {
+  if (channelId) {
     var socket = new SockJS("/chat");
     stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (status) {
+
+    stompClient.connect({"X-XSRF-TOKEN": getCookie("XSRF-TOKEN")}, function (status) {
       console.log(`StompClient: ${status}}`);
 
       stompClient.subscribe(`/topic/channel/${channelId}`, function (payload) {
@@ -33,12 +47,11 @@ function connect(e) {
         var cell1 = row.insertCell();
         var cell2 = row.insertCell();
         var cell3 = row.insertCell();
-        cell1.innerHTML = message.user;
+        cell1.innerHTML = message.userId;
         cell2.innerHTML = message.text;
         cell3.innerHTML = message.iat;
       });
 
-      // TODO: stompClient.connect(, callback) behavior.
       view(true);
     });
   }
@@ -55,7 +68,7 @@ function sendMessage(e) {
 
   var text = document.getElementById("messageText").value;
 
-  var messageModel = { user, text };
+  var messageModel = { text };
 
   stompClient.send(`/app/channel/${channelId}`, {}, JSON.stringify(messageModel));
   document.getElementById("messageText").value = "";
