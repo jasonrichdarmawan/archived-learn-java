@@ -101,6 +101,6 @@ function sendPrivateMessage(e) {
 
   var messageModel = { text };
 
-  stompClient.send(`/app/chat/${toUser}`, {}, JSON.stringify(messageModel));
+  stompClient.send(`/app/user/${toUser}`, {}, JSON.stringify(messageModel));
   document.getElementById("privateMessageText").value = "";
 }

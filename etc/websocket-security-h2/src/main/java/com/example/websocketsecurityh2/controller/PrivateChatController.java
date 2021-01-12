@@ -15,9 +15,9 @@ public class PrivateChatController {
     this.messaging = messaging;
   }
 
-  @MessageMapping("/chat/{toUser}")
-  public void sendMessage(@DestinationVariable String toUser, MessageModel message) {
-    messaging.convertAndSendToUser(toUser, "/queue/messages", message);
+  @MessageMapping("/user/{userName}")
+  public void sendMessage(@DestinationVariable String userName, MessageModel message) {
+    messaging.convertAndSendToUser(userName, "/queue/messages", message);
   }
 
 }
