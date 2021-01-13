@@ -15,3 +15,6 @@ VALUES (5, 'non-member-client', '$2a$10$IYB6yC7ANnc4N66SjttBcetmYsPdwOqbpuixIIyr
 
 INSERT INTO channel
 VALUES (1, 'channel-1', '1', '2,3,4');
+
+INSERT INTO channel
+VALUES (2, 'channel-2', '1', null);

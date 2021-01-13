@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface ChannelMapper {
-  @Select("SELECT members FROM channel WHERE id=#{channelId}")
+  // see: https://gitlab.com/romain.rinie/h2database/-/issues/200
+  @Select("SELECT CONCAT(admins, ISNULL(','||members,'')) AS results FROM channel WHERE id=#{channelId}")
   String getMembers(String channelId);
 }
