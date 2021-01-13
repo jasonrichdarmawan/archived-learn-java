@@ -8,8 +8,6 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Controller;
 
-import java.util.Arrays;
-
 @Controller
 public class ChannelController {
 
@@ -22,11 +20,10 @@ public class ChannelController {
   @MessageMapping("/channel/{channelId}")
   @SendTo("/topic/channel/{channelId}")
   public MessageModel sendMessage(@DestinationVariable String channelId, MessageModel message) {
-    // TODO: Prevent unauthorized user to SUBSCRIBE and SEND message.
-    //  Temporary fix.
-    //  in case of performance issue, consider to use:
-    //  1. in-memory database.
-    //  2. use SecurityContextHolder.getContext().getAuthentication().getPrincipal()
+    // Temporary fix:
+    // in case of performance issue, consider to use:
+    // 1. in-memory database.
+    // 2. use SecurityContextHolder.getContext().getAuthentication().getPrincipal()
     String[] members = channelMapper.getMembers(channelId).split(",");
     for (String member : members) {
       if (member.equals(message.getUserId())) {
