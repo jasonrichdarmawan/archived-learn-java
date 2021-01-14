@@ -1,19 +1,25 @@
 import { Component } from '@angular/core';
+import { AppService } from './app.service';
 import { HttpClient } from "@angular/common/http"
+import {finalize} from "rxjs/operators";
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
-interface Greeting {
-  id:string, content: string
-}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent{
-  baseURL = "http://localhost:8080";
+export class AppComponent {
+  baseURL = environment.baseURL;
   title = 'Demo';
-  greeting: Greeting = { id: "", content: ""};
-  constructor(private http: HttpClient) {
-    this.http.get(`${this.baseURL}/resource`).subscribe((data: Greeting) => this.greeting = data);
+  constructor(private app: AppService, private http: HttpClient, private router: Router) {}
+
+  logout() {
+    this.http.post(`${this.baseURL}/logout`, {}).pipe(
+      finalize(() => {
+      this.app.authenticated = false;
+      this.router.navigateByUrl('/login');
+    })).subscribe();
   }
 }
