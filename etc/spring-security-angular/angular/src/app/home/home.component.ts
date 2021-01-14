@@ -16,7 +16,7 @@ export class HomeComponent {
 
   constructor(private app: AppService, private http: HttpClient) {
     if (this.app.authenticated) {
-      this.http.get(`${this.baseURL}/resource`).subscribe((data: Greeting) => this.greeting = data);
+      this.http.get(`${this.baseURL}/resource`, {withCredentials: true}).subscribe((data: Greeting) => this.greeting = data);
     }
   }
 

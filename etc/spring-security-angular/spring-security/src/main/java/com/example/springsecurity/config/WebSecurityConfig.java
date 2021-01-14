@@ -22,14 +22,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .httpBasic()
             .and()
             .authorizeRequests()
-            .antMatchers("/resource", "/user").permitAll()
+            .antMatchers("/user").permitAll()
             .anyRequest().authenticated();
   }
 
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
+
+    // fix: GET /resource blocked by CORS policy on the Browser.
     configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+
+    // fix: GET /user can't have Request Header with key: Authorization.
+    configuration.setAllowedHeaders(Collections.singletonList("authorization"));
+
+    // fix: GET /user without OPTIONS withCredentials: true can't Set-Cookie on the Browser.
+    configuration.setAllowCredentials(true);
+
     configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);

@@ -13,13 +13,14 @@ import { environment } from 'src/environments/environment';
 export class AppComponent {
   baseURL = environment.baseURL;
   title = 'Demo';
-  constructor(private app: AppService, private http: HttpClient, private router: Router) {}
-
+  
+  // TODO: http basic can't logout.
+  // constructor(private app: AppService, private http: HttpClient, private router: Router) {}
   logout() {
-    this.http.post(`${this.baseURL}/logout`, {}).pipe(
-      finalize(() => {
-      this.app.authenticated = false;
-      this.router.navigateByUrl('/login');
-    })).subscribe();
+  //   this.http.post(`${this.baseURL}/logout`, {}).pipe(
+  //     finalize(() => {
+  //     this.app.setAuthenticated(false);
+  //     this.router.navigateByUrl('/login');
+  //   })).subscribe();
   }
 }

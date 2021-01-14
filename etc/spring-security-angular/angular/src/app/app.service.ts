@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 export class AppService {
 
   baseURL = environment.baseURL;
-  authenticated = false;
+  authenticated = sessionStorage.getItem("authenticated") === "true";
 
   constructor(private http: HttpClient) {
   }
@@ -17,15 +17,20 @@ export class AppService {
         authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
     } : {});
 
-    this.http.get(`${this.baseURL}/user`, {headers: headers}).subscribe(response => {
+    this.http.get(`${this.baseURL}/user`, {headers: headers, withCredentials: true}).subscribe(response => {
         if (response['name']) {
-            this.authenticated = true;
+            this.setAuthenticated(true);
         } else {
-            this.authenticated = false;
+            this.setAuthenticated(false);
         }
         return callback && callback();
     });
 
-    }
+  }
+
+  setAuthenticated(state: boolean) {
+      sessionStorage.setItem("authenticated", state ? "true" : "false");
+      this.authenticated = state;
+  }
 
 }
