@@ -32,8 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // fix: GET /resource blocked by CORS policy on the Browser.
     configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
 
-    // fix: GET /user can't have Request Header with key: Authorization.
-    configuration.setAllowedHeaders(Collections.singletonList("authorization"));
+    // "authorization" fix: GET /user can't have Request Header with key: Authorization.
+    // "x-requested-with" fix: Browser pops up a Basic authentication dialogue if the request fail.
+    configuration.setAllowedHeaders(Arrays.asList("authorization", "x-requested-with"));
 
     // fix: GET /user without OPTIONS withCredentials: true can't Set-Cookie on the Browser.
     configuration.setAllowCredentials(true);
