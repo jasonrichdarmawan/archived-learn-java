@@ -15,8 +15,9 @@ export class AppComponent {
   title = 'Demo';
   
   // TODO: http basic can't logout.
-  // constructor(private app: AppService, private http: HttpClient, private router: Router) {}
+  constructor(private app: AppService, private http: HttpClient, private router: Router) {}
   logout() {
+    this.app.setAuthenticated(false);
   //   this.http.post(`${this.baseURL}/logout`, {}).pipe(
   //     finalize(() => {
   //     this.app.setAuthenticated(false);
