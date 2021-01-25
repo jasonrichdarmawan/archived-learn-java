@@ -35,40 +35,44 @@ function connect(e) {
   channelId = document.getElementById("channelId").value;
 
   if (channelId) {
-    const stompConfig = {
-      brokerURL: "ws://localhost:8080/chat",
-      debug: function (str) {
-        console.log('STOMP: ' + str);
-      },
-      connectHeaders: {"X-XSRF-TOKEN": getCookie("XSRF-TOKEN")},
-      onConnect: () => {
-        const destinations = ["/topic/channel/1", "/user/queue/messages"];
+    var socket = new SockJS("/chat");
+    stompClient = Stomp.over(socket);
 
-        console.log('stompClient subscribe');
-        for (let i = 0; i < destinations.length; i++) {
-          stompClient.subscribe(destinations[i], (payload) => {
-            var message = JSON.parse(payload.body);
+    stompClient.connect({"X-XSRF-TOKEN": getCookie("XSRF-TOKEN")}, function (status) {
+      console.log(`StompClient: ${status}}`);
 
-            var table = document.getElementById("messages");
-            var row = table.insertRow();
-            var cell1 = row.insertCell();
-            var cell2 = row.insertCell();
-            var cell3 = row.insertCell();
-            var cell4 = row.insertCell();
-            cell1.innerHTML = destinations[i];
-            cell2.innerHTML = message.userId;
-            cell3.innerHTML = message.text;
-            cell4.innerHTML = message.iat;
-          });
-        }
-      },
-    }
+      stompClient.subscribe(`/topic/channel/${channelId}`, function (payload) {
+        var message = JSON.parse(payload.body);
 
-    stompClient = new StompJs.Client(stompConfig);
+        var table = document.getElementById("messages");
+        var row = table.insertRow();
+        var cell1 = row.insertCell();
+        var cell2 = row.insertCell();
+        var cell3 = row.insertCell();
+        var cell4 = row.insertCell();
+        cell1.innerHTML = "channel";
+        cell2.innerHTML = message.userId;
+        cell3.innerHTML = message.text;
+        cell4.innerHTML = message.iat;
+      });
 
-    stompClient.activate();
+      stompClient.subscribe('/user/queue/messages', function (payload) {
+        var message = JSON.parse(payload.body);
 
-    view(true);
+        var table = document.getElementById("messages");
+        var row = table.insertRow();
+        var cell1 = row.insertCell();
+        var cell2 = row.insertCell();
+        var cell3 = row.insertCell();
+        var cell4 = row.insertCell();
+        cell1.innerHTML = "private";
+        cell2.innerHTML = message.userId;
+        cell3.innerHTML = message.text;
+        cell4.innerHTML = message.iat;
+      });
+
+      view(true);
+    });
   }
 }
 
@@ -85,7 +89,7 @@ function sendChannelMessage(e) {
 
   var messageModel = { text };
 
-  stompClient.publish({destination: `/app/channel/${channelId}`, body: JSON.stringify(messageModel)});
+  stompClient.send(`/app/channel/${channelId}`, {}, JSON.stringify(messageModel));
   document.getElementById("channelMessageText").value = "";
 }
 
@@ -97,6 +101,6 @@ function sendPrivateMessage(e) {
 
   var messageModel = { text };
 
-  stompClient.publish({destination: `/app/user/${toUser}`, body: JSON.stringify(messageModel)});
+  stompClient.send(`/app/user/${toUser}`, {}, JSON.stringify(messageModel));
   document.getElementById("privateMessageText").value = "";
 }
