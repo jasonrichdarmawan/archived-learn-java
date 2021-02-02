@@ -1,25 +1,19 @@
 package com.example.websocketsecurityh2.controller;
 
 import com.example.websocketsecurityh2.model.MyUserDetails;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
-
 @RestController
 public class UserDetailsController {
-  // TODO: hide password.
   // note: The Principal object by default does not store password.
-  // Therefore, you should not need to use `userDetails.clearCredentials()` manually.
-  // see: https://github.com/kidfrom/learn-java/tree/main/etc/spring-security-angular/spring-security
+  // see for example: https://github.com/kidfrom/learn-java/tree/main/etc/spring-security-angular/spring-security
+  // To fix this, try to implements CredentialsContainer to the UserDetails implementation.
+  // see for reference: https://stackoverflow.com/questions/31630818/spring-security-custom-authentication-authenticationprovider-vs-userdetailsser
   @GetMapping("/userdetails")
   public MyUserDetails getUserDetails(@CurrentSecurityContext(expression = "authentication.principal") Object principal) {
-    MyUserDetails userDetails = (MyUserDetails) principal;
-    userDetails.clearCredentials();
-    return userDetails;
+    return (MyUserDetails) principal;
   }
 
   @GetMapping("/helloworld")

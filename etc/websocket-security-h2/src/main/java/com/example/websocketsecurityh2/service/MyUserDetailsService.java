@@ -3,6 +3,7 @@ package com.example.websocketsecurityh2.service;
 import com.example.websocketsecurityh2.mapper.UserMapper;
 import com.example.websocketsecurityh2.model.MyUserDetails;
 import com.example.websocketsecurityh2.model.UserModel;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,6 +26,6 @@ public class MyUserDetailsService implements UserDetailsService {
 
     user.orElseThrow(() -> new UsernameNotFoundException("Username Not Found: " + s)); // TODO: who receives the Exception?
 
-    return user.map(MyUserDetails::new).get();
+    return new MyUserDetails(user.get());
   }
 }

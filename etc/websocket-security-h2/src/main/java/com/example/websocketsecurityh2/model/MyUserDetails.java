@@ -1,5 +1,6 @@
 package com.example.websocketsecurityh2.model;
 
+import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Set;
 
-public class MyUserDetails implements UserDetails {
+public class MyUserDetails implements UserDetails, CredentialsContainer {
 
   private final String userId;
 
@@ -65,7 +66,8 @@ public class MyUserDetails implements UserDetails {
     return userId;
   }
 
-  public void clearCredentials() {
+  @Override
+  public void eraseCredentials() {
     this.password = null;
   }
 }
