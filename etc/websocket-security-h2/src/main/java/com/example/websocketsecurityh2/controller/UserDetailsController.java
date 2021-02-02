@@ -13,7 +13,6 @@ public class UserDetailsController {
     return (MyUserDetails) user;
   }
 
-  // TODO: [BUG] CSRF protection.
   @GetMapping("/helloworld")
   public String getHelloWorld() {
     return "Hello World";
