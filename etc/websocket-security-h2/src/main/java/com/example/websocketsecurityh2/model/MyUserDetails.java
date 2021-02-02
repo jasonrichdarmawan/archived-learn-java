@@ -12,7 +12,7 @@ public class MyUserDetails implements UserDetails {
   private final String userId;
 
   private final String username;
-  private final String password;
+  private String password;
   private final boolean active;
   private final Set<GrantedAuthority> authorities;
 
@@ -63,5 +63,9 @@ public class MyUserDetails implements UserDetails {
 
   public String getUserId() {
     return userId;
+  }
+
+  public void clearCredentials() {
+    this.password = null;
   }
 }
