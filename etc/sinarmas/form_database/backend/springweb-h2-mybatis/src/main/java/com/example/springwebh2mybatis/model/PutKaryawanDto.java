@@ -6,8 +6,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-public class PostKaryawanDto {
+public class PutKaryawanDto {
   @NotBlank
+  private String id;
   private String nama;
   private String alamat;
   private String rt;
@@ -15,12 +16,14 @@ public class PostKaryawanDto {
   private String kecamatan;
   private String kelurahan;
   private String telepon;
-  @NotBlank
   private Date input_date;
-  @NotBlank
   private String input_by;
   private Date approve_date;
   private String approve_by;
+
+  public String getId() {
+    return id;
+  }
 
   public String getNama() {
     return nama;
