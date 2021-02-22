@@ -7,6 +7,7 @@ import com.example.springwebh2mybatis.service.KaryawanService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1")
@@ -19,8 +20,8 @@ public class KaryawanController {
   }
 
   @GetMapping("/karyawan")
-  public GetKaryawanDto getKaryawan(@RequestBody GetKaryawanDto karyawan) {
-    return karyawan;
+  public List<GetKaryawanDto> getKaryawan(@RequestBody GetKaryawanDto karyawan) {
+    return karyawanService.getKaryawan(karyawan);
   }
 
   @PostMapping("/karyawan")

@@ -1,5 +1,7 @@
 package com.example.springwebh2mybatis.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class GetKaryawanDto {
@@ -48,6 +50,7 @@ public class GetKaryawanDto {
     return telepon;
   }
 
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
   public Date getInput_date() {
     return input_date;
   }
@@ -56,6 +59,7 @@ public class GetKaryawanDto {
     return input_by;
   }
 
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
   public Date getApprove_date() {
     return approve_date;
   }
