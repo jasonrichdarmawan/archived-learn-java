@@ -33,7 +33,7 @@ public class KaryawanController {
 
   @PutMapping("/karyawan")
   public PutKaryawanDto putKaryawan(@Valid @RequestBody PutKaryawanDto karyawan) {
-    return karyawan;
+    return karyawanService.putKaryawan(karyawan) == 1 ? karyawan : null;
   }
 
   @DeleteMapping("/karyawan/{id}")
