@@ -1,8 +1,23 @@
 import React from "react";
 import { environment } from "../../environments/environment";
 
+interface GetKaryawanDto {
+  id: string;
+  nama: string;
+  alamat: string;
+  rt: string;
+  rw: string;
+  kecamatan: string;
+  kelurahan: string;
+  telepon: string;
+  input_date: string;
+  input_by: string;
+  approve_date: string;
+  approve_by: string;
+}
+
 const KaryawanTable = () => {
-  const [data, setData] = React.useState([]);
+  const [data, setData] = React.useState<GetKaryawanDto[]>([]);
 
   const fetchData = () => {
     fetch(`${environment.httpBaseUrl}/v1/karyawans`, {
@@ -10,30 +25,13 @@ const KaryawanTable = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({}),
     }).then(async (response) => {
-      const body = await response.text();
-      console.log(body);
+      const body = await response.json();
+      setData(body);
     });
   };
 
-  fetchData();
-
   const renderTableDate = () =>
-    [
-      {
-        id: "1",
-        nama: "nama",
-        alamat: "alamat",
-        rt: "rt",
-        rw: "rw",
-        kecamatan: "kecamatan",
-        kelurahan: "kelurahan",
-        telepon: "telepon",
-        input_date: "2020-02-22",
-        input_by: "pic input",
-        approve_date: "2020-02-22",
-        approve_by: "pic approve",
-      },
-    ].map((karyawan) => {
+    data.map((karyawan) => {
       return (
         <tr key={karyawan.id}>
           <td>{karyawan.id}</td>
@@ -51,6 +49,11 @@ const KaryawanTable = () => {
         </tr>
       );
     });
+
+  React.useEffect(() => {
+    console.log("KaryawanTable re-render");
+    fetchData();
+  }, []);
 
   return (
     <table>
