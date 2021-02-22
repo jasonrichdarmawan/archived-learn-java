@@ -2,10 +2,12 @@ package com.example.springwebh2mybatis.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class GetKaryawanDto {
-  private int id;
+  @Pattern(regexp = "[0-9]{1,}")
+  private String id;
   private String nama;
   private String alamat;
   private String rt;
@@ -18,7 +20,7 @@ public class GetKaryawanDto {
   private Date approve_date;
   private String approve_by;
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 

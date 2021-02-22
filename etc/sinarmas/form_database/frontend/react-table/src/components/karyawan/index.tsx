@@ -26,42 +26,42 @@ const Karyawan = () => {
         </label>
         <label>
           Nama
-          <input type="text" name="nama" />
+          <input type="text" name="nama" onChange={handleChange} />
         </label>
         <label>
           Alamat
-          <input type="text" name="alamat" />
+          <input type="text" name="alamat" onChange={handleChange} />
         </label>
         <label>
           RT
-          <input type="text" name="rt" />
+          <input type="text" name="rt" onChange={handleChange} />
         </label>
         <label>
           RW
-          <input type="text" name="rw" />
+          <input type="text" name="rw" onChange={handleChange} />
         </label>
         <label>
           Kecamatan
-          <input type="text" name="kecamatan" />
+          <input type="text" name="kecamatan" onChange={handleChange} />
         </label>
         <label>
           Kelurahan
-          <input type="text" name="kelurahan" />
+          <input type="text" name="kelurahan" onChange={handleChange} />
         </label>
         <label>
-          <input type="text" name="telepon" />
+          <input type="text" name="telepon" onChange={handleChange} />
         </label>
         <label>
-          <input type="text" name="input_date" />
+          <input type="text" name="input_date" onChange={handleChange} />
         </label>
         <label>
-          <input type="text" name="input_by" />
+          <input type="text" name="input_by" onChange={handleChange} />
         </label>
         <label>
-          <input type="text" name="approve_date" />
+          <input type="text" name="approve_date" onChange={handleChange} />
         </label>
         <label>
-          <input type="text" name="approve_by" />
+          <input type="text" name="approve_by" onChange={handleChange} />
         </label>
       </form>
       <KaryawanTable query={query} />

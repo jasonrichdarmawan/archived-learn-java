@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class PostKaryawanDto {
   @NotNull
-  private int nama;
+  private String nama;
   private String alamat;
   private String rt;
   private String rw;
@@ -22,7 +22,7 @@ public class PostKaryawanDto {
   private Date approve_date;
   private String approve_by;
 
-  public int getNama() {
+  public String getNama() {
     return nama;
   }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { environment } from "../../environments/environment";
 
 export interface GetKaryawanDto {
-  id: string;
+  id: number;
   nama: string;
   alamat: string;
   rt: string;
@@ -25,8 +25,10 @@ const KaryawanTable = ({ query }: { query: GetKaryawanDto | {} }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(query),
     }).then(async (response) => {
-      const body = await response.json();
-      setData(body);
+      if (response.status === 200) {
+        const body = await response.json();
+        setData(body);
+      }
     });
   };
 

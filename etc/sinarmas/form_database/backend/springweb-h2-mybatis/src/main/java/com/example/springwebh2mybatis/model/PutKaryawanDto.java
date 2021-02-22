@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class PutKaryawanDto {
   @NotNull
-  private int id;
+  private String id;
   private String nama;
   private String alamat;
   private String rt;
@@ -20,7 +20,7 @@ public class PutKaryawanDto {
   private Date approve_date;
   private String approve_by;
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 
