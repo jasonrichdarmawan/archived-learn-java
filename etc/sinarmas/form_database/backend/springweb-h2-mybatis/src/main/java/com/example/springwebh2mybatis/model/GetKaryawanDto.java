@@ -1,9 +1,10 @@
 package com.example.springwebh2mybatis.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Pattern;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class GetKaryawanDto {
   @Pattern(regexp = "[0-9]{1,}")
@@ -15,9 +16,9 @@ public class GetKaryawanDto {
   private String kecamatan;
   private String kelurahan;
   private String telepon;
-  private Date input_date;
+  private LocalDate input_date;
   private String input_by;
-  private Date approve_date;
+  private LocalDate approve_date;
   private String approve_by;
 
   public String getId() {
@@ -52,8 +53,7 @@ public class GetKaryawanDto {
     return telepon;
   }
 
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-  public Date getInput_date() {
+  public LocalDate getInput_date() {
     return input_date;
   }
 
@@ -61,8 +61,7 @@ public class GetKaryawanDto {
     return input_by;
   }
 
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-  public Date getApprove_date() {
+  public LocalDate getApprove_date() {
     return approve_date;
   }
 

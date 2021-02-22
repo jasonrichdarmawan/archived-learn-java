@@ -27,6 +27,7 @@ const KaryawanTable = ({ query }: { query: GetKaryawanDto | {} }) => {
     }).then(async (response) => {
       if (response.status === 200) {
         const body = await response.json();
+        console.log(query);
         setData(body);
       }
     });
