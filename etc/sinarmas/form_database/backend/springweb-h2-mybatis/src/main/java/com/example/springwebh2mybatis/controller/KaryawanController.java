@@ -19,7 +19,7 @@ public class KaryawanController {
     this.karyawanService = karyawanService;
   }
 
-  @GetMapping("/karyawan")
+  @PostMapping("/karyawans")
   public List<GetKaryawanDto> getKaryawan(@RequestBody GetKaryawanDto karyawan) {
     return karyawanService.getKaryawan(karyawan);
   }

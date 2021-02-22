@@ -7,6 +7,7 @@ const KaryawanTable = () => {
   const fetchData = () => {
     fetch(`http://localhost:8080/v1/karyawan`, {
       method: "GET",
+      body: JSON.stringify({}),
     }).then(async (response) => {
       const body = await response.text();
       console.log(body);
