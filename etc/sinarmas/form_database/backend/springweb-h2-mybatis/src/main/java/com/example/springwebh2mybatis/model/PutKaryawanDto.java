@@ -3,10 +3,12 @@ package com.example.springwebh2mybatis.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class PutKaryawanDto {
   @NotNull
+  @Pattern(regexp = "[0-9]{1,}")
   private String id;
   private String nama;
   private String alamat;

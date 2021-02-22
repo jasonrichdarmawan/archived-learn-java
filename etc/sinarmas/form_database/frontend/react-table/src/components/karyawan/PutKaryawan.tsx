@@ -45,6 +45,8 @@ const PutKaryawan = () => {
         <input
           type="text"
           name="id"
+          // alternative; "K00001".replace(/^K0+/,'')
+          // send to server: "1"
           onChange={handleChange}
           required
           pattern="[0-9]{1,}"
