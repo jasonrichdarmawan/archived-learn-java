@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class PostKaryawanDto {
-  @NotBlank
+  @NotNull
   private String nama;
   private String alamat;
   private String rt;
@@ -15,9 +15,9 @@ public class PostKaryawanDto {
   private String kecamatan;
   private String kelurahan;
   private String telepon;
-  @NotBlank
+  @NotNull
   private Date input_date;
-  @NotBlank
+  @NotNull
   private String input_by;
   private Date approve_date;
   private String approve_by;
