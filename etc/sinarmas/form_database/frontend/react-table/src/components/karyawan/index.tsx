@@ -5,8 +5,9 @@ const KaryawanTable = () => {
   const [data, setData] = React.useState([]);
 
   const fetchData = () => {
-    fetch(`http://localhost:8080/v1/karyawan`, {
-      method: "GET",
+    fetch(`${environment.httpBaseUrl}/v1/karyawans`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({}),
     }).then(async (response) => {
       const body = await response.text();
