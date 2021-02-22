@@ -4,7 +4,7 @@ import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 public class GetKaryawanDto {
-  @Pattern(regexp = "[0-9]{1,}")
+  @Pattern(regexp = "[K]{1}[0-9]{1,}")
   private String id;
   private String nama;
   private String alamat;

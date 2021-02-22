@@ -11,7 +11,7 @@ import java.util.List;
 public interface KaryawanMapper {
 
   @Select("SELECT " +
-          "Id_Kary as id," +
+          "CONCAT('K',LPAD(Id_Kary,5,0)) as id," +
           "Nama_Kary as nama, " +
           "Alamat_Kary as alamat," +
           "RT, " +
@@ -24,7 +24,7 @@ public interface KaryawanMapper {
           "Approve_Date, " +
           "Approve_By " +
           "FROM Mst_Kary " +
-          "WHERE Id_Kary=IFNULL(#{id},Id_Kary) " +
+          "WHERE CONCAT('K',LPAD(Id_Kary,5,0)) LIKE IFNULL(#{id},'%') " +
           "AND IFNULL(Nama_Kary,'') LIKE IFNULL(#{nama}||'%','%') " +
           "AND IFNULL(Alamat_Kary,'') LIKE IFNULL(#{alamat}||'%','%') " +
           "AND IFNULL(RT,'') LIKE IFNULL(#{rt}||'%','%') " +
