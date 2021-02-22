@@ -1,5 +1,8 @@
 import React from "react";
+import DeleteKaryawan from "./DeleteKaryawan";
+import InsertKaryawan from "./InsertKaryawan";
 import KaryawanTable, { GetKaryawanDto } from "./KaryawanTable";
+import PutKaryawan from "./PutKaryawan";
 
 const Karyawan = () => {
   const [temp, setTemp] = React.useState<GetKaryawanDto | {}>({});
@@ -19,10 +22,16 @@ const Karyawan = () => {
 
   return (
     <>
+      <h1>Query</h1>
       <form>
         <label>
           ID Karyawan
-          <input type="text" name="id" onChange={handleChange} />
+          <input
+            type="text"
+            name="id"
+            onChange={handleChange}
+            pattern="[0-9]{1,}"
+          />
         </label>
         <label>
           Nama
@@ -49,22 +58,33 @@ const Karyawan = () => {
           <input type="text" name="kelurahan" onChange={handleChange} />
         </label>
         <label>
+          Teleponn
           <input type="text" name="telepon" onChange={handleChange} />
         </label>
         <label>
-          <input type="text" name="input_date" onChange={handleChange} />
+          Input Date
+          <input type="date" name="input_date" onChange={handleChange} />
         </label>
         <label>
+          Input By
           <input type="text" name="input_by" onChange={handleChange} />
         </label>
         <label>
-          <input type="text" name="approve_date" onChange={handleChange} />
+          Approve Date
+          <input type="date" name="approve_date" onChange={handleChange} />
         </label>
         <label>
+          Approve By
           <input type="text" name="approve_by" onChange={handleChange} />
         </label>
       </form>
       <KaryawanTable query={query} />
+      <h1>Insert</h1>
+      <InsertKaryawan />
+      <h1>Delete</h1>
+      <DeleteKaryawan />
+      <h1>Put</h1>
+      <PutKaryawan />
     </>
   );
 };

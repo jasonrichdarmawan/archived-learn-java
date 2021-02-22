@@ -20,7 +20,7 @@ public class PutKaryawanDto {
   private Date approve_date;
   private String approve_by;
 
-  public String getId() {
+  public String  getId() {
     return id;
   }
 

@@ -2,18 +2,18 @@ import React from "react";
 import { environment } from "../../environments/environment";
 
 export interface GetKaryawanDto {
-  id: number;
-  nama: string;
-  alamat: string;
-  rt: string;
-  rw: string;
-  kecamatan: string;
-  kelurahan: string;
-  telepon: string;
-  input_date: string;
-  input_by: string;
-  approve_date: string;
-  approve_by: string;
+  id?: number;
+  nama?: string;
+  alamat?: string;
+  rt?: string;
+  rw?: string;
+  kecamatan?: string;
+  kelurahan?: string;
+  telepon?: string;
+  input_date?: string;
+  input_by?: string;
+  approve_date?: string;
+  approve_by?: string;
 }
 
 const KaryawanTable = ({ query }: { query: GetKaryawanDto | {} }) => {
