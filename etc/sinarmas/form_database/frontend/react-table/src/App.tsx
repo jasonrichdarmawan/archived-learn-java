@@ -1,10 +1,8 @@
-import React from 'react';
-import KaryawanTable from './components/karyawan';
+import React from "react";
+import Karyawan from "./components/karyawan";
 
 function App() {
-  return (
-    <KaryawanTable />
-  );
+  return <Karyawan />;
 }
 
 export default App;

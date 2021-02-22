@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 public class GetKaryawanDto {
-  private String id;
+  private int id;
   private String nama;
   private String alamat;
   private String rt;
@@ -18,7 +18,7 @@ public class GetKaryawanDto {
   private Date approve_date;
   private String approve_by;
 
-  public String getId() {
+  public int getId() {
     return id;
   }
 

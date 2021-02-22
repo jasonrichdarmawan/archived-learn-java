@@ -1,81 +1,72 @@
 import React from "react";
-import { environment } from "../../environments/environment";
+import KaryawanTable, { GetKaryawanDto } from "./KaryawanTable";
 
-interface GetKaryawanDto {
-  id: string;
-  nama: string;
-  alamat: string;
-  rt: string;
-  rw: string;
-  kecamatan: string;
-  kelurahan: string;
-  telepon: string;
-  input_date: string;
-  input_by: string;
-  approve_date: string;
-  approve_by: string;
-}
+const Karyawan = () => {
+  const [temp, setTemp] = React.useState<GetKaryawanDto | {}>({});
+  const [query, setQuery] = React.useState<GetKaryawanDto | {}>({});
 
-const KaryawanTable = () => {
-  const [data, setData] = React.useState<GetKaryawanDto[]>([]);
-
-  const fetchData = () => {
-    fetch(`${environment.httpBaseUrl}/v1/karyawans`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({}),
-    }).then(async (response) => {
-      const body = await response.json();
-      setData(body);
-    });
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTemp({ ...query, [event.target.name]: event.target.value || null });
   };
 
-  const renderTableDate = () =>
-    data.map((karyawan) => {
-      return (
-        <tr key={karyawan.id}>
-          <td>{karyawan.id}</td>
-          <td>{karyawan.nama}</td>
-          <td>{karyawan.alamat}</td>
-          <td>{karyawan.rt}</td>
-          <td>{karyawan.rw}</td>
-          <td>{karyawan.kecamatan}</td>
-          <td>{karyawan.kelurahan}</td>
-          <td>{karyawan.telepon}</td>
-          <td>{karyawan.input_date}</td>
-          <td>{karyawan.input_by}</td>
-          <td>{karyawan.approve_date}</td>
-          <td>{karyawan.approve_by}</td>
-        </tr>
-      );
-    });
-
   React.useEffect(() => {
-    console.log("KaryawanTable re-render");
-    fetchData();
-  }, []);
+    console.log("Karyawan re-render");
+    const timeout = setTimeout(() => {
+      setQuery(temp);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [temp]);
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>ID Karyawan</th>
-          <th>Nama</th>
-          <th>Alamat</th>
-          <th>RT</th>
-          <th>RW</th>
-          <th>Kecamatan</th>
-          <th>Kelurahan</th>
-          <th>Telepon</th>
-          <th>Input Date</th>
-          <th>Input By</th>
-          <th>Approve Date</th>
-          <th>Approve By</th>
-        </tr>
-      </thead>
-      <tbody>{renderTableDate()}</tbody>
-    </table>
+    <>
+      <form>
+        <label>
+          ID Karyawan
+          <input type="text" name="id" onChange={handleChange} />
+        </label>
+        <label>
+          Nama
+          <input type="text" name="nama" />
+        </label>
+        <label>
+          Alamat
+          <input type="text" name="alamat" />
+        </label>
+        <label>
+          RT
+          <input type="text" name="rt" />
+        </label>
+        <label>
+          RW
+          <input type="text" name="rw" />
+        </label>
+        <label>
+          Kecamatan
+          <input type="text" name="kecamatan" />
+        </label>
+        <label>
+          Kelurahan
+          <input type="text" name="kelurahan" />
+        </label>
+        <label>
+          <input type="text" name="telepon" />
+        </label>
+        <label>
+          <input type="text" name="input_date" />
+        </label>
+        <label>
+          <input type="text" name="input_by" />
+        </label>
+        <label>
+          <input type="text" name="approve_date" />
+        </label>
+        <label>
+          <input type="text" name="approve_by" />
+        </label>
+      </form>
+      <KaryawanTable query={query} />
+    </>
   );
 };
 
-export default KaryawanTable;
+export default Karyawan;
