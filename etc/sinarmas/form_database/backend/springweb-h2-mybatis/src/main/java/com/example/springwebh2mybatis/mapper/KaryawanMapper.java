@@ -2,6 +2,7 @@ package com.example.springwebh2mybatis.mapper;
 
 import com.example.springwebh2mybatis.model.PostKaryawanDto;
 import com.example.springwebh2mybatis.model.PutKaryawanDto;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
@@ -27,4 +28,7 @@ public interface KaryawanMapper {
           "Approve_By=IfNull(#{approve_by},Approve_By) " +
           "WHERE Id_Kary=#{id}")
   int putKaryawan(PutKaryawanDto karyawan);
+
+  @Delete("DELETE FROM Mst_Kary WHERE Id_Kary=#{id}")
+  int deleteKaryawan(String id);
 }

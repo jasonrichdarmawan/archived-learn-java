@@ -38,6 +38,6 @@ public class KaryawanController {
 
   @DeleteMapping("/karyawan/{id}")
   public String deleteKaryawan(@PathVariable("id") @NotEmpty String id) {
-    return id;
+    return karyawanService.deleteKaryawan(id) == 1 ? id : null;
   }
 }

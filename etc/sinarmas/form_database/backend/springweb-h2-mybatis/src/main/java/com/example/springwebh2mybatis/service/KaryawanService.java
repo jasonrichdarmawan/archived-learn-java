@@ -20,4 +20,8 @@ public class KaryawanService {
   public int putKaryawan(PutKaryawanDto karyawan) {
     return karyawanMapper.putKaryawan(karyawan);
   }
+
+  public int deleteKaryawan(String id) {
+    return karyawanMapper.deleteKaryawan(id);
+  }
 }
