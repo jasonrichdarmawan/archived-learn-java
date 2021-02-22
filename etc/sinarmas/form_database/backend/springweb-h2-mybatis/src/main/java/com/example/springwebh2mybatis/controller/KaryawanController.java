@@ -4,15 +4,12 @@ import com.example.springwebh2mybatis.model.GetKaryawanDto;
 import com.example.springwebh2mybatis.model.PostKaryawanDto;
 import com.example.springwebh2mybatis.model.PutKaryawanDto;
 import com.example.springwebh2mybatis.service.KaryawanService;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 
 @RestController
 @RequestMapping("/v1")
-@Validated
 public class KaryawanController {
 
   private final KaryawanService karyawanService;
@@ -36,8 +33,8 @@ public class KaryawanController {
     return karyawanService.putKaryawan(karyawan) == 1 ? karyawan : null;
   }
 
-  @DeleteMapping("/karyawan/{id}")
-  public String deleteKaryawan(@PathVariable("id") @NotEmpty String id) {
+  @DeleteMapping("/karyawan/{id:[a-zA-Z0-9]}")
+  public String deleteKaryawan(@PathVariable("id") String id) {
     return karyawanService.deleteKaryawan(id) == 1 ? id : null;
   }
 }
