@@ -29,7 +29,6 @@ const DeleteKaryawan = () => {
           name="id"
           required
           onChange={handleChange}
-          pattern="[0-9]{1,}"
         />
       </label>
       <input type="submit" value="submit" />

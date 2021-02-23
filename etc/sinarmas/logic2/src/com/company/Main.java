@@ -14,21 +14,24 @@ public class Main {
   //  |*| | | |*|  (1,1)(5,1)
   //  | |*| |*| |  (2,2)(4,2)
   //  | | |*| | |  (3,3)
+  //
   // *|*|*|*|*|*|*|*|* (9,4)
   //  |*| | | | | |*|  (1,1)(7,1)
   //  | |*| | | |*| |  (2,2)(6,2)
   //  | | |*| |*| | |  (3,3)(5,3)
   //  | | | |*| | | |  (4,4)(4,4)
-  private static void printInvertedTriangle(int height, String symbol) {
-    for (int j = 0; j <= (height - 1) / 2; j++) {
-      for (int i = 0; i < height; i++) {
-        if (j == 0 || (i==j) || i+j==height-1) {
-          System.out.print(symbol);
-        } else {
-          System.out.print(" ");
-        }
-        if (i == height - 1) {
-          System.out.println("");
+  private static void printInvertedTriangle(int width, String symbol) {
+    if (width > 4 && width % 2 != 0) {
+      for (int j = 0; j <= (width - 1) / 2; j++) {
+        for (int i = 0; i < width; i++) {
+          if (j == 0 || (i==j) || i+j==width-1) {
+            System.out.print(symbol);
+          } else {
+            System.out.print(" ");
+          }
+          if (i == width - 1) {
+            System.out.println("");
+          }
         }
       }
     }
@@ -54,7 +57,7 @@ public class Main {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    if (n != null && n > 4 && n % 2 != 0 && symbol != null) {
+    if (n != null && symbol != null) {
       printInvertedTriangle(n, symbol);
     }
   }
