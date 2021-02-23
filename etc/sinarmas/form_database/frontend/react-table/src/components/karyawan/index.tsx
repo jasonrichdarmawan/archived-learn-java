@@ -81,9 +81,9 @@ const Karyawan = () => {
       <KaryawanTable query={query} />
       <h1>Insert</h1>
       <InsertKaryawan />
-      <h1>Delete</h1>
+      <h1>Delete (ID Karyawan: 1)</h1>
       <DeleteKaryawan />
-      <h1>Put</h1>
+      <h1>Put (ID Karyawan: 1)</h1>
       <PutKaryawan />
     </>
   );

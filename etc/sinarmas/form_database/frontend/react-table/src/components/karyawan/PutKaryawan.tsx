@@ -49,6 +49,7 @@ const PutKaryawan = () => {
           // send to server: "1"
           onChange={handleChange}
           required
+          pattern="[0-9]{1,}"
         />
       </label>
       <label>
